@@ -183,5 +183,16 @@ jj new main
 
 if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
 
+echo "print('Hallo, Welt!')" > hello.py
+jj op log -n3 &> /dev/null # trigger snapshot
+
+jj new
+
+jj undo
+
+jj describe -m "Greet world in German"
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
 echo "Error: The tutorial doesn't have that many chapters."
 exit 1
