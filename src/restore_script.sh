@@ -177,5 +177,24 @@ jj new main
 
 if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
 
+echo "print('Hallo, Welt!')" >> hello.py
+echo "print('Bonjour, le monde!')" >> hello.py
+
+jj commit -m "code improvements"
+
+jj undo
+
+jj commit -m "Print German and French greetings as well"
+
+jj undo
+jj undo
+jj undo
+
+jj redo
+jj redo
+jj redo
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
 echo "Error: The tutorial doesn't have that many chapters."
 exit 1
