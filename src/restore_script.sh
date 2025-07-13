@@ -193,5 +193,16 @@ jj new main
 
 if [ "$chapter" = 16 ] ; then success ; fi
 
+echo "print('Hallo, Welt!')" > hello.py
+jj op log -n3 &> /dev/null # trigger snapshot
+
+jj new
+
+jj undo
+
+jj describe -m "Greet world in German"
+
+if [ "$chapter" = 17 ] ; then success ; fi
+
 echo "Error: unrecognized chapter."
 exit 1

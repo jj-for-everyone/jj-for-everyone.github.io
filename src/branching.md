@@ -1,7 +1,7 @@
 # Branching
 
 ```admonish tip title="Welcome to level 1 !" 
-If you took a break after finishing level 0, remember that you can [restore your progress](./introduction.md#restoring-your-progress) in the example repo in case you lost it.
+If you took a break after finishing the previous level, remember that you can [restore the state](./introduction.md#restoring-your-progress) of your example repo in case you lost it.
 ```
 
 The previous level only covered situations where you are working on a project on your own.
