@@ -217,5 +217,21 @@ jj bookmark track 'glob:push-*@origin'
 
 if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
 
+jj new 'description("WIP: Add for loop")'
+
+echo "for _ in range(10):
+    print('Hello, world!')" > hello.py
+
+jj commit -m "Fix loop syntax"
+
+jj new main @-
+
+echo "for _ in range(10):
+    print('Hello, world!')
+    print('Hallo, Welt!')
+    print('Bonjour, le monde!')" > hello.py
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
 echo "Error: The tutorial doesn't have that many chapters."
 exit 1

@@ -27,7 +27,7 @@
 
 - [Undoing mistakes](./undo.md)
 - [Tracking remote bookmarks](./tracking_bookmarks.md)
-- [Resolving merge conflicts]() <!-- only side note: `jj resolve` with different tools -->
+- [Resolving merge conflicts](./conflicts.md)
 - [Deleting commits and bookmarks]()
 - [Restoring file contents]()
 
