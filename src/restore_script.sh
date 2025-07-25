@@ -177,11 +177,10 @@ if [ "$chapter" = 14 ] ; then success ; fi
 
 cd ~/jj-tutorial
 
-echo "
-for (i = 0; i < 10; i = i + 1):
-    print('Hello, world!')" >> hello.py
+echo "for (i = 0; i < 10; i = i + 1):
+    print('Hello, world!')" > hello.py
 
-jj describe -m "WIP add for loop (need to fix syntax)"
+jj describe -m "WIP: Add for loop (need to fix syntax)"
 jj new
 
 jj git push --change @-
