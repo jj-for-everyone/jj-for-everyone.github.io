@@ -196,5 +196,26 @@ jj redo
 
 if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
 
+cd ~ # move out of the directory we're about to delete
+rm -rf ~/jj-tutorial/repo
+jj git clone --colocate ~/jj-tutorial/remote ~/jj-tutorial/repo
+cd ~/jj-tutorial/repo
+
+# roleplay as Alice
+jj config set --repo user.name "Alice"
+jj config set --repo user.email "alice@local"
+jj describe --reset-author --no-edit
+
+echo "print('Hallo, Welt!')" >> hello.py
+echo "print('Bonjour, le monde!')" >> hello.py
+jj commit -m "Print German and French greetings as well"
+
+jj bookmark move main -t @-
+jj git push
+
+jj bookmark track 'glob:push-*@origin'
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
 echo "Error: The tutorial doesn't have that many chapters."
 exit 1

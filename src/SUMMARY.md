@@ -26,7 +26,7 @@
 # Level 2
 
 - [Undoing mistakes](./undo.md)
-- [Tracking remote bookmarks]() <!-- delete and clone repo to simulate new PC -->
+- [Tracking remote bookmarks](./tracking_bookmarks.md)
 - [Resolving merge conflicts]() <!-- only side note: `jj resolve` with different tools -->
 - [Deleting commits and bookmarks]()
 - [Restoring file contents]()
