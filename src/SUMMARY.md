@@ -1,6 +1,7 @@
 # Summary
 
 [Introduction](./introduction.md)
+[Terminal basics](./terminal_basics.md)
 
 # Level 0
 
