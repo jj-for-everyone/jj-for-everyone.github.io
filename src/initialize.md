@@ -74,7 +74,7 @@ This is not _dangerous_ per se, you won't loose any progress by doing that.
 But it can confuse Jujutsu a little bit and lead to weirdness.
 Most likely, you'll just end up with duplicate commits.
 That's slighly annoying, but not destructive.
-You can get rid of duplicate commits with the `jj abandon` command.
+You can get rid of duplicate commits with the `jj abandon` command, which is covered in a [later chapter](./abandon.md).
 ```
 
 In the previous chapter, you configured Jujutsu with your name and email address.
