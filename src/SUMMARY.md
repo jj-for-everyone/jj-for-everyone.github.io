@@ -28,7 +28,7 @@
 - [Undoing mistakes](./undo.md)
 - [Tracking remote bookmarks](./tracking_bookmarks.md)
 - [Resolving merge conflicts](./conflicts.md)
-- [Deleting commits and bookmarks]()
+- [Deleting commits and bookmarks](./abandon.md)
 - [Restoring file contents]()
 
 <!-- # Level 3 -->
