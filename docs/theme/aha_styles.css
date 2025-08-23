@@ -1,0 +1,35 @@
+/* based on output of `aha --stylesheet` */
+/* oklch colors are from tailwind: https://tailwindcss.com/docs/colors */
+.reset                { color: black; }
+.bg-reset             { background-color: white; }
+.inverted             { color: white; }
+.bg-inverted          { background-color: black; }
+.dimgray              { color: dimgray; }
+.red                  { color: oklch(0.645 0.246 16.439); }
+.green                { color: oklch(0.768 0.233 130.85); }
+.yellow               { color: oklch(0.795 0.184 86.047); }
+.blue                 { color: oklch(0.673 0.182 276.935); }
+.purple               { color: oklch(0.714 0.203 305.504); }
+.cyan                 { color: oklch(0.789 0.154 211.53); }
+.white                { color: gray; }
+.bg-black             { background-color: black; }
+.bg-red               { background-color: oklch(0.645 0.246 16.439); }
+.bg-green             { background-color: oklch(0.768 0.233 130.85); }
+.bg-yellow            { background-color: oklch(0.795 0.184 86.047); }
+.bg-blue              { background-color: oklch(0.673 0.182 276.935); }
+.bg-purple            { background-color: oklch(0.714 0.203 305.504); }
+.bg-cyan              { background-color: oklch(0.789 0.154 211.53); }
+.bg-white             { background-color: gray; }
+.underline            { text-decoration: underline; }
+.bold                 { font-weight: bold; }
+.italic               { font-style: italic; }
+.blink                { text-decoration: blink; }
+.crossed-out          { text-decoration: line-through; }
+
+pre.aha {
+  background-color: #1a1a1a;
+  padding: 1em;
+  overflow-x: scroll;
+  /* reduce risk of non-ascii jj graphs being rendered weirdly by various default monospace fonts */
+  font-family: 'AdwaitaMonoWeb', monospace;
+}

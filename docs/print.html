@@ -1,0 +1,2139 @@
+<!DOCTYPE HTML>
+<html lang="en" class="macchiato sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Jujutsu for everyone</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="A Jujutsu tutorial that requires no previous experience with Git or other version control systems.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="./theme/aha_styles.css">
+        <link rel="stylesheet" href="./theme/catppuccin.css">
+        <link rel="stylesheet" href="./theme/mdbook-admonish.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "macchiato";
+            const default_dark_theme = "macchiato";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('macchiato')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="latte">Latte</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="frappe">Frappe</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mocha">Mocha</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Jujutsu for everyone</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>This is a tutorial for the <a href="https://github.com/jj-vcs/jj">Jujutsu</a> version control system.
+It requires <strong>no previous experience with Git</strong> or any other version control system.</p>
+<p>At the time of writing, most Jujutsu tutorials are targeted at experienced Git users, teaching them how to transfer their existing Git skills over to Jujutsu.
+This tutorial is my attempt to fill the void of beginner learning material for Jujutsu.
+If you are already experienced with Git, I recommend <a href="https://steveklabnik.github.io/jujutsu-tutorial">Steve Klabnik's tutorial</a> instead of this one.</p>
+<p>This tutorial requires you to work in the terminal.
+Don't worry, there's a chapter covering some terminal basics in case you're not 100% comfortable with that yet.
+The commands I tell you to run will often only work on Unix-like operating systems like Linux and Mac.
+If you're on Windows (and can't switch to Linux), consider using <a href="https://learn.microsoft.com/en-us/windows/wsl/install">WSL</a>.</p>
+<h2 id="how-to-read-this-tutorial"><a class="header" href="#how-to-read-this-tutorial">How to read this tutorial</a></h2>
+<p>The tutorial is split into <strong>levels</strong>, which are indicated in the sidebar.
+The idea is that once you complete a level, you should probably put this tutorial away for a while and practice what you've learned.
+Once you're comfortable with those skills, come back for the next level.</p>
+<p>There is one exception to this:
+If you're here because you need to collaborate with other people, you should complete the levels 0 and 1 right away.</p>
+<p>Here's an overview of the planned levels:</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">level</th><th>description</th></tr></thead><tbody>
+<tr><td style="text-align: center"><strong>0</strong></td><td>The bare minimum to get started. This is only enough for the simplest use cases where you're working alone. For example, students who track and submit their homework with a Git repository can get by with only this.</td></tr>
+<tr><td style="text-align: center"><strong>1</strong></td><td>The bare minimum for any sort of collaboration. Students who are working on a group project and professional software developers need to know this. Going further is highly recommended, but you can take a break after this.</td></tr>
+<tr><td style="text-align: center"><strong>2</strong></td><td>Basic history navigation and problem solving skills like conflict resolution. Without this knowledge, it's only a matter of time until you have to ask one of your peers to fix something for you. Completing this level is probably comparable to the skill level of the average software developer.</td></tr>
+<tr><td style="text-align: center"><strong>3</strong></td><td>History rewriting skills. These will allow you to iterate toward a polished version history, which pays dividends long-term. Some projects require you to have these skills in order to meet their quality standards.</td></tr>
+<tr><td style="text-align: center"><strong>4</strong></td><td>Rounding out the skill set with productivity boosters, advanced workflows, lesser-known CLI functions and a little VCS theory. At the end of this, you can pat yourself on the back and move on to new adventures.</td></tr>
+<tr><td style="text-align: center"><strong>5</strong></td><td>Additional topics that only come up in specific situations: tags, submodules, workspaces etc. Consider skimming the list of topics and come back once you have an actual need for it.</td></tr>
+</tbody></table>
+</div>
+<p>Only a few levels are complete right now, the rest are on the way.</p>
+<h2 id="stay-up-to-date"><a class="header" href="#stay-up-to-date">Stay up to date</a></h2>
+<p>Both this tutorial and Jujutsu are still evolving.
+In order to keep your Jujutsu knowledge updated, <strong>consider subscribing to releases of the GitHub repo</strong>.
+You will be notified of important changes:</p>
+<ul>
+<li>A new level becomes available.</li>
+<li>An existing level is changed significantly.</li>
+</ul>
+<p>I especially intend to keep this tutorial updated as new version of Jujutsu come out with features and changes that are relevant to the tutorial's content.
+I consider this tutorial up-to-date with the latest version of Jujutsu (<code>0.32</code>) as of <strong>August 2025</strong>.
+If that's more than a couple months in the past, I probably stopped updating this tutorial.</p>
+<p>You can subscribe to these updates by visiting the <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io">GitHub repo</a> and clicking on "Watch", "Custom" and then selecting "Releases".</p>
+<p><img src="./watch_releases.png" alt="screenshot of how to subscribe to release announcements" /></p>
+<h2 id="restoring-your-progress"><a class="header" href="#restoring-your-progress">Restoring your progress</a></h2>
+<p>Throughout the tutorial, you will build an example repository.
+Later chapters depend on the repo state of previous ones.
+Losing the state of the example repo can therefore block you from making smooth progress.
+This might happen for several valid reasons:</p>
+<ul>
+<li>You switch computers or reinstall the OS.</li>
+<li>You intentionally delete it to clean up your home directory.</li>
+<li>You use the example repo for off-road experimentation with Jujutsu.</li>
+</ul>
+<p>To solve this problem, there is a script which automates the task of recreating the example repo.
+It expects the number of the next chapter as the first argument.
+For example, to set everything up to continue with chapter <strong>4</strong>, you can run:</p>
+<pre><code class="language-sh">curl https://jj-for-everyone.github.io/restore_script.sh | bash -s 4
+#                                                                 ^^^
+#                                                    the next chapter
+</code></pre>
+<div id="admonition-always-be-careful-when-executing-scripts-from-the-internet" class="admonition admonish-info" role="note" aria-labelledby="admonition-always-be-careful-when-executing-scripts-from-the-internet-title">
+<div class="admonition-title">
+<div id="admonition-always-be-careful-when-executing-scripts-from-the-internet-title">
+<p>Always be careful when executing scripts from the internet!</p>
+</div>
+<a class="admonition-anchor-link" href="introduction.html#admonition-always-be-careful-when-executing-scripts-from-the-internet"></a>
+</div>
+<div>
+<p>The script is not complicated, you can verify that it's not doing anything malicious.
+For convenience, it's included in the expandable text box below.
+You can also download the script <a href="./restore_script.sh">here</a> and then execute it locally once you have inspected it.</p>
+</div>
+</div>
+<details id="admonition-source-of-restore-script" class="admonition admonish-note" role="note" aria-labelledby="admonition-source-of-restore-script-title">
+<summary class="admonition-title">
+<div id="admonition-source-of-restore-script-title">
+<p>Source of restore script</p>
+</div>
+<a class="admonition-anchor-link" href="introduction.html#admonition-source-of-restore-script"></a>
+</summary>
+<div>
+<pre><code class="language-sh">#!/usr/bin/env bash
+set -euxo pipefail
+
+if [ "${1:-x}" = "x" ] ; then
+    echo "Please provide the number of the next chapter as the first argument."
+    exit 1
+fi
+if ! [[ $1 =~ ^[0-9]+$ ]]; then
+    echo "The provided chapter must be a number."
+    exit 1
+fi
+chapter=$(($1-1))
+
+function success() {
+    set +x
+    echo "
+    ┌──────────────────────────────────────────────────────────────────────┐
+    │                                                                      │
+    │                Restore script completed successfully!                │
+    │                                                                      │
+    └──────────────────────────────────────────────────────────────────────┘
+"
+    exit 0
+}
+
+# Ensure existing user configuration does not affect script behavior.
+export JJ_CONFIG=/dev/null
+
+rm -rf ~/jj-tutorial
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+if ! command -v jj &gt; /dev/null ; then
+    echo "ERROR: Jujutsu doesn't seem to be installed."
+    echo "       Please install it and rerun the script."
+    exit 1
+fi
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+mkdir -p ~/jj-tutorial/repo
+cd ~/jj-tutorial/repo
+jj git init --colocate
+
+jj config set --repo user.name "Alice"
+jj config set --repo user.email "alice@local"
+jj describe --reset-author --no-edit
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+echo "# jj-tutorial" &gt; README.md
+jj log -r 'none()' # trigger snapshot
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+jj commit --message "Add readme with project title
+
+It's common practice for software projects to include a file called
+README.md in the root directory of their source code repository. As the
+file extension indicates, the content is usually written in markdown,
+where the title of the document is written on the first line with a
+prefixed \`#\` symbol.
+"
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+mkdir ~/jj-tutorial/remote
+cd ~/jj-tutorial/remote
+git init --bare
+cd ~/jj-tutorial/repo
+jj git remote add origin ~/jj-tutorial/remote
+jj bookmark create main --revision @-
+# TODO: fix use of --allow-new.
+# The tutorial doesn't actually tell readers to add the --allow-new flag, which
+# is because there is no way of explaining it well. It's simply bad UI. Work on
+# a better UI is ongoing.
+jj git push --bookmark main --allow-new
+cd ~
+rm -rf ~/jj-tutorial/repo
+jj git clone --colocate ~/jj-tutorial/remote ~/jj-tutorial/repo
+cd ~/jj-tutorial/repo
+jj config set --repo user.name "Alice"
+jj config set --repo user.email "alice@local"
+jj describe --reset-author --no-edit
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+printf "\nThis is a toy repository for learning Jujutsu.\n" &gt;&gt; README.md
+jj commit -m "Add project description to readme"
+
+jj bookmark move main --to @-
+
+jj git push
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+echo "print('Hello, world!')" &gt; hello.py
+
+jj commit -m "Add Python script for greeting the world
+
+Printing the text \"Hello, world!\" is a classic exercise in introductory
+programming courses. It's easy to complete in basically any language and
+makes students feel accomplished and curious for more at the same time."
+
+jj git clone --colocate ~/jj-tutorial/remote ~/jj-tutorial/repo-bob
+cd ~/jj-tutorial/repo-bob
+jj config set --repo user.name Bob
+jj config set --repo user.email bob@local
+jj describe --reset-author --no-edit
+
+echo "# jj-tutorial
+
+The file hello.py contains a script that greets the world.
+It can be executed with the command 'python hello.py'.
+Programming is fun!" &gt; README.md
+jj commit -m "Document hello.py in README.md
+
+The file hello.py doesn't exist yet, because Alice is working on that.
+Once our changes are combined, this documentation will be accurate."
+
+jj bookmark move main --to @-
+jj git push
+
+cd ~/jj-tutorial/repo
+jj bookmark move main --to @-
+jj git fetch
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+jj new main@origin @-
+
+jj commit -m "Combine code and documentation for hello-world"
+jj bookmark move main --to @-
+jj git push
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+cd ~/jj-tutorial/repo-bob
+
+tar czf submission_alice_bob.tar.gz README.md
+
+echo "
+## Submission
+
+Run the following command to create the submission tarball:
+
+~~~sh
+tar czf submission_alice_bob.tar.gz [FILE...]
+~~~" &gt;&gt; README.md
+
+echo "*.tar.gz" &gt; .gitignore
+
+jj file untrack submission_alice_bob.tar.gz
+
+jj commit -m "Add submission instructions"
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+jj bookmark move main --to @-
+jj git fetch
+jj rebase --destination main@origin
+jj git push
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+cd ~/jj-tutorial/repo
+
+echo "for (i = 0; i &lt; 10; i = i + 1):
+    print('Hello, world!')" &gt; hello.py
+
+jj commit -m "WIP: Add for loop (need to fix syntax)"
+
+jj git push --change @-
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+jj git fetch
+jj new main
+
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
+echo "Error: The tutorial doesn't have that many chapters."
+exit 1
+</code></pre>
+</div>
+</details>
+<h2 id="help-make-this-tutorial-better"><a class="header" href="#help-make-this-tutorial-better">Help make this tutorial better</a></h2>
+<p>If you find a typo, you can suggest a fix directly by clicking on the "edit" icon in the top-right corner.
+If you have general suggestions for improvement, please <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io/issues/new">open an issue</a>.
+I am also very interested in experience reports, for example:</p>
+<ul>
+<li>Do you have any frustrations with Jujutsu which the tutorial did not help you overcome?</li>
+<li>Was there a section that wasn't explained clearly?
+(If you didn't understand something, it's probably the tutorial's fault, not yours!)</li>
+<li>Did you complete a level but didn't feel like you had the skills that were promised in the level overview?</li>
+<li>Is there something missing that's not being taught but should?</li>
+<li>Do you feel like the content could be structured better?</li>
+</ul>
+<p>Thank you for helping me improve this tutorial!</p>
+<h2 id="what-is-version-control-and-why-should-you-use-it"><a class="header" href="#what-is-version-control-and-why-should-you-use-it">What is version control and why should you use it?</a></h2>
+<p>I will assume you're using version control for software development, but it can be used for other things as well.
+For example, authoring professionally formatted documents with tools like <a href="https://typst.app/">Typst</a>.
+The source of this tutorial is stored in version control too!</p>
+<p>What these scenarios have in common is that a large body of work (mostly in the form of text) is slowly being expanded and improved over time.
+You don't want to lose any of it and you want to be able to go back to previous states of your work.
+Often, several people need to work on the project at the same time.</p>
+<p>A general-purpose backup solution can keep a few copies of your files around.
+A graphical document editor can allow multiple people to edit the text simultaneously.
+But sometimes, you need a sharper knife.
+Jujutsu is the sharpest knife available.</p>
+<h2 id="why-jujutsu-instead-of-git"><a class="header" href="#why-jujutsu-instead-of-git">Why Jujutsu instead of Git?</a></h2>
+<p>Git is by far the most commonly used VCS in the software development industry.
+So why not use that?
+Using the most popular thing has undeniable benefits.
+There is lots of learning material, lots of people can help you with problems, lots of other tools integrate with it etc.
+Why make life harder on yourself by using a lesser-known alternative?</p>
+<p>Here's my elevator pitch:</p>
+<ul>
+<li>
+<p><strong>Jujutsu is compatible with Git.</strong>
+You're not actually losing <em>anything</em> by using Jujutsu.
+You can work with it on any existing project that uses Git for version control without issues.
+Tools that integrate with Git mostly work just as well with Jujutsu.</p>
+</li>
+<li>
+<p><strong>Jujutsu is easier to learn than Git.</strong>
+(That is, assuming I did a decent job writing this tutorial.)
+Git is known for its complicated, unintuitive user interface.
+Jujutsu gives you all the functionality of Git with a lot less complexity.
+Experienced users of Git usually don't care about this, because they've paid the price of learning Git already.
+(I was one of these people once.)
+But you care!</p>
+</li>
+<li>
+<p><strong>Jujutsu is more powerful than Git.</strong>
+Despite the fact that it's easier to learn and more intuitive, it actually has loads of awesome capabilities for power users that completely leave Git in the dust.
+Don't worry, you don't have to use that power right away.
+But you can be confident that if your VCS-workflow becomes more demanding in the future, Jujutsu will have your back.
+This is not a watered-down "we have Git at home" for slow learners!</p>
+</li>
+</ul>
+<p>Learning Jujutsu instead of Git as your first VCS does have some downsides:</p>
+<ul>
+<li>
+<p>When talking about version control with peers, they will likely use Git-centric vocabulary.
+Jujutsu shares a lot of Git's concepts, but there are also differences.
+Translating between the two in conversation can add some mental overhead.
+(solution: convince your peers to use Jujutsu 😉)</p>
+</li>
+<li>
+<p>Jujutsu is relatively new and doesn't cover 100% of the features of Git yet.
+When you do run into the rare problem where Jujutsu doesn't have an answer, you can always fall back to use Git directly, which works quite seamlessly.
+Still, having to use two tools instead of one is slightly annoying.
+I plan to teach such Git features in this tutorial in later levels.
+The tutorial should be a one-stop-shop for all Jujutsu users.</p>
+</li>
+<li>
+<p>The command line interface of Jujutsu is not yet stable.
+That means in future versions of Jujutsu, some commands might work a little differently or be renamed.
+I personally don't think this should scare you away.
+Many people including me have used Jujutsu as a daily driver for a long time.
+Whenever something <em>did</em> change, my reaction was usually:
+"Great, that was one of the less-than-perfect parts of Jujutsu! Now it's even more intuitive than before!"
+Consider <a href="introduction.html#stay-up-to-date">subscribing to GitHub releases of this tutorial</a>.
+You will be notified if new versions of Jujutsu change something in a way that's relevant to what you learned in this tutorial.</p>
+</li>
+</ul>
+<p>Despite some downsides, I think the benefits are <strong>well worth it</strong>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="terminal-basics"><a class="header" href="#terminal-basics">Terminal basics</a></h1>
+<p>This chapter is not about Jujutsu or even version control.
+But the tutorial requires you to work in the terminal, so let's cover the basics.
+If you're already comfortable in the terminal, you can confidently skip this chapter.</p>
+<h2 id="what-is-the-terminal"><a class="header" href="#what-is-the-terminal">What is the terminal?</a></h2>
+<p>The terminal is an application that lets you enter commands to the operating system in the form of text.
+The commands usually produce text themselves, which will be displayed to you.</p>
+<p>The terminal used to be the primary way people interact with a computer.
+That was before the time of graphical user interfaces.
+Today, the terminal works much the same as it did in the past, but it's inside a normal app window now.
+The app can have different names, but "Terminal" and "Console" or variations thereof are most common.</p>
+<h2 id="the-prompt"><a class="header" href="#the-prompt">The prompt</a></h2>
+<p>When you start the terminal, the initial text you will see is called the <strong>prompt</strong>.
+Whenever a command finishes running, the prompt will be shown again.
+That's your sign that you can start entering your next command.
+Here's an example of what a prompt can look like:</p>
+<pre><code>[username@hostname ~]$
+</code></pre>
+<p>This shows some information that'll be useful later, but don't worry about it for now.
+The prompt usually ends with a dollar <strong><code>$</code></strong> or percent <strong><code>%</code></strong> sign, so you can easily recognize it.
+The dollar sign is often used as a short representation of the prompt.</p>
+<h2 id="entering-commands"><a class="header" href="#entering-commands">Entering commands</a></h2>
+<p>Being presented with the prompt is our cue to execute commands, so let's do that.
+Type the following and then press <kbd>Enter</kbd>:</p>
+<pre><code class="language-sh">echo Hello, terminal!
+</code></pre>
+<p>The terminal will split your commands into words based on whitespace.
+The above command has three words:</p>
+<ul>
+<li><code>echo</code></li>
+<li><code>Hello,</code></li>
+<li><code>terminal!</code></li>
+</ul>
+<p>The first word is the program to run.
+The terminal will find a program called <code>echo</code> on your computer and run it with the two <strong>arguments</strong> <code>Hello,</code> and <code>terminal!</code>.
+The program is free to interpret these arguments however it wants.
+The program called <code>echo</code> happens to simply print its arguments back to the terminal:</p>
+<pre><code class="language-console">$ echo Hello, terminal!
+Hello, terminal!
+</code></pre>
+<h2 id="the-current-working-directory"><a class="header" href="#the-current-working-directory">The current working directory</a></h2>
+<p>One deeply fundamental concept of the terminal is the <strong>current working directory</strong>.
+It's a location in your filesystem, the one "where you currently are".</p>
+<p>Most commands you run behave differently based on this "current location".
+Because of that, we need to be able to change it.
+The command to do that is called <code>cd</code>, short for "change directory".
+You probably have a folder called "Downloads", but you can substitute a different one in this example:</p>
+<pre><code class="language-console">[username@hostname ~]$ cd Downloads
+[username@hostname Downloads]$
+</code></pre>
+<p>Oh!
+Did you notice that <strong>the prompt changed</strong>?
+The current working directory, or CWD for short, is so important that it's usually shown somewhere in the prompt.
+That way you always know "where you are".</p>
+<p>Before running <code>cd</code> in the example above, the CWD was apparantly the tilde <strong><code>~</code></strong> character.
+That's a shorthand for your user's <strong>home directory</strong>.
+On Linux, that's <code>/home/username</code>.
+Another way to determine your CWD is to call the command <code>pwd</code>, short for "print working directory".
+It expands the shorthand tilde <strong><code>~</code></strong> character to its full path.</p>
+<pre><code>[username@hostname Downloads]$ pwd
+/home/username/Downloads
+[username@hostname Downloads]$
+</code></pre>
+<p>One example of a CWD-aware command is <code>ls</code>, which lists files and directories.
+Go ahead and run <code>ls</code> in your <code>Downloads</code> folder.
+Maybe it's time to clean it up a little...?</p>
+<p>The important lesson to take away here is:
+<strong>Be aware of your current working directory</strong>.
+If a command doesn't do what you want, you might just be in the wrong place.</p>
+<h2 id="copy-pasting-commands"><a class="header" href="#copy-pasting-commands">Copy-pasting commands</a></h2>
+<p>This tutorial contains many code blocks that contain commands for you to copy-paste into your terminal.
+Multiple commands can be on separate lines and you can copy-paste them all at once without issues.
+If you hover your mouse over the top-right corner of a code block, a hidden copy-button will appear.
+Very useful!</p>
+<p>For historical reasons, <kbd>Ctrl</kbd>+<kbd>C</kbd> and <kbd>Ctrl</kbd>+<kbd>V</kbd> don't do copy and paste in the terminal.
+Instead, you need to use <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>/<kbd>V</kbd> respectively.
+If you're using a Mac, <kbd>Command</kbd>+<kbd>C</kbd>/<kbd>V</kbd> works normally.</p>
+<p>If you forget about this and type <kbd>Ctrl</kbd>+<kbd>V</kbd> without <kbd>Shift</kbd> in an attempt to paste a command into the terminal, it will actually get messed up a little.
+You can't just try again with <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd>.
+You would end up with something like this:</p>
+<pre><code class="language-console">$ ^[[200~echo Hello, terminal!~
+</code></pre>
+<p>These weird characters are an "escape sequence" caused by typing <kbd>Ctrl</kbd>+<kbd>V</kbd> without <kbd>Shift</kbd>.
+This command will not work.
+So, if you make the mistake of forgetting <kbd>Shift</kbd>, just hit <kbd>Enter</kbd> a couple of times until you get a fresh prompt, then try again.</p>
+<p>Some of the commands will contain <strong>comments</strong>, which are lines of text following a pound <strong><code>#</code></strong> character.
+The terminal simply ignores them.
+They are used to make commands more understandable to human readers, but they don't affect the command execution.</p>
+<p>You can practice by copy-pasting the following command into your terminal:</p>
+<pre><code class="language-sh"># This is the program being run.
+# |
+# |  This is the start of the first argument.
+# |  |
+# |  |      This is the start of the second argument.
+# v  v      v
+echo Hello, terminal! # Comments can follow a command on the same line!
+</code></pre>
+<h2 id="redirection"><a class="header" href="#redirection">Redirection</a></h2>
+<p>We've seen how the <code>echo</code> command prints its arguments back to the terminal.
+But that's just the default.
+<code>echo</code> just prints to something called "standard out", or "stdout".
+That is usually connected to your terminal.
+But you can also <strong>redirect</strong> the stdout of a program, for example to a file with the <code>&gt;</code> operator.
+An example looks like this:</p>
+<pre><code class="language-sh">echo "bread, onions, tee" &gt; groceries.txt
+</code></pre>
+<p>In this book, I will often tell you to manipulate a file by running a command that looks like the one above.</p>
+<h2 id="variables-and-the-environment"><a class="header" href="#variables-and-the-environment">Variables and the environment</a></h2>
+<p>Running programs on your computer by typing their name is only scratching the surface of what the terminal can do.
+It actually has a whole little programming / scripting language built-in.
+For example, you can store values in variables with the equal <strong><code>=</code></strong> sign and evaluate them with the dollar <strong><code>$</code></strong> sign:</p>
+<pre><code class="language-console">$ my_name=Alice
+$ echo Hello, $my_name!
+Hello, Alice!
+</code></pre>
+<p>Normal variables like above cannot be read by programs you run.
+They are only for your own use in the current terminal session.
+However, variables can be <strong>exported</strong> into the <strong>environment</strong>, which makes them accessible for programs to read.
+This is an alternative way to tell programs what you want them to do.
+The more common way is with arguments on the command line, but exported variables are useful in some situations.</p>
+<p>You can export a variable separately from setting its value or do it all in one line:</p>
+<pre><code class="language-console">$ MY_NAME=Alice
+$ export MY_NAME
+</code></pre>
+<pre><code class="language-console">$ export MY_NAME=Alice
+</code></pre>
+<p>Such exported variable are usually referred to as <strong>environment variables</strong>.
+They are not <em>required</em> to be uppercase, but it's a strong convention.
+It makes it easy to know which variables can be read by other programs.</p>
+<h2 id="the-path-variable"><a class="header" href="#the-path-variable">The <code>PATH</code> variable</a></h2>
+<p>One environment variable that can be difficult to understand at first is the <code>PATH</code> variable.
+First, let's print it to see what it contains:</p>
+<pre><code class="language-console">$ echo $PATH
+/home/username/.local/bin:/usr/local/bin:/usr/bin
+</code></pre>
+<p>Your output may well look different, but the structure is the same:
+It's a list of filesystem paths separated by the colon <strong><code>:</code></strong> character.
+In this case, there are three paths:</p>
+<ul>
+<li><code>/home/username/.local/bin</code></li>
+<li><code>/usr/local/bin</code></li>
+<li><code>/usr/bin</code></li>
+</ul>
+<p>What do these four paths mean?
+They are the places where your terminal searches for programs to run!
+Let's mess with it to see what happens.
+Set the <code>PATH</code> variable to the empty string:</p>
+<pre><code class="language-sh">export PATH=""
+</code></pre>
+<p>Now try to run a program, like <code>ls</code> for example:</p>
+<pre><code class="language-console">$ ls
+bash: ls: No such file or directory
+</code></pre>
+<p>Oops.
+Setting the <code>PATH</code> variable to the empty string tells the terminal to <em>not search for programs anywhere</em>.
+Therefore, the programs <code>ls</code> cannot be found anymore.</p>
+<p>We could fix this by copy-pasting the previous value of <code>PATH</code> to export that again.
+But if mess up the value of an environment variable for real, you often don't know what the previous, correct value was.
+So it's easiest to just close the terminal window and open a new one.
+All variables will be reset to their default.</p>
+<p>So, if the <code>PATH</code> variable can be difficult to mess with, should you just never touch it?
+No quite.
+Sometimes you want (or need) to install programs in a different location than where your terminal searches for them by default.
+In that case, you need to <em>extend</em> the list of paths stored in the <code>PATH</code> variable.
+Here's an example:</p>
+<pre><code class="language-sh">export PATH="/home/username/my-local-programs:$PATH"
+</code></pre>
+<p>This starts with a new path at the front of the list, then there's the colon <strong><code>:</code></strong> separator and lastly the rest of the list, which is the previous value stored in <code>PATH</code>.</p>
+<h2 id="startup-scripts"><a class="header" href="#startup-scripts">Startup scripts</a></h2>
+<p>The above command to edit the <code>PATH</code> variable will only affect the current terminal session.
+So, if you close the terminal and reopen a new window, the value of <code>PATH</code> will be reset to its default.
+But that may not be desirable.
+If you install programs into a custom location, you may want all your future terminal sessions to find those programs automatically.</p>
+<p>That's where startup scripts come into play.
+They are files containing a list of commands (also known as <strong>scripts</strong>).
+<em>Startup</em> scripts are automatically executed whenever you open a new terminal, before you can even type the first command.
+So that's the perfect place to make permanent changes to all your future terminal sessions!</p>
+<p>The location and name of your startup script depend on your <strong>shell</strong>, i.e. your specific "flavor" of terminal.
+The terminal is pretty standardized, so we mostly don't need to worry about different shells.
+This is an exception.
+If you're using Linux, your shell is probably called <code>bash</code>.
+If you're using Mac, your shell is probably called <code>zsh</code>.
+To find out for sure, you can read the <code>SHELL</code> environment variable:</p>
+<pre><code class="language-console">$ echo $SHELL
+/bin/bash
+</code></pre>
+<p>If your shell is <code>bash</code>, you should add your custom startup commands to the file <strong><code>~/.bashrc</code></strong>.
+In the case of <code>zsh</code>, the startup script is <strong><code>~/.zshrc</code></strong>.</p>
+<p>There are actually many more shells besides <code>bash</code> and <code>zsh</code>.
+Learning about them can be useful, but your shell doesn't matter in this tutorial, so I will skip that topic.</p>
+<p>Let's practice:
+Add the following line to the startup script of your shell:</p>
+<pre><code class="language-sh">echo "This command runs every time you open a new terminal!"
+</code></pre>
+<p>Now open a new terminal window and observe the above text being printed before your first prompt.
+Then remove the command from the startup script again.</p>
+<div id="admonition-now-you-know-the-basics-of-the-terminal--" class="admonition admonish-tip" role="note" aria-labelledby="admonition-now-you-know-the-basics-of-the-terminal---title">
+<div class="admonition-title">
+<div id="admonition-now-you-know-the-basics-of-the-terminal---title">
+<p>Now you know the basics of the terminal ! 🎉</p>
+</div>
+<a class="admonition-anchor-link" href="terminal_basics.html#admonition-now-you-know-the-basics-of-the-terminal--"></a>
+</div>
+<div>
+<p>If most of this stuff was news to you, pat yourself on the back!
+You've already learned a lot.
+This should be enough knowledge about the terminal to get you through the tutorial.</p>
+<p>Don't hesitate to come back here and revise from time to time.
+The rules of the terminal are not the most intuitive, so it can take a couple attempts for them to settle in.</p>
+</div>
+</div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="installation-and-setup"><a class="header" href="#installation-and-setup">Installation and setup</a></h1>
+<p>There are many ways to install Jujutsu and the best one depends on your system.
+If you don't care at all about how Jujutsu is installed and you just want to get it over with, you can copy-paste these commands:</p>
+<pre><code class="language-sh">curl https://mise.run | sh
+~/.local/bin/mise install-into jujutsu@latest /tmp/jj-install
+mv /tmp/jj-install/jj ~/.local/bin
+rm -rf /tmp/jj-install
+exec $SHELL --login
+</code></pre>
+<details id="admonition-explanation-of-these-commands" class="admonition admonish-info" role="note" aria-labelledby="admonition-explanation-of-these-commands-title">
+<summary class="admonition-title">
+<div id="admonition-explanation-of-these-commands-title">
+<p>Explanation of these commands</p>
+</div>
+<a class="admonition-anchor-link" href="install.html#admonition-explanation-of-these-commands"></a>
+</summary>
+<div>
+<p>Installing software is more difficult than one might think.
+It depends on many factors like CPU architecture and operating system.
+That's why there's not a single, easy command we can run to install Jujutsu on any system.
+Instead, we first install another program that specializes in installing software called <code>mise</code>.
+(You can read more about mise on <a href="https://mise.jdx.dev/">its website</a>.)
+The first command <code>curl https://mise.run | sh</code> downloads and runs a script from the internet that installs <code>mise</code> for you.
+This is kind of dangerous and you should be careful when executing scripts from the internet.
+People could place malicious commands in the script you're downloading.
+But it's a convenient technique if you trust the owner of the website you're loading the script from.</p>
+<p>The second command runs <code>mise</code> to download Jujutsu into a temporary directory.
+We have to specify the full path to the <code>mise</code> binary (<code>~/.local/bin/mise</code>), because at this point we don't know if <code>~/.local/bin</code> is included in your <code>PATH</code> variable.
+(See the <a href="./terminal_basics.html#the-path-variable">"Terminal basics" chapter</a> for an explanation of that.)
+<code>mise</code> takes care of downloading the right binary for your operating system and CPU architecture.</p>
+<p>The following command moves the downloaded binary to <code>~/.local/bin</code>, which is the customary place for user-local programs.
+<code>rm -rf /tmp/jj-install</code> cleans up the temporary download directory.</p>
+<p>Lastly, <code>exec $SHELL --login</code> restarts your shell, which causes its startup scripts to run again.
+Some Linux distributions like Ubuntu only add <code>~/.local/bin</code> to the <code>PATH</code> variable if that directory exists when the terminal is started.
+So, restarting the terminal after installing Jujutsu is a simple way to make sure the system will find the new program.</p>
+<p>Maybe there are distributions which don't add <code>~/.local/bin</code> to <code>PATH</code> <strong>at all</strong>, which would mean those commands don't work on such a system.
+I'm not aware of such distrubtions.
+(Please <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io/issues/new">open an issue</a> if you know of a relevant one!)
+You can fix such an issue for yourself by extending the <code>PATH</code> variable in your <a href="http://localhost:3210/terminal_basics.html#startup-scripts">shell startup script</a>.</p>
+</div>
+</details>
+<details id="admonition-other-installation-methods" class="admonition admonish-info" role="note" aria-labelledby="admonition-other-installation-methods-title">
+<summary class="admonition-title">
+<div id="admonition-other-installation-methods-title">
+<p>Other installation methods</p>
+</div>
+<a class="admonition-anchor-link" href="install.html#admonition-other-installation-methods"></a>
+</summary>
+<div>
+<p>The official installation instructions for several different platforms are <a href="https://jj-vcs.github.io/jj/latest/install-and-setup/">here</a>.
+I will mention a few methods that I consider important as well.</p>
+<p>If you use <a href="https://github.com/cargo-bins/cargo-binstall">cargo-binstall</a>, this works great:</p>
+<pre><code class="language-sh">cargo-binstall jj-cli
+</code></pre>
+<p>If you're a Mac &amp; Homebrew user, this one's for you:</p>
+<pre><code class="language-sh">brew install jj
+</code></pre>
+<p>If you have the Rust toolchain installed and would like to compile from source, you can run:</p>
+<pre><code class="language-sh">cargo install --locked --bin jj jj-cli
+</code></pre>
+<p>You can also download a binary directly from the <a href="https://github.com/jj-vcs/jj/releases/latest">release page</a>.
+Scroll down to "Assets", there is a list of archives to download.
+The right one depends on two things: your operating system and your CPU architecture.
+Look for the strings matching your system in the names of the archives.</p>
+<p>How to identify your operating system:</p>
+<div class="table-wrapper"><table><thead><tr><th>operating system</th><th>string to look for</th></tr></thead><tbody>
+<tr><td>Linux</td><td>unknown-linux-musl</td></tr>
+<tr><td>Mac</td><td>apple-darwin</td></tr>
+<tr><td>Windows</td><td>pc-windows-msvc</td></tr>
+</tbody></table>
+</div>
+<p>How to identify your CPU architecture:</p>
+<div class="table-wrapper"><table><thead><tr><th>CPU brand</th><th>string to look for</th></tr></thead><tbody>
+<tr><td>Intel</td><td>x86_64</td></tr>
+<tr><td>AMD</td><td>x86_64</td></tr>
+<tr><td>Apple</td><td>aarch64</td></tr>
+<tr><td>ARM</td><td>aarch64</td></tr>
+<tr><td>Qualcom (Snapdragon)</td><td>aarch64</td></tr>
+</tbody></table>
+</div>
+<p>Once you have downloaded the right archive, you need to extract it.
+You should be able to right-click on the downloaded archive in your file explorer and select "extract" or something similar in the drop-down.
+The extracted folder will contain documentation and a file called "jj".
+You need to move that into the directory <code>~/.local/bin/</code>.
+(Or another location where you keep your programs if you know what you're doing.)</p>
+</div>
+</details>
+<p>Run <code>jj -h</code> to verify the installation.
+It should print a list of available commands.
+If the output is something like <code>bash: jj: command not found...</code>, the installation was not successful.</p>
+<h2 id="initial-configuration"><a class="header" href="#initial-configuration">Initial configuration</a></h2>
+<p>Jujutsu is very configurable, but we don't care about most knobs and dials right now.
+The only thing that you <strong>must</strong> configure is your name and email.
+This is required metadata and some things won't work right without this information.
+However, you don't have to enter your <em>real</em> name and email, in case you're not comfortable storing that information in the repositories you're planning to work on.</p>
+<p>If you're working on school or work projects, it's probably fine to configure your real name and school / work email.
+These repositories are usually not publicly accessible.</p>
+<p>If you're planning to work on open source projects that anyone can see, you may want to be more careful.
+You could use your GitHub handle as username, but many are comfortable using their real name too.
+The email address is more important.
+If you use your normal, private email address, there is a risk of receiving undesirable emails at that address.
+You might consider using a dedicated address just for open source work.
+Another alternative is to use an address provided by GitHub.
+It identifies your GitHub account, but you cannot receive emails through it.
+Go to <a href="https://github.com/settings/emails">GitHub's email settings</a> and select "Keep my email address private", your private email address will then be shown at the top.</p>
+<p>Here are the commands to configure your username and email:</p>
+<pre><code class="language-sh">jj config set --user user.name "Anonymous"
+jj config set --user user.email "anon@local"
+</code></pre>
+<p>If you want shell completions, follow the instructions <a href="https://jj-vcs.github.io/jj/latest/install-and-setup/#command-line-completion">here</a>.
+If you don't know what a "shell completion" is, don't worry, it's not important.</p>
+<h2 id="installing-a-simple-text-editor"><a class="header" href="#installing-a-simple-text-editor">Installing a simple text editor</a></h2>
+<p>Jujutsu will sometime ask you to edit a text file.
+To do that, it opens a text editor for you.
+Which text editor is opened can be configured.
+There are many interesting options for text editors in the terminal.
+If you know about these options, you probably already have a favorite.
+For everyone else, I'm just gonna tell you to install what I consider to be the simplest and most intuitive one:</p>
+<pre><code class="language-sh">mise install-into edit@latest /tmp/edit-install
+mv /tmp/edit-install/edit ~/.local/bin
+rm -rf /tmp/edit-install
+</code></pre>
+<p>Running these commands will install the text editor called <code>edit</code>.
+Next, we need to tell Jujutsu to use that specific one when opening a text file for us:</p>
+<pre><code class="language-sh">jj config set --user ui.editor edit
+</code></pre>
+<p>From now on, when Jujutsu opens a text file for you, it will do so using <code>edit</code>.
+When you're done editing a file, click on "File", then "Exit", in the menu bar or press <kbd>Ctrl+Q</kbd> to exit the text editor.
+It will ask you if you want to save the file, which you confirm by pressing <kbd>Enter</kbd>.
+That's it!
+I will remind you how it works the first time we need it.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="initializing-a-repository"><a class="header" href="#initializing-a-repository">Initializing a repository</a></h1>
+<p>A "repository" is a directory (folder) where Jujutsu keeps track of all files, including the ones in subdirectories.
+A repository usually corresponds to a project, so the version history of unrelated projects are not tied to each other.
+To create a repository, make a new folder on your filesystem.
+For this tutorial, you should use <code>~/jj-tutorial/repo</code>.
+Otherwise, some commands I tell you to run later won't work.
+(If you don't like the clutter in your home directory, you can always delete it and use the <a href="./introduction#restoring-your-progress">restore script</a> when you continue with the tutorial.)
+In that directory, run <code>jj git init --colocate</code> to initialize a new repository.</p>
+<p>As commands to copy-paste:</p>
+<pre><code class="language-sh">mkdir -p ~/jj-tutorial/repo
+cd ~/jj-tutorial/repo
+jj git init --colocate
+</code></pre>
+<p>Let's examine our first <code>jj</code> command.
+<code>git</code> is the subcommand responsible for various Git-specific compatibility features.
+One of them is the <code>init</code> command, which initializes a new repository that's compatible with Git.
+I won't explain the <code>--colocate</code> flag, because the details are irrelevant and it's behavior will become the default anyway the near future.
+Just use the flag for now.
+You'll likely be able to omit it starting in version <code>0.34</code> at the beginning of October.</p>
+<p>What does "initializing a repository" mean?
+Essentially, Jujutsu creates two directories <code>.git</code> and <code>.jj</code>.
+These contain all information about the version history.
+Why two directories?
+The <code>.git</code> directory contains all the important stuff, stored in a way that is compatible with Git.
+The <code>.jj</code> directory contains additional metadata which enable some of Jujutsu's advanced features.</p>
+<div id="admonition-warning" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title">
+<p>Warning</p>
+</div>
+<a class="admonition-anchor-link" href="initialize.html#admonition-warning"></a>
+</div>
+<div>
+<p>You should never manipulate files in these directories directly!
+Their content is a well-structured database.
+If you corrupt the database format, you might completely brick the repository.
+We'll talk about a second layer of backup in the <a href="./remotes.html">chapter about remotes</a>.</p>
+</div>
+</div>
+<p>Files and directories starting with a dot are hidden by default, but you can verify they were created with <code>ls -a</code>:</p>
+<pre><code class="language-console">$ ls -a
+.git  .jj
+</code></pre>
+<p>In the previous chapter, you configured Jujutsu with your name and email address.
+This configuration applies to all of your repositories by default.
+However, for our example repository, we'll actually pretend to be "Alice", who is later joined by "Bob" to simulate collaboration.
+The below commands perform the author configuration only for this specific repo.
+There's no need to memorize these commands, they are normally not needed.</p>
+<pre><code class="language-sh"># applies configuration to a single repository only
+#             vvvvvv
+jj config set --repo user.name "Alice"
+jj config set --repo user.email "alice@local"
+
+# reset already recorded global authorship information:
+jj describe --reset-author --no-edit
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="inspecting-the-state-of-a-repository"><a class="header" href="#inspecting-the-state-of-a-repository">Inspecting the state of a repository</a></h1>
+<p>So, now we've got an empty repository.
+Let's take a closer look at it.
+The command <code>jj log</code> shows you a visual representation of your version history.
+If you run it, you should see something like this:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">m</span><span class="bold highlighted dimgray ">kmqlnox</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 20:15:56</span><span class="bold "> </span><span class="bold highlighted blue ">f</span><span class="bold highlighted dimgray ">6feaadf</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zzzzzzz</span> <span class="green ">root()</span> <span class="bold "></span><span class="bold blue ">0</span><span class="highlighted dimgray ">0000000</span>
+</pre>
+<p>There's a lot going on already, so let's unpack it one-by-one.
+In the leftmost column, there's an <code>@</code>, a line and a diamond.
+The <code>@</code> sign represents the present state of the files in the repository, also known as the "working copy".
+The diamond indicates an earlier state and the line connecting them means one state descends from another.
+Older state are at the bottom and more recent ones are at the top.
+In this case, the diamond is the "root", an empty state from which all others descend.
+It always exists and cannot be modified.</p>
+<p>Allow me to introduce a little bit of VCS-lingo.
+Until now, I've used the word "state" to refer to the "working copy" (<code>@</code> sign) and the "root" (diamond).
+These states are snapshots of your repository, storing all files in the repo and their content.
+The technical term for these snapshots is <strong>commit</strong>.
+The commit is the most important data structure in the repository and I will use that term from now on.</p>
+<p>So what's going on to the right of the first column?
+That's all important metadata about your commits.
+Let's look at the one of the working copy commit:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold highlighted purple ">m</span><span class="bold highlighted dimgray ">kmqlnox</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 20:15:56</span><span class="bold "> </span><span class="bold highlighted blue ">f</span><span class="bold highlighted dimgray ">6feaadf</span><span class="bold "></span>
+<span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+</pre>
+<p>The first word is <code>mkmqlnox</code>, a random-looking identification number called the <strong>change ID</strong>.
+Next is the email address you previously configured, indicating that you are the author of this commit.
+After that is a timestamp, indicating when the commit was created.
+Last on the first line is another random looking word <code>f6feaadf</code>.
+It's also an identification number, but this one is called the <strong>commit hash</strong> or commit ID.
+The change ID is more important than the commit hash, which is reflected in their position in the log output: the important one comes first.
+We'll discuss the purpose of these IDs in more detail later.</p>
+<p>Note that in the example output I provide in this tutorial, the change IDs and timestamps are not always consistent.
+While writing the tutorial, I go back and forth, changing stuff and recreating my example repository.
+This causes change IDs and timestamps to change.</p>
+<p>On the second line, the word "(empty)" indicates that none of the files in this commit were changed compared to the previous commit.
+Lastly, "(no description set)" is self-explanatory and foreshadows the possibility of giving descriptions to commits.</p>
+<p>Even though the repository is empty at this point, we already get a decent understanding of what a repository is.
+It consist of a set of <strong>commits</strong> which are related to each other, where one commit is said to be the <strong>parent</strong> or the <strong>child</strong> of another.
+These commits store snapshots of the state of your files, as well as relevant metadata like authorship, timestamp and description.</p>
+<h2 id="getting-help-about-using-jujutsu"><a class="header" href="#getting-help-about-using-jujutsu">Getting help about using Jujutsu</a></h2>
+<p>We've now used two of Jujutsu's commands: <code>jj git init</code> and <code>jj log</code>.
+There are <em>a lot</em> of commands and flags to modify their behavior.
+I will introduce everything you need, but sometimes you may need to refresh your mind.
+It can also just be valuable to explore on your own.</p>
+<p>You can <strong>pass the <code>--help</code> flag to any command</strong> to view contextual documentation.
+For example, <code>jj --help</code> will show you the full list of top-level commands that Jujutsu supports.
+<code>jj log --help</code> will show you specific information about how to use the <code>log</code> command, i.e. how to modify its behavior according to your needs.</p>
+<p>These help pages will feel overwhelming at first.
+But something always sticks, even if you don't notice at first.
+If you keep coming back, you will soon become very efficient at finding relevant information this way.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="making-changes"><a class="header" href="#making-changes">Making changes</a></h1>
+<p>Your primary goal is always to work on a project, Jujutsu just helps you manage your work.
+So let's pretend we're doing some actual work by putting stuff in a file:</p>
+<pre><code class="language-sh">echo "# jj-tutorial" &gt; README.md
+</code></pre>
+<p>When you change files in a directory tracked by Jujutsu, what you're conceptually doing is modifying the working copy commit.
+Let's see what <code>jj log</code> has to say now:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">m</span><span class="bold highlighted dimgray ">kmqlnox</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 20:19:25</span><span class="bold "> </span><span class="bold highlighted blue ">e</span><span class="bold highlighted dimgray ">21958c2</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold yellow ">(no description set)</span><span class="bold "></span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zzzzzzz</span> <span class="green ">root()</span> <span class="bold "></span><span class="bold blue ">0</span><span class="highlighted dimgray ">0000000</span>
+</pre>
+<p>A couple of things have changed:</p>
+<ul>
+<li>The timestamp of the commit was updated.</li>
+<li>The commit hash changed.
+That's one of the reasons the commit hash is less interesting, it changes every time anything else in the commit changes.</li>
+<li>The commit is not "(empty)" anymore!</li>
+</ul>
+<p>The last point means that our new file was successfully recorded in the working copy commit.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-new-commit"><a class="header" href="#creating-a-new-commit">Creating a new commit</a></h1>
+<p>Once we are done with a change, we should create a new commit.
+Having many small commits is generally a good idea, but we'll learn about the benefits a little later.</p>
+<p>To finish working on your current commit and start a new one, run the following command:</p>
+<pre><code class="language-sh">jj commit
+</code></pre>
+<p>This will open a text editor so you can write a description for the commit.
+If you followed my instructions during <a href="/src/install.html#installing-a-simple-text-editor">installation and setup</a>, the text editor will be <code>edit</code>.
+When you're done writing the description, click on "File", then "Exit", in the menu bar or press <kbd>Ctrl+Q</kbd> to exit the text editor.
+Confirm that you want to save the file by pressing <kbd>Enter</kbd>.</p>
+<p>You may notice that the text file doesn't start empty.
+It already contains a few lines:</p>
+<pre><code>JJ: This commit contains the following changes:
+JJ:     A README.md
+JJ:
+JJ: Lines starting with "JJ:" (like this one) will be removed.
+</code></pre>
+<p>These lines starting with <code>JJ:</code> are <em>comments</em>, similar to lines starting with a pound <code>#</code> in the terminal.
+They will not be part of the final commit description, so you don't need to delete them.
+Jujutsu uses these comments to remind you which files you modified when working on this commit.
+That can be helpful inspiration for a good commit description.</p>
+<p>Here's an example description you could type (or copy-paste) into the text editor:</p>
+<pre><code>Add readme with project title
+
+It's common practice for software projects to include a file called
+README.md in the root directory of their source code repository. As the
+file extension indicates, the content is usually written in markdown,
+where the title of the document is written on the first line with a
+prefixed `#` symbol.
+</code></pre>
+<p>There is a little bit of structure here that you should follow.
+The first line of the description is called the <strong>subject</strong>.
+Sometimes the subject line is all you need, but to describe your changes in more detail, you can follow it up with a <strong>body</strong>.
+Subject and body are <strong>separated by an empty line</strong>.
+Both of them should <strong>not exceed 72 characters</strong> per line.</p>
+<p>Commit messages are important, because they make it easier for you and others to understand the changes and their motivation later on.
+This importance lies on a spectrum:
+The more people work on a project and the longer-lived it is, the more important good commit messages become.
+For example, the Linux kernel is a multi-decade project with thousands of people working on it together.
+Linux developers put a lot of thought and effort into good commit messages.
+On the other extreme of the spectrum may be a student's repository for storing the homework of a single lecture.
+The project is over within a couple of months and there is little chance of the student ever digging into the history, let alone anyone else.
+That student probably won't invest much time into good commit messages.</p>
+<details id="admonition-more-tips-for-good-commit-messages" class="admonition admonish-info" role="note" aria-labelledby="admonition-more-tips-for-good-commit-messages-title">
+<summary class="admonition-title">
+<div id="admonition-more-tips-for-good-commit-messages-title">
+<p>More tips for good commit messages</p>
+</div>
+<a class="admonition-anchor-link" href="commit.html#admonition-more-tips-for-good-commit-messages"></a>
+</summary>
+<div>
+<p>Here are some additional conventions that are good practice for any type of project.</p>
+<p><strong>Try to keep the subject line below 50 characters</strong><br />
+While 72 characters is the hard limit, the subject line usually benefits from being as concise as possible.
+It is shown in many places where space is scarce and people want to get a general idea of your changes without reading too much.
+If you find yourself exceeding 50 characters regularly, you may be combining multiple unrelated changes into a single commit.
+If you put unrelated changes into separate commits, finding concise subject lines becomes easier.
+However, there are often situations where 50 characters is just too restrictive, so don't worry about going above when necessary.</p>
+<p><strong>Use imperative mood in the subject line</strong><br />
+A common instinct when writing commit messages it to describe what you did in the <strong>past tense</strong>, e.g. "Fixed bugs and improved code".
+Another one is to describe the <strong>content</strong> of the commit, e.g. "bug fixes and code improvements".
+Instead, write the subject line as if <strong>giving a command or instruction</strong>, e.g. "Fix bugs and improve code".
+A simple rule of thumb is that the subject should complete the sentence "If applied, this commit will...".
+The resulting history will be more natural to read.
+Note that this primarily applies to the subject, the style of the body can be more flexible.</p>
+<p><strong>Put yourself in the shoes of the reader</strong><br />
+The target audience for your commit messages are future readers of the project history.
+They are trying to understand <strong>what</strong> your changes did and <strong>why</strong>.
+They can always read the content changes directly for <strong>how</strong> they did that, so the ideal commit message should complement that.
+Great candidates include information that's not present in the content itself as well as guidance to understand the changes more quickly.</p>
+</div>
+</details>
+<p>Let's see the result of running <code>jj commit</code> with <code>jj log</code>:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">p</span><span class="bold highlighted dimgray ">wpuwyto</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 20:22:36</span><span class="bold "> </span><span class="bold highlighted blue ">3</span><span class="bold highlighted dimgray ">5de496a</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">m</span><span class="highlighted dimgray ">kmqlnox</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 20:20:34</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">5</span><span class="highlighted dimgray ">b79353a</span>
+│  Add readme with project title
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zzzzzzz</span> <span class="green ">root()</span> <span class="bold "></span><span class="bold blue ">0</span><span class="highlighted dimgray ">0000000</span>
+</pre>
+<p>There are a few things to observe here:</p>
+<ul>
+<li>The new commit is a child of our previous working copy commit.</li>
+<li>The previous commit shows the subject line of the description we gave it.</li>
+<li>The new commit became our working copy, meaning any further file changes will be recorded into the new commit.</li>
+<li>The previous commit is marked with <code>git_head()</code>.
+This marker is not important and you can ignore it.</li>
+<li>The previous commit has a different symbol (circle) than the root commit (diamond).
+This is related to an important feature, which we'll learn about later.</li>
+</ul>
+<p>We've closed the most basic version control workflow:</p>
+<ol>
+<li>make some changes</li>
+<li>create a new commit</li>
+</ol>
+<p>Rinse and repeat.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="working-with-remotes"><a class="header" href="#working-with-remotes">Working with remotes</a></h1>
+<p>We now have a commit which we don't want to lose.
+The way we're using Jujutsu right now, we don't have a backup at all.
+If we delete the directory on disk, the <code>.git</code> and <code>.jj</code> subdirectories will be deleted as well and we won't be able to recover any of our work.</p>
+<p>We can fix that by duplicating our commit at another location, a so-called <strong>remote</strong>.
+Besides providing a backup, sending commits to a remote also allows you to share your work more easily for collaboration.</p>
+<p>The most common form of a remote is to host a repository with an online service like <a href="https://github.com/">GitHub</a>.
+For maximum realism, it would be good to do that in this tutorial and you certainly can.
+However, I will explain a simpler approach, which is to just have a second repository in a different location on your filesystem.
+These two options work pretty much exactly the same way.
+When you connect to a remote, you just tell Jujutsu where it is.
+In the case of an online service, that will be a web URL.
+In the case of a local repository, that will be a filesystem path.
+There are no other differences, so we're not missing out on any important lessons by avoiding GitHub.
+At the end of this section, there are a few tips about using GitHub itself.</p>
+<h2 id="initializing-the-remote"><a class="header" href="#initializing-the-remote">Initializing the remote</a></h2>
+<p>We start by creating a new repository in a different location than our main one.
+The command is slightly different than the one we used to create our main repository:</p>
+<pre><code class="language-sh">mkdir ~/jj-tutorial/remote
+cd ~/jj-tutorial/remote
+git init --bare # initialize "remote" ("bare") repository
+
+cd ~/jj-tutorial/repo # return to main repo
+</code></pre>
+<p>The difference between a "remote" repository (also known as "bare" repository) and a normal one is irrelevant, don't think too hard about it.
+If your curiosity is unrelenting, expand the info box below.</p>
+<details id="admonition-you-really-dont-need-to-know-this" class="admonition admonish-note" role="note" aria-labelledby="admonition-you-really-dont-need-to-know-this-title">
+<summary class="admonition-title">
+<div id="admonition-you-really-dont-need-to-know-this-title">
+<p>You really don't need to know this</p>
+</div>
+<a class="admonition-anchor-link" href="remotes.html#admonition-you-really-dont-need-to-know-this"></a>
+</summary>
+<div>
+<p><code>git init --bare</code> is very similar to <code>jj git init</code>, which we used to create our main repository.
+However, instead of a "normal" repository, it creates a "bare" one.
+But what's the difference?</p>
+<p>Think of a regular repository as consisting of two parts: (1) Jujutsu's internal database stored in the <code>.git</code> and <code>.jj</code> directories and (2) all the actual files of your project, which you can modify - your <strong>working copy</strong>.
+The term "copy" is key here, because all the files are also stored in the internal database.
+The only reason a copy of the files exists outside the database is so you can read and modify them - "work" with them.
+So, "working copy" is a fitting name indeed.</p>
+<p>A bare repository is a regular repository <strong>without a working copy</strong>.
+Since we will only use the remote repository for sending and receiving commits, we don't need a working copy.</p>
+<p>If you inspect the content of the new bare repository, it will look very similar in structure to the content of the <code>.git</code> directory in our main repository:</p>
+<pre><code>ls -lah ~/jj-tutorial/repo/.git
+ls -lah ~/jj-tutorial/remote
+</code></pre>
+</div>
+</details>
+<h2 id="connecting-to-a-remote"><a class="header" href="#connecting-to-a-remote">Connecting to a remote</a></h2>
+<p>A repository is connected to a remote by storing its location under a specific name.
+Remotes can be called anything, but when there is only one, the convention is to call it <strong>origin</strong>:</p>
+<pre><code class="language-sh">jj git remote add origin ~/jj-tutorial/remote
+</code></pre>
+<h2 id="adding-a-bookmark"><a class="header" href="#adding-a-bookmark">Adding a bookmark</a></h2>
+<p>There is one last speed bump before we can send our work to the remote.
+Remote repositories can receive a lot of commits, not all of which end up being needed in the long run.
+Therefore, it's desirable that commits which aren't needed anymore can be deleted automatically.
+How does the remote know which commits to delete and which to keep?
+With bookmarks!</p>
+<p>A bookmark is a simple named label that's attached to a commit.
+Every commit with such a bookmark label is considered important and won't be deleted automatically.</p>
+<p>Let's create a bookmark called <strong>main</strong> and point it to our completed commit.
+The name "main" is a convention that represents the primary state of the project.
+In legacy projects, the name "master" is also still in widespread use.</p>
+<pre><code class="language-sh">jj bookmark create main --revision mkmqlnox # &lt;- substitute your change ID here
+</code></pre>
+<p>The command <code>jj bookmark create</code> expects a name (<code>main</code>) and a commit to which the bookmark should point.
+We identify the commit by its change ID (<code>--revision mkmqlnox</code>).
+The flag <code>--revision</code> can also be abbreviated as <code>-r</code>.
+Let's check the result with <code>jj log</code>:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">p</span><span class="bold highlighted dimgray ">wpuwyto</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 20:22:36</span><span class="bold "> </span><span class="bold highlighted blue ">3</span><span class="bold highlighted dimgray ">5de496a</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">m</span><span class="highlighted dimgray ">kmqlnox</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 20:20:34</span> <span class="purple ">main</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">5</span><span class="highlighted dimgray ">b79353a</span>
+│  Add readme with project title
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zzzzzzz</span> <span class="green ">root()</span> <span class="bold "></span><span class="bold blue ">0</span><span class="highlighted dimgray ">0000000</span>
+</pre>
+<p>Great!
+We can see that the bookmark <code>main</code> is correctly pointing to our most recently completed commit.</p>
+<h2 id="sending-commits-to-a-remote"><a class="header" href="#sending-commits-to-a-remote">Sending commits to a remote</a></h2>
+<p>Now that we're connected and have a bookmark, let's finally send our commit to the remote.
+The technical term for sending commits is "pushing" them.
+You will often hear phrases like "pushing to the remote" or "pushing to GitHub".
+The command for pushing a specific bookmark is:</p>
+<pre><code class="language-sh">jj git push --bookmark main
+</code></pre>
+<p>Whoops, that didn't work:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold red ">Error: </span><span class="bold ">Refusing to create new remote bookmark main@origin</span>
+<span class="bold "></span><span class="bold cyan ">Hint: </span>Use --allow-new to push new bookmark. Use --remote to specify
+the remote to push to.
+</pre>
+<p>Because <code>jj git push</code> can also be used to update existing bookmarks, it requires the additional flag <code>--allow-new</code> or <code>-N</code> to push completely new ones.
+This safety measure prevents you from pushing bookmarks you intended to remain local.
+This command should work:</p>
+<pre><code class="language-sh">jj git push --bookmark main --allow-new
+</code></pre>
+<h2 id="cloning-an-existing-remote"><a class="header" href="#cloning-an-existing-remote">Cloning an existing remote</a></h2>
+<p>To drive home the point that the remote repository functions as a backup, we're now going to completely delete our main repository and restore it from the remote.
+First, the deletion:</p>
+<pre><code class="language-sh">cd ~
+rm -rf ~/jj-tutorial/repo
+</code></pre>
+<p>The next step is restoring the repo, but you can also think of it in a different way.
+Imagine there is an ongoing project and you have just joined the team.
+In order to contribute changes to the project, you first need to get a copy of it on your own computer.
+The process to do that with Jujutsu is the exact same process as restoring the project from a backup remote.
+Here's the command:</p>
+<pre><code class="language-sh">jj git clone --colocate ~/jj-tutorial/remote ~/jj-tutorial/repo
+</code></pre>
+<p>Just like <code>jj git init</code>, you should use the <code>--colocate</code> flag with the <code>clone</code> command until it becomes the default soon.
+The last two arguments are (1) the <strong>source</strong> from which to clone and (2) the <strong>destination</strong> - where to store the copied repo.
+When you clone from a remote, you're automatically connected to it with the default name <code>origin</code>.
+We'll also need to recreate our repo-specific authorship configuration:</p>
+<pre><code class="language-sh">cd ~/jj-tutorial/repo
+jj config set --repo user.name "Alice"
+jj config set --repo user.email "alice@local"
+jj describe --reset-author --no-edit
+</code></pre>
+<p>Let's run <code>jj log</code> in our fresh clone to see if we restored the repo successfully:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">k</span><span class="bold highlighted dimgray ">xqyrwux</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 20:32:47</span><span class="bold "> </span><span class="bold highlighted blue ">7e</span><span class="bold highlighted dimgray ">fef483</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">m</span><span class="highlighted dimgray ">kmqlnox</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 20:25:40</span> <span class="purple ">main</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">79</span><span class="highlighted dimgray ">39d4cf</span>
+│  Add readme with project title
+~
+</pre>
+<p>This looks mostly right, but there are little differences.
+We can't see the root commit anymore and our commit is marked with a diamond, instead of a circle like before.
+As mentioned, the diamond and circle markers are related to a feature we'll learn about later.
+For now, we can say that ancestors of diamond commits are hidden by default, because you won't care about them most of the time.
+We can tell Jujutsu to show us <em>all</em> commits with <code>jj log --revisions 'all()'</code>:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">k</span><span class="bold highlighted dimgray ">xqyrwux</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 20:32:47</span><span class="bold "> </span><span class="bold highlighted blue ">7e</span><span class="bold highlighted dimgray ">fef483</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">m</span><span class="highlighted dimgray ">kmqlnox</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 20:25:40</span> <span class="purple ">main</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">79</span><span class="highlighted dimgray ">39d4cf</span>
+│  Add readme with project title
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zzzzzzz</span> <span class="green ">root()</span> <span class="bold "></span><span class="bold blue ">0</span><span class="highlighted dimgray ">0000000</span>
+</pre>
+<p>Great!
+Now we can be sure our repository was fully restored from the remote.</p>
+<h2 id="using-github"><a class="header" href="#using-github">Using GitHub</a></h2>
+<p>As promised, here are a few tips about using <a href="https://github.com/">GitHub</a>.
+If you are not interested in this, feel free to skip to the next chapter, it won't become relevant later.</p>
+<p>I want to mention that GitHub is not the only provider of Git-hosting services, but certainly the most popular one.
+Others include <a href="https://about.gitlab.com/">GitLab</a> and <a href="https://codeberg.org/">Codeberg</a>.
+Codeberg is a free instance of <a href="https://forgejo.org/">Forgejo</a>, which is open-source software you can host yourself.</p>
+<p>All of these providers work very similarly to what I'm describing below, so you should have no trouble adapting to other providers.</p>
+<h3 id="authenticating-with-an-ssh-key"><a class="header" href="#authenticating-with-an-ssh-key">Authenticating with an SSH key</a></h3>
+<p>Jujutsu needs to authenticate as your GitHub user in order to send and receive commits on your behalf.
+It's possible to do that with username and password, but it's very tedious and I don't recommend it at all.
+If making backup is tedious, you will do it <strong>less often</strong>.
+Fewer backups means more risk of losing your work!
+So let's make the authentication as seamless as possible.</p>
+<p>The best authentication method is to use an SSH key.
+It's more convenient and safer than a password.
+GitHub has great documentation about how to set that up, so please follow the instructions here:</p>
+<ul>
+<li><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Generating a new SSH key</a></li>
+<li><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">Adding an SSH key to your account</a></li>
+</ul>
+<p>You can verify the setup with the following command:</p>
+<pre><code class="language-sh">ssh -T git@github.com
+</code></pre>
+<p>The expected output is:</p>
+<pre><code>Hi user! You've successfully authenticated, but GitHub does not provide shell access.
+</code></pre>
+<h3 id="creating-a-new-repository-on-github"><a class="header" href="#creating-a-new-repository-on-github">Creating a new repository on GitHub</a></h3>
+<p>Skip ahead if you intend to use an already existing repo.</p>
+<p>To create a new repository on GitHub, <a href="https://github.com/new">click here</a> and fill out the form.
+All you need to do is choose an owner (probably your username) and a repo name.
+Also check that the visibility matches what you want (can be changed later).</p>
+<p>If you already have a local repository with content that you want to push to this new remote, make sure to <strong>not initialize the repo with any content</strong>.
+That means, no template, no README, no <code>.gitignore</code> and no license.</p>
+<p>Finally, click on "Create repository".</p>
+<h3 id="cloning-an-existing-repo"><a class="header" href="#cloning-an-existing-repo">Cloning an existing repo</a></h3>
+<p>Navigate to the page of the existing repo in the browser.
+You should see a big green button that says "&lt;&gt; Code".
+Click on it and select "SSH" in the drop-down (assuming you have set up an SSH key as explained above).
+Copy the URL that's displayed.</p>
+<p>Finally, paste the URL into Jujutsu's clone command:</p>
+<pre><code class="language-sh">jj git clone --colocate &lt;COPIED_URL&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="updating-bookmarks"><a class="header" href="#updating-bookmarks">Updating bookmarks</a></h1>
+<p>We have learned how to push a new bookmark to a remote for the first time.
+We <em>could</em> do that for every single commit we create and want to push to the remote.
+However, that would lead to a lot of unnecessary bookmarks lying around.
+A real mess!</p>
+<p>Thankfully, there's a better way.
+Instead of creating a new bookmark every time, we can <strong>move</strong> an existing bookmark so it points to another commit.</p>
+<p>To try it out, we first need to create a new commit.
+You can just copy these commands:</p>
+<pre><code class="language-sh">printf "\nThis is a toy repository for learning Jujutsu.\n" &gt;&gt; README.md
+jj commit -m "Add projcet description to readme"
+</code></pre>
+<p>There's a neat trick here for the <code>commit</code> command:
+If you already have a short description in mind, you can pass it directly with the <code>-m</code> flag (short for <code>--message</code>).
+This can be faster than opening a separate text editor.</p>
+<p><code>jj log</code> shows us a new commit on top of the one we pushed to the remote:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">z</span><span class="bold highlighted dimgray ">zywylnt</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 20:36:38</span><span class="bold "> </span><span class="bold highlighted blue ">4</span><span class="bold highlighted dimgray ">8708b9f</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">k</span><span class="highlighted dimgray ">xqyrwux</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 20:36:38</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">6</span><span class="highlighted dimgray ">ca38e90</span>
+│  Add projcet description to readme
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">m</span><span class="highlighted dimgray ">kmqlnox</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 20:25:40</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">7</span><span class="highlighted dimgray ">939d4cf</span>
+│  Add readme with project title
+~
+</pre>
+<p>Now we can send this new commit to the remote by first pointing the bookmark at it and then pushing the bookmark again.
+Let's start by moving the bookmark:</p>
+<pre><code class="language-sh">jj bookmark move main --to @-
+</code></pre>
+<p>We could've told Jujutsu where to move the bookmark to using the change ID, i.e. <code>--to kxqyrwux</code>.
+Alternatively, we can use <code>@-</code>, which is a neat way to refer to the <strong>parent of the working copy commit</strong>.
+There are many such clever ways to refer to commits, but that's a topic for later.
+For now, just remember <code>@-</code>, because that's by far the most useful one.</p>
+<p>Let's see what <code>jj log</code> has to say:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">z</span><span class="bold highlighted dimgray ">zywylnt</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 20:36:38</span><span class="bold "> </span><span class="bold highlighted blue ">4</span><span class="bold highlighted dimgray ">8708b9f</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">k</span><span class="highlighted dimgray ">xqyrwux</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 20:36:38</span> <span class="purple ">main*</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">6</span><span class="highlighted dimgray ">ca38e90</span>
+│  Add projcet description to readme
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">m</span><span class="highlighted dimgray ">kmqlnox</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 20:25:40</span> <span class="purple ">main@origin</span> <span class="bold "></span><span class="bold blue ">7</span><span class="highlighted dimgray ">939d4cf</span>
+│  Add readme with project title
+~
+</pre>
+<p>The important thing to notice here is that Jujutsu shows us the discrepancy between the local bookmark <code>main</code> and its remote counterpart.
+<code>main*</code> is the local bookmark and the star next to its name means it's out-of-sync with the remote.
+<code>main@origin</code> is the location of the bookmark on the remote.</p>
+<p>We can fix the situation by pushing the bookmark again:</p>
+<pre><code class="language-sh">jj git push
+</code></pre>
+<p>This time, we didn't specify <code>--bookmark main</code> explicitly.
+If you omit the <code>--bookmark</code> flag on the <code>push</code> command, Jujutsu tries to be smart about which bookmarks you actually want to push.
+That usually works quite well.
+If you think it didn't work, just try again with the <code>--bookmark</code> flag.</p>
+<p>You might be wondering:
+Since the remote requires a bookmark to receive commits and the <code>main</code> bookmark is <strong>not</strong> pointing to the first commit anymore... is that commit now lost or deleted?
+Luckily it is not.
+Commits store a reference to their parent commit, which is why Jujutsu knows the order in which to draw the commits in the output of <code>jj log</code>.
+So, a commit with a bookmark pointing to it also protects all its ancestors from being deleted.</p>
+<div id="admonition-youve-completed-level-0--" class="admonition admonish-success" role="note" aria-labelledby="admonition-youve-completed-level-0---title">
+<div class="admonition-title">
+<div id="admonition-youve-completed-level-0---title">
+<p>You've completed Level 0 ! 🎉</p>
+</div>
+<a class="admonition-anchor-link" href="update_bookmark.html#admonition-youve-completed-level-0--"></a>
+</div>
+<div>
+<p>You made it!
+At this point, you have all the skills needed for simple solo projects with proper backup.
+Let's summarize the workflow again:</p>
+<ol>
+<li>make changes</li>
+<li>create a new commit</li>
+<li>move the bookmark</li>
+<li>push to the remote</li>
+</ol>
+<p>Ideally, you can take a little break now and practice what you've learned.
+Once you feel comfortable with the above, come back quickly for level 1, we're just scratching the surface.</p>
+<p>If you need to collaborate with other people, level 1 is just as essential as this one.
+I encourage you keep going right away!
+You've earned yourself a quick bathroom break though.</p>
+</div>
+</div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="branching"><a class="header" href="#branching">Branching</a></h1>
+<div id="admonition-welcome-to-level-1-" class="admonition admonish-tip" role="note" aria-labelledby="admonition-welcome-to-level-1--title">
+<div class="admonition-title">
+<div id="admonition-welcome-to-level-1--title">
+<p>Welcome to level 1 !</p>
+</div>
+<a class="admonition-anchor-link" href="branching.html#admonition-welcome-to-level-1-"></a>
+</div>
+<div>
+<p>If you took a break after finishing the previous level, remember that you can <a href="./introduction.html#restoring-your-progress">restore the state</a> of your example repo in case you lost it.</p>
+</div>
+</div>
+<p>The previous level only covered situations where you are working on a project on your own.
+What if several people want to collaborate on the project?
+Let's simulate such a scenario and see what happens.</p>
+<p>Alice and Bob are working on a group project for a computer science class.
+Their task is to write the classic "Hello, world!" program in Python.
+Alice and Bob decide to split up the work as such:</p>
+<ul>
+<li>Alice will write the Python program.</li>
+<li>Bob will add documentation to the README.</li>
+</ul>
+<p>Let's start with Alice.
+Here's the Python program she comes up with:</p>
+<pre><code class="language-python">print('Hello, world!')
+</code></pre>
+<p>That'll do the job just fine.
+She adds it to the file <code>hello.py</code>:</p>
+<pre><code class="language-sh">echo "print('Hello, world!')" &gt; hello.py
+</code></pre>
+<p>Happy with her changes, Alice creates a new commit:</p>
+<pre><code class="language-sh">jj commit -m "Add Python script for greeting the world
+
+Printing the text \"Hello, world!\" is a classic exercise in introductory
+programming courses. It's easy to complete in basically any language and
+makes students feel accomplished and curious for more at the same time."
+</code></pre>
+<p>Here's how the repository should look at this point:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">s</span><span class="bold highlighted dimgray ">vplvpro</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 21:17:41</span><span class="bold "> </span><span class="bold highlighted blue ">4</span><span class="bold highlighted dimgray ">db2d0d0</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zywylnt</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:17:31</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">f8</span><span class="highlighted dimgray ">e44920</span>
+│  Add Python script for greeting the world
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">k</span><span class="highlighted dimgray ">xqyrwux</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:14:46</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">ff</span><span class="highlighted dimgray ">df52d0</span>
+│  Add projcet description to readme
+~
+</pre>
+<p>Next, we simulate Bob's work.
+He's working on a different computer than Alice, with a different copy of the repository.
+Since Bob is working at the same time as her, he doesn't have the commit made by Alice yet.
+We can simulate that by creating a third repository, which has the same remote as our primary one:</p>
+<pre><code>jj git clone --colocate ~/jj-tutorial/remote ~/jj-tutorial/repo-bob
+</code></pre>
+<p>Let's go into that repo, configure our author information for the role-play and make sure the log looks the same way as when Alice started her work:</p>
+<pre><code class="language-sh">cd ~/jj-tutorial/repo-bob
+jj config set --repo user.name Bob
+jj config set --repo user.email bob@local
+jj describe --reset-author --no-edit
+jj log
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">q</span><span class="bold highlighted dimgray ">uolxwkk</span><span class="bold "> </span><span class="bold yellow ">bob@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 21:19:11</span><span class="bold "> </span><span class="bold highlighted blue ">3</span><span class="bold highlighted dimgray ">ffac111</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">k</span><span class="highlighted dimgray ">xqyrwux</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:14:46</span> <span class="purple ">main</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">f</span><span class="highlighted dimgray ">fdf52d0</span>
+│  Add projcet description to readme
+~
+</pre>
+<p>That looks great.
+So now, Bob is going to do his part the same way Alice did:</p>
+<pre><code class="language-sh">echo "# jj-tutorial
+
+The file hello.py contains a script that greets the world.
+It can be executed with the command 'python hello.py'.
+Programming is fun!" &gt; README.md
+
+jj commit -m "Document hello.py in README.md
+
+The file hello.py doesn't exist yet, because Alice is working on that.
+Once our changes are combined, this documentation will be accurate."
+</code></pre>
+<p>Let's say that Bob was a little faster than Alice, because he was only doing the documentation.
+Alice was doing actual software engineering, which took a little more time.
+Therefore, Bob gets to update the main bookmark first:</p>
+<pre><code class="language-sh">jj bookmark move main --to @-
+jj git push
+</code></pre>
+<p>A little later, Alice is also finished and now she attempts to update the <code>main</code> bookmark:</p>
+<pre><code class="language-sh">cd ~/jj-tutorial/repo
+jj bookmark move main --to @-
+jj git push
+</code></pre>
+<p>Whoopsie!
+Alice is met with a scary error message in her terminal:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+Changes to push to origin:
+  Move forward bookmark main from cd5f3fff9c7b to e90b597ed78e
+<span class="bold "></span><span class="bold red ">Error: </span><span class="bold ">Failed to push some bookmarks</span>
+<span class="bold "></span><span class="bold cyan ">Hint: </span>The following references unexpectedly moved on the remote:
+  <span class="green ">refs/heads/main</span> (reason: stale info)
+<span class="bold "></span><span class="bold cyan ">Hint: </span>Try fetching from the remote, then make the bookmark point to where
+       ↪ you want it to be, and push again.
+</pre>
+<p>Alice is about to panic, so she opens social media and scrolls a little until she finds a cat video.
+Now that her nerves are calmed (the cat was snuggling with a bunch of baby ducks), she turns her attention back to the terminal and actually reads the error message.
+She is relieved to find that it actually contains useful information about what went wrong and how to fix it.
+Following the hint, she first fetches from the remote:</p>
+<pre><code class="language-sh">jj git fetch
+</code></pre>
+<p><code>fetch</code> is a new command, it's basically the opposite of <code>push</code>.
+While <code>push</code> sends bookmarks and commits from the local repository to the remote, <code>fetch</code> downloads bookmarks and commits that someone else (like Bob!) may have pushed from another computer.</p>
+<p>Here's the resulting <code>jj log</code>:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">s</span><span class="bold highlighted dimgray ">vplvpro</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 21:17:41</span><span class="bold "> </span><span class="bold highlighted blue ">4</span><span class="bold highlighted dimgray ">db2d0d0</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zywylnt</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:17:31</span> <span class="purple ">main?? main@git</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">f8</span><span class="highlighted dimgray ">e44920</span>
+│  Add Python script for greeting the world
+│ <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">q</span><span class="highlighted dimgray ">uolxwkk</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-22 21:22:22</span> <span class="purple ">main?? main@origin</span> <span class="bold "></span><span class="bold blue ">8</span><span class="highlighted dimgray ">d538390</span>
+├─╯  Document hello.py in README.md
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">k</span><span class="highlighted dimgray ">xqyrwux</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:14:46</span> <span class="bold "></span><span class="bold blue ">ff</span><span class="highlighted dimgray ">df52d0</span>
+│  Add projcet description to readme
+~
+</pre>
+<p>Oh!
+That's something we haven't seen before.
+Our version history is split into two <strong>branches</strong>.
+This is not unusual and lies at the core of how Jujutsu enables people to work independently from one another.
+But we don't know how to deal with this situation yet.</p>
+<p>If Jujutsu allowed Alice to push the <code>main</code> bookmark without knowing about Bob's update, his work would accidentally get deleted.
+Remember: The remote only considers commits worth keeping around if they are <strong>reachable</strong> from a bookmark.
+But if the <code>main</code> bookmark points to Alice's commit, Bob's commit is <strong>not reachable</strong> anymore, because it is not an ancestor of Alice's commit.</p>
+<p>Notice that the <code>main</code> bookmark appears <strong>twice</strong> in the log, both times with question marks <code>??</code>.
+This means Jujutsu isn't sure where the bookmark should point to.
+Alice moved it to her commit, while it was moved to Bob's commit on the remote.
+Once Alice has decided where it should actually point, she can tell Jujutsu by explicitly moving it there.</p>
+<div id="admonition-confusing-terms-bookmark-and-branch" class="admonition admonish-info" role="note" aria-labelledby="admonition-confusing-terms-bookmark-and-branch-title">
+<div class="admonition-title">
+<div id="admonition-confusing-terms-bookmark-and-branch-title">
+<p>Confusing terms: bookmark and branch</p>
+</div>
+<a class="admonition-anchor-link" href="branching.html#admonition-confusing-terms-bookmark-and-branch"></a>
+</div>
+<div>
+<p>The terms "bookmark" and "branch" are often used in very similar situations, which can be confusing.
+Let's define the difference very precisely and prepare ourselves to recognize potential sources of confusion.</p>
+<p>A <strong>bookmark</strong> is just a named label that's attached to, or points to, a single commit.
+That's it.</p>
+<p>A <strong>branch</strong> is specified by its <strong>tip</strong>, which is also a single commit.
+However, a branch refers to the <strong>set of commits</strong> that includes the tip and <strong>all of its ancestors</strong>.</p>
+<p>These two concepts can be combined in a phrase like this:
+"I pushed my changes to the <code>main</code> branch."
+This may be confusing, because <code>main</code> is a bookmark, right?
+Why are we talking about the "main" branch?
+Well, the <code>main</code> bookmark points to a commit, and that commit is the tip of the branch we mean when we say "the main branch".</p>
+<p>There's one more thing to look out for when talking to people who primarily use Git.
+Git always uses the word <strong>branch</strong> for both things.
+The term "bookmark" carries no meaning in Git.
+So, when Git users say the word "branch", they may be talking about an actual branch, meaning a set of commits with a tip and all its ancestors.
+They may also be talking about a bookmark, meaning a named label pointing to a single commit, without attaching any significance to the ancestors of that pointed-to commit.</p>
+</div>
+</div>
+<p>That's all interesting and the tree-shaped graph of our commits looks very pretty, but the teacher wants a version that includes both the program and the documentation.
+What should Alice and Bob do now?
+Find out in the following chapters!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="inspecting-a-commit"><a class="header" href="#inspecting-a-commit">Inspecting a commit</a></h1>
+<p>Alice has just found out that Bod made changes at the same time as she did.
+Before she attempts to somehow create a version that includes both changes, she wants to verify the two changes are compatible.
+She therefore decides to check out Bob's changes by using <code>jj show</code>.
+Since the remote bookmark <code>main</code> is pointing there, she can use that as identification.</p>
+<pre><code>jj show main@origin
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+Commit ID: <span class="blue ">8d53839037b21e262e410e087606925f7582914e</span>
+Change ID: <span class="purple ">quolxwkkstmturozxxxrkkpxxxnnosry</span>
+Bookmarks: <span class="purple ">main??</span> <span class="purple ">main@origin</span>
+Author   : <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local</span>&gt; (<span class="cyan ">2025-07-22 21:22:17</span>)
+Committer: <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local</span>&gt; (<span class="cyan ">2025-07-22 21:22:22</span>)
+
+    Document hello.py in README.md
+
+    The file hello.py doesn't exist yet, because Alice is working on that.
+    Once our changes are combined, this documentation will be accurate.
+
+<span class="yellow ">Modified regular file README.md:</span>
+<span class="red ">   1</span> <span class="green ">   1</span>: # jj-tutorial
+<span class="red ">   2</span> <span class="green ">   2</span>: 
+<span class="red ">   3</span>     : <span class="underline "></span><span class="underline red ">This</span><span class="red "> </span><span class="underline red ">is</span><span class="red "> a </span><span class="underline red ">toy</span><span class="red "> </span><span class="underline red ">repository</span><span class="red "> </span><span class="underline red ">for</span><span class="red "> </span><span class="underline red ">learning</span><span class="red "> </span><span class="underline red ">Jujutsu</span><span class="red ">.</span>
+     <span class="green ">   3</span>: <span class="underline "></span><span class="underline green ">The</span><span class="green "> </span><span class="underline green ">file</span><span class="green "> </span><span class="underline green ">hello.py contains </span><span class="green ">a </span><span class="underline green ">script</span><span class="green "> </span><span class="underline green ">that</span><span class="green "> </span><span class="underline green ">greets</span><span class="green "> </span><span class="underline green ">the</span><span class="green "> </span><span class="underline green ">world</span><span class="green ">.</span>
+     <span class="green ">   4</span>: <span class="underline "></span><span class="underline green ">It can be executed with the command 'python hello.py'.</span><span class="green "></span>
+     <span class="green ">   5</span>: <span class="underline "></span><span class="underline green ">Programming is fun!</span><span class="green "></span>
+</pre>
+<p>There's a lot of useful information here that <code>jj log</code> doesn't show.
+Let's go over it one-by-one:</p>
+<ul>
+<li>
+<p>The first two lines are the commit ID and change ID.
+We've seen them already, but these ones are longer!
+That's because the output of <code>jj log</code> only shows you a <strong>prefix</strong> of the full ID.
+The short prefix is usually enough to uniquely identify a commit, but sometimes you want the whole thing.</p>
+</li>
+<li>
+<p>Next is a list of bookmarks pointing to the commit.</p>
+</li>
+<li>
+<p>The following two lines are the author and committer information, as well as their timestamps.
+Author and committer are usually the same, the difference is not important.
+If you're curious anyway, there's a short explanation in the info box below.</p>
+</li>
+<li>
+<p>Then there's the commit message.
+Notice that we see the full description here including its body.
+<code>jj log</code> only displays the subject line to save space.</p>
+</li>
+<li>
+<p>Lastly, we see a list of files that have changed in this commit as well as the precise changes of their content.
+The color green means "added" and red means "removed"
+So we can see that this commit removed the previous line 3 and replaced it with three new lines.
+The first line is neutral, indicating that it was not changed in this commit.</p>
+</li>
+</ul>
+<details id="admonition-the-difference-between-author-and-committer" class="admonition admonish-info" role="note" aria-labelledby="admonition-the-difference-between-author-and-committer-title">
+<summary class="admonition-title">
+<div id="admonition-the-difference-between-author-and-committer-title">
+<p>The difference between author and committer</p>
+</div>
+<a class="admonition-anchor-link" href="inspect.html#admonition-the-difference-between-author-and-committer"></a>
+</summary>
+<div>
+<p>The <strong>author</strong> of a commit is the primary person who wrote its content.
+In this case, that refers to the new paragraph being added to the readme.
+The <strong>committer</strong> on the other hand is the person who created the commit.
+Again, these are usually the same, because most of the time the person who writes something also immediately puts that in a commit.</p>
+<p>Let's imagine a scenario where that's not the case.</p>
+<p>Before they started doing any work, Alice and Bob are joined by Claire as a third member of the team.
+Claire is not comfortable using version control yet, so they decide that Claire will write the documentation instead of Bob.
+Bob on the other hand will record Claire's changes in version control for safe keeping.
+That way, everyone can contribute something.</p>
+<p>Claire writes the documentation and sends the <code>README.md</code> file to Bob as an attachement by email.
+Bob copies the file into his repository, recording it into the working copy commit as normal.
+He want's to preserve Claire's authorship information, so he runs the command:</p>
+<pre><code class="language-sh">jj describe --author "Claire claire@local" --no-edit
+</code></pre>
+<p>That command will overwrite the author information in the commit on a one-off basis.
+The committer field will continue to contain Bob's information.
+The result will look like this:</p>
+<pre class="aha">
+Commit ID: <span class="blue ">8d53839037b21e262e410e087606925f7582914e</span>
+Change ID: <span class="purple ">quolxwkkstmturozxxxrkkpxxxnnosry</span>
+Bookmarks: <span class="purple ">main??</span> <span class="purple ">main@origin</span>
+Author   : <span class="yellow ">Claire</span> &lt;<span class="yellow ">claire@local</span>&gt; (<span class="cyan ">2025-07-22 21:22:17</span>)
+Committer: <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local</span>&gt; (<span class="cyan ">2025-07-22 21:22:22</span>)
+
+    ...
+</pre>
+</div>
+</details>
+<p>Alice is pretty sure that Bob's changes are compatible with hers.
+He only changed the file <code>README.md</code>, while Alice didn't do anything besides adding <code>hello.py</code>.
+Her next task is to create a version of the project that combines both changes.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-merge-commit"><a class="header" href="#creating-a-merge-commit">Creating a merge commit</a></h1>
+<p>I've strung you along for long enough, let's finally create that version with the combined changes.</p>
+<p>There are actually two approaches to achieve this, one of them we'll see later.
+For now, we're going to create a <strong>merge commit</strong>.
+As the name implies, a merge commit merges changes from two (or more!) commits.</p>
+<p>Until now, we've created new commits with the command <code>jj commit</code>.
+That command actually does two things at once:
+It adds a description to the commit you just finished working on and starts a new commit on top of it.
+Unfortunately it can't create merge commits.</p>
+<p>There is a slightly more "low-level" command for creating new commits called <code>jj new</code>.
+It only creates a new commit and doesn't modify any descriptions.
+Importantly, it takes a <strong>list of parents</strong> as additional arguments.
+This allows us to create a commit with two parents, i.e. a merge commit:</p>
+<pre><code class="language-sh">jj new main@origin @-
+</code></pre>
+<p>Let's view the result with <code>jj log</code>:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>    <span class="bold "></span><span class="bold highlighted purple ">t</span><span class="bold highlighted dimgray ">wywpklt</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 21:26:35</span><span class="bold "> </span><span class="bold highlighted blue ">7</span><span class="bold highlighted dimgray ">64f3651</span><span class="bold "></span>
+├─╮  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+│ ○  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zywylnt</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:17:31</span> <span class="purple ">main?? main@git</span> <span class="bold "></span><span class="bold blue ">f8</span><span class="highlighted dimgray ">e44920</span>
+│ │  Add Python script for greeting the world
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span> │  <span class="bold "></span><span class="bold purple ">q</span><span class="highlighted dimgray ">uolxwkk</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-22 21:22:22</span> <span class="purple ">main?? main@origin</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">8</span><span class="highlighted dimgray ">d538390</span>
+├─╯  Document hello.py in README.md
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">k</span><span class="highlighted dimgray ">xqyrwux</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:14:46</span> <span class="bold "></span><span class="bold blue ">ff</span><span class="highlighted dimgray ">df52d0</span>
+│  Add projcet description to readme
+~
+</pre>
+<p>Interesting!
+The two parents of the new merge commit are easily visible in the commit graph.
+You can confirm that this new commit contains both changes from Alice and Bob:</p>
+<pre><code class="language-sh">cat README.md
+cat hello.py
+</code></pre>
+<p>Jujutsu tries to be smart about how to combine changes, but not too smart.
+Combining changes which modify the same part of the project leads to a <strong>conflict</strong>.
+Conflicts are not necessarily bad, they are just a signal that you need to combine some changes manually, making sure to preserve the essence of what each change was trying to achieve individually.
+How to resolve conflicts is a topic reserved for the next level.</p>
+<p>Let's wrap up this merge commit and send it to the remote:</p>
+<pre><code class="language-sh">jj commit -m "Combine code and documentation for hello-world"
+jj bookmark move main --to @-
+jj git push
+</code></pre>
+<p>Phew!
+That was intense.
+If you run <code>jj log</code> now, the complicated branching and merging will be hidden by default.
+Remember that you can reveal it with <code>jj log --revisions 'all()'</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="excluding-files-from-version-control"><a class="header" href="#excluding-files-from-version-control">Excluding files from version control</a></h1>
+<!-- Bob makes second commit without fetching, use .DS_Store for global example and another local one -->
+<p>Let's check up on Bob:</p>
+<pre><code class="language-sh">cd ~/jj-tutorial/repo-bob
+</code></pre>
+<p>Done with his part of the assignment, he's already thinking about the submission.
+The teacher expects to receive a tarball called <code>submission_alice_bob.tar.gz</code>.
+After a little <a href="https://xkcd.com/1168/">trial and error</a>, he comes up with the following command to create the tarball:</p>
+<pre><code class="language-sh">tar czf submission_alice_bob.tar.gz README.md
+</code></pre>
+<p>(Go ahead and run it!)</p>
+<p>Bob wants to spare Alice the hassle of having to figure that out, in case she ends up making the final submission.
+He decides to add it to the documentation:</p>
+<pre><code class="language-sh">echo "
+## Submission
+
+Run the following command to create the submission tarball:
+
+~~~sh
+tar czf submission_alice_bob.tar.gz [FILE...]
+~~~" &gt;&gt; README.md
+</code></pre>
+<p>Bob is careful to push only clean commits to the remote shared with Alice.
+(Be like Bob!)
+He double-checks the content of his commit with <code>jj show</code>:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+Commit ID: <span class="blue ">596961f1e4aaa66f50b918902efbc839122184f4</span>
+Change ID: <span class="purple ">vtkxsvmtporzvtpovlpqvytrpzxyuykn</span>
+Author   : <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local</span>&gt; (<span class="cyan ">2025-08-04 20:38:40</span>)
+Committer: <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local</span>&gt; (<span class="cyan ">2025-08-04 20:38:59</span>)
+
+<span class="yellow ">    (no description set)</span>
+
+<span class="yellow ">Modified regular file README.md:</span>
+    ...
+<span class="red ">   3</span> <span class="green ">   3</span>: The file hello.py contains a script that greets the world.
+<span class="red ">   4</span> <span class="green ">   4</span>: It can be executed with the command 'python hello.py'.
+<span class="red ">   5</span> <span class="green ">   5</span>: Programming is fun!
+     <span class="green ">   6</span>: <span class="underline "></span><span class="underline green "></span><span class="green "></span>
+     <span class="green ">   7</span>: <span class="underline "></span><span class="underline green ">## Submission</span><span class="green "></span>
+     <span class="green ">   8</span>: <span class="underline "></span><span class="underline green "></span><span class="green "></span>
+     <span class="green ">   9</span>: <span class="underline "></span><span class="underline green ">Run the following command to create the submission tarball:</span><span class="green "></span>
+     <span class="green ">  10</span>: <span class="underline "></span><span class="underline green "></span><span class="green "></span>
+     <span class="green ">  11</span>: <span class="underline "></span><span class="underline green ">~~~sh</span><span class="green "></span>
+     <span class="green ">  12</span>: <span class="underline "></span><span class="underline green ">tar czf submission_alice_bob.tar.gz [FILE...]</span><span class="green "></span>
+     <span class="green ">  13</span>: <span class="underline "></span><span class="underline green ">~~~</span><span class="green "></span>
+<span class="yellow ">Added regular file submission_alice_bob.tar.gz:</span>
+<span class="cyan ">    (binary)</span>
+</pre>
+<p>Oh no!
+It looks like the result of Bob's research was recorded in the commit.
+The tarball <code>submission_alice_bob.tar.gz</code> has no business being tracked in version control.</p>
+<p>By default, Jujutsu records every single file in the project into your working copy, which is usually what you want.
+But sometimes, you need to tell Jujutsu to ignore certain files and exclude them from being recorded.
+For this purpose, Jujutsu reads a special <code>.gitignore</code> file if it exists in the project.
+This file can contain a list of file names, directories, and patterns which describe the set of files that should not be tracked in version control.</p>
+<p>To fix the problem, Bob adds a pattern for tarballs to the <code>.gitignore</code> file:</p>
+<pre><code class="language-sh">echo "*.tar.gz" &gt; .gitignore
+</code></pre>
+<p>The star <code>*</code> symbol is a special <a href="https://en.wikipedia.org/wiki/Glob_(programming)">glob</a> character which can expand to match any filename, including <code>submission_alice_bob</code>.
+Adding only the precise filename <code>submission_alice_bob.tar.gz</code> to the <code>.gitignore</code> file would've worked as well, but the above pattern takes care of <em>any</em> tarball.</p>
+<details id="admonition-ignoring-files-globally" class="admonition admonish-info" role="note" aria-labelledby="admonition-ignoring-files-globally-title">
+<summary class="admonition-title">
+<div id="admonition-ignoring-files-globally-title">
+<p>Ignoring files globally</p>
+</div>
+<a class="admonition-anchor-link" href="gitignore.html#admonition-ignoring-files-globally"></a>
+</summary>
+<div>
+<p>Sometimes you might have the same files lying around in several projects that are only intended for your personal use.
+In that case, it makes sense to ignore these files globally, not just for a specific project.
+It would be a little tedious to add personal files to the <code>.gitignore</code> of every single project you work on.</p>
+<p>One such example is relevant for macOS users:
+The Finder application stores hidden files called <code>.DS_Store</code> in directories opened with it.
+These files can end up anywhere and basically never belong in version control.
+If you're a macOS user, consider adding <code>.DS_Store</code> to your global <code>.gitignore</code> file:</p>
+<pre><code class="language-sh">echo ".DS_Store" &gt;&gt; ~/.gitignore
+</code></pre>
+</div>
+</details>
+<p>Let's check the commit content again:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+Commit ID: <span class="blue ">c9bc30b48922c767c553392709f212b8c0815ceb</span>
+Change ID: <span class="purple ">vtkxsvmtporzvtpovlpqvytrpzxyuykn</span>
+Author   : <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local</span>&gt; (<span class="cyan ">2025-08-04 20:38:40</span>)
+Committer: <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local</span>&gt; (<span class="cyan ">2025-08-04 20:41:13</span>)
+
+<span class="yellow ">    (no description set)</span>
+
+<span class="yellow ">Added regular file .gitignore:</span>
+     <span class="green ">   1</span>: <span class="underline "></span><span class="underline green ">*.tar.gz</span><span class="green "></span>
+<span class="yellow ">Modified regular file README.md:</span>
+    ...
+<span class="red ">   3</span> <span class="green ">   3</span>: The file hello.py contains a script that greets the world.
+<span class="red ">   4</span> <span class="green ">   4</span>: It can be executed with the command 'python hello.py'.
+<span class="red ">   5</span> <span class="green ">   5</span>: Programming is fun!
+     <span class="green ">   6</span>: <span class="underline "></span><span class="underline green "></span><span class="green "></span>
+     <span class="green ">   7</span>: <span class="underline "></span><span class="underline green ">## Submission</span><span class="green "></span>
+     <span class="green ">   8</span>: <span class="underline "></span><span class="underline green "></span><span class="green "></span>
+     <span class="green ">   9</span>: <span class="underline "></span><span class="underline green ">Run the following command to create the submission tarball:</span><span class="green "></span>
+     <span class="green ">  10</span>: <span class="underline "></span><span class="underline green "></span><span class="green "></span>
+     <span class="green ">  11</span>: <span class="underline "></span><span class="underline green ">~~~sh</span><span class="green "></span>
+     <span class="green ">  12</span>: <span class="underline "></span><span class="underline green ">tar czf submission_alice_bob.tar.gz [FILE...]</span><span class="green "></span>
+     <span class="green ">  13</span>: <span class="underline "></span><span class="underline green ">~~~</span><span class="green "></span>
+<span class="yellow ">Added regular file submission_alice_bob.tar.gz:</span>
+<span class="cyan ">    (binary)</span>
+</pre>
+<p>Hmm... the <code>.gitignore</code> file has joined the party, but the tarball is <em>still</em> recorded in the commit.
+The reason is that Jujutsu only considers <code>.gitignore</code> for files it hasn't already started tracking.
+Since Bob added the <code>.gitignore</code> after the unwelcome file started being tracked, it had no effect.
+Luckily, Jujutsu has a command to make it stop tracking already-tracked files:</p>
+<pre><code class="language-sh">jj file untrack submission_alice_bob.tar.gz
+</code></pre>
+<p>The <code>untrack</code> command only works if the file to untrack is already present in <code>.gitignore</code>.
+Otherwise, Jujutsu would immediately start tracking the file again just after untracking it.
+Note that you can also ignore and untrack entire directories at once.</p>
+<p>Let's check the commit content one more time:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+Commit ID: <span class="blue ">0f0015beb53d8c83f3bbcfe938a9bf031834c3e4</span>
+Change ID: <span class="purple ">vtkxsvmtporzvtpovlpqvytrpzxyuykn</span>
+Author   : <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local</span>&gt; (<span class="cyan ">2025-08-04 20:38:40</span>)
+Committer: <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local</span>&gt; (<span class="cyan ">2025-08-04 20:41:36</span>)
+
+<span class="yellow ">    (no description set)</span>
+
+<span class="yellow ">Added regular file .gitignore:</span>
+     <span class="green ">   1</span>: <span class="underline "></span><span class="underline green ">*.tar.gz</span><span class="green "></span>
+<span class="yellow ">Modified regular file README.md:</span>
+    ...
+<span class="red ">   3</span> <span class="green ">   3</span>: The file hello.py contains a script that greets the world.
+<span class="red ">   4</span> <span class="green ">   4</span>: It can be executed with the command 'python hello.py'.
+<span class="red ">   5</span> <span class="green ">   5</span>: Programming is fun!
+     <span class="green ">   6</span>: <span class="underline "></span><span class="underline green "></span><span class="green "></span>
+     <span class="green ">   7</span>: <span class="underline "></span><span class="underline green ">## Submission</span><span class="green "></span>
+     <span class="green ">   8</span>: <span class="underline "></span><span class="underline green "></span><span class="green "></span>
+     <span class="green ">   9</span>: <span class="underline "></span><span class="underline green ">Run the following command to create the submission tarball:</span><span class="green "></span>
+     <span class="green ">  10</span>: <span class="underline "></span><span class="underline green "></span><span class="green "></span>
+     <span class="green ">  11</span>: <span class="underline "></span><span class="underline green ">~~~sh</span><span class="green "></span>
+     <span class="green ">  12</span>: <span class="underline "></span><span class="underline green ">tar czf submission_alice_bob.tar.gz [FILE...]</span><span class="green "></span>
+     <span class="green ">  13</span>: <span class="underline "></span><span class="underline green ">~~~</span><span class="green "></span>
+</pre>
+<p>Yay!
+This commit looks nice and tidy, let's finish it with a description:</p>
+<pre><code class="language-sh">jj commit -m "Add submission instructions"
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rebasing"><a class="header" href="#rebasing">Rebasing</a></h1>
+<p>Now that Bob is happy with his second commit, he tries to push it to the remote:</p>
+<pre><code class="language-sh">jj bookmark move main --to @-
+jj git push
+</code></pre>
+<p>As you might've already guessed, Bob gets the same error message as Alice did earlier.
+He also decides to follow the hint of fetching from the remote (after watching some cat videos):</p>
+<pre><code class="language-sh">jj git fetch
+</code></pre>
+<p>Here's what Bob's log looks like now:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">z</span><span class="bold highlighted dimgray ">tyvwqll</span><span class="bold "> </span><span class="bold yellow ">bob@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 21:29:52</span><span class="bold "> </span><span class="bold highlighted blue ">9</span><span class="bold highlighted dimgray ">3f27644</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">s</span><span class="highlighted dimgray ">mswwyok</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-22 21:29:27</span> <span class="purple ">main?? main@git</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">e</span><span class="highlighted dimgray ">583fa6e</span>
+│  Add submission instructions
+│ <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">wywpklt</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:27:24</span> <span class="purple ">main?? main@origin</span> <span class="bold "></span><span class="bold blue ">6</span><span class="highlighted dimgray ">06959ce</span>
+╭─┤  <span class="green ">(empty)</span> Combine code and documentation for hello-world
+│ │
+│ ~
+│
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">q</span><span class="highlighted dimgray ">uolxwkk</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-22 21:22:22</span> <span class="bold "></span><span class="bold blue ">8</span><span class="highlighted dimgray ">d538390</span>
+│  Document hello.py in README.md
+~
+</pre>
+<p>It's basically the same situation.
+Bob's and Alice's changes have branched-off into different directions.
+To merge them back together, Bob could do the same thing Alice did and create a merge commit.
+However, Bob doesn't like merge commits.
+Preferring straight lines in his log, he decides to take a different approach from Alice.</p>
+<p>Bob is going to pretend like he made his changes on top of Alice's changes all along.
+His most recent commit should have Alice's commit as its parent, because that will result in a <strong>linear history</strong>.</p>
+<p>There is a Jujutsu command just for this purpose:
+It's called <code>rebase</code>.
+As the name implies, it takes commits from one "base" (some ancestor) and moves them on top of a different "base".
+<code>jj rebase</code> on its own doesn't work though, it needs to know the <strong>destination</strong> of the operation.
+In this case, Bob wants to move his commit on top of the state of the remote <code>main</code> bookmark, i.e. Alice's commit.
+Therefore, he runs the command:</p>
+<pre><code class="language-sh">jj rebase --destination main@origin
+</code></pre>
+<p>What does the log say?</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">z</span><span class="bold highlighted dimgray ">tyvwqll</span><span class="bold "> </span><span class="bold yellow ">bob@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 21:30:38</span><span class="bold "> </span><span class="bold highlighted blue ">e</span><span class="bold highlighted dimgray ">911e4c7</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">s</span><span class="highlighted dimgray ">mswwyok</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-22 21:30:38</span> <span class="purple ">main*</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">0</span><span class="highlighted dimgray ">2bd1179</span>
+│  Add submission instructions
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">wywpklt</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:27:24</span> <span class="purple ">main@origin</span> <span class="bold "></span><span class="bold blue ">6</span><span class="highlighted dimgray ">06959ce</span>
+│  <span class="green ">(empty)</span> Combine code and documentation for hello-world
+~
+</pre>
+<p>Splendid, that's exactly what Bob wanted.
+Jujutsu even figured out that the <code>main</code> bookmark should probably point to Bob's new commit.
+All that's left to do is to rerun:</p>
+<pre><code class="language-sh">jj git push
+</code></pre>
+<p>What Bob has just done is a paradigm shift:
+He has <strong>rewritten history</strong>.
+The history used to say that Bob's second commit descended from his first one, but now it says it descended from Alice's commit.
+The extent of this revisionism is still benign, but as we progress through the tutorial, we will explore the dark arts of history manipulation ever more deeply.</p>
+<div style="display: flex; justify-content: center">
+<b style="color: red">
+TRUTH ITSELF SHALL BEND TO YOUR WILL
+</b>
+</div>
+<p>...ahem, where were we?</p>
+<p>I've glossed over a small detail.
+I said the <code>rebase</code> command moves commit from a <em>one base</em> to a new one.
+What is that <em>previous</em> base?
+When using the <code>--destination</code> flag (or <code>-d</code> for short), Jujutsu will select the first shared ancestor of your working copy and the new base as the <em>old base to rebase from</em>.
+In simple terms, the <code>rebase</code> command moves only those commits that aren't on the destination branch yet.
+In our example, there was only one commit to move.</p>
+<p>Creating a merge commit and rebasing are both valid ways of recombining changes that branched-off into different directions.
+They both have advantages and disadvantages.
+Some people care more about one aspect than another, so they end up having strong opinions about which approach is best.
+Here's a hopefully balanced overview of the main trade-off:</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>advantage</th><th>disadvantage</th></tr></thead><tbody>
+<tr><td><strong>merge</strong></td><td>Preserves the history exactly as it happened.</td><td>Can result in a tangled, hard-to-read history.</td></tr>
+<tr><td><strong>rebase</strong></td><td>Results in an easy-to-read, linear history.</td><td>Lies about the order in which things happened.</td></tr>
+</tbody></table>
+</div>
+<p>Once you have determined the correct opinion about which one is better, please let everybody on the internet know about your important discovery!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="adding-more-bookmarks"><a class="header" href="#adding-more-bookmarks">Adding more bookmarks</a></h1>
+<p>Let's switch back to Alice:</p>
+<pre><code class="language-sh">cd ~/jj-tutorial/repo
+</code></pre>
+<p>She heard rumors that next week's assignment is going to be about writing loops in Python.
+In an attempt to stay ahead of the game, she extends the hello-world program with iteration:</p>
+<pre><code class="language-sh">echo "for (i = 0; i &lt; 10; i = i + 1):
+    print('Hello, world!')" &gt; hello.py
+</code></pre>
+<p>Unfortunately, she seems to have made a mistake.
+Running <code>python hello.py</code> prints an error:</p>
+<pre><code>  File "/home/user/jj-tutorial/repo/hello.py", line 1
+    for (i = 0; i &lt; 10; i = i + 1):
+         ^^^^^
+SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?
+</code></pre>
+<p>Alice doesn't have time to figure out the problem.
+She decides it's best to wait for the teacher to explain how to do it correctly in next week's lecture.
+She doesn't just want to throw her changes away though.
+She wants to keep the experiment around so she can compare it to the correct version later.
+As usual, she creates a new commit before pushing:</p>
+<pre><code class="language-sh">jj commit -m "WIP: Add for loop (need to fix syntax)"
+</code></pre>
+<p>Pushing work-in-progress (WIP) changes like this directly to the main bookmark would be a bad idea.
+Imagine if Bob later created a submission tarball and it accidentally included Alice's incomplete, incorrect code!
+That would be no good.
+To avoid that, Alice decides to push her commit to a new bookmark.</p>
+<p>What should be the name of that bookmark?
+Having a <code>main</code> bookmark is a strong convention, but for additional ones, anything goes.
+A simple approach is to just use a super short description of your changes, like <code>add-for-loop</code>.
+Some people like to prefix their bookmark names with their own name or username, allowing everyone to easily identify who's working on what: <code>alice/add-for-loop</code>.
+Still others include a ticket number from their bug-tracker software in the bookmark name.
+These are all fine options, but sometimes you <em>just don't care</em>.
+Jujutsu has a handy way to push changes quickly by generating a bookmark name for you:</p>
+<pre><code class="language-sh">jj git push --change @-
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">q</span><span class="bold highlighted dimgray ">rtwnykn</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-25 20:37:05</span><span class="bold "> </span><span class="bold highlighted blue ">c</span><span class="bold highlighted dimgray ">2f4e43e</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">r</span><span class="highlighted dimgray ">vpkroku</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">push-rvpkrokuqrxt</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">b</span><span class="highlighted dimgray ">9d02faf</span>
+│  WIP: Add for loop (need to fix syntax)
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">s</span><span class="highlighted dimgray ">tlxrmun</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">5</span><span class="highlighted dimgray ">30ad636</span>
+│  <span class="green ">(empty)</span> Combine code and documentation for hello-world
+~
+</pre>
+<p>The name of the generated bookmark is <code>push-</code>, followed by a prefix of the change ID.
+It's not very informative, but that's kind of the point.
+The content of the commit is what's important, the bookmark is only needed to send it to the remote.</p>
+<p>Note that the <code>--change</code> flag can be abbreviated as <code>-c</code>.
+You might be noticing a pattern here, many commonly-used flags have these short versions.
+You can explore the available flags of any Jujutsu command by calling it with the <code>--help</code> flag, e.g. <code>jj git push --help</code>.</p>
+<p>Alice's experiment with Python loops is now safely stored on the remote with a bookmark, but it doesn't interfere with unrelated work progressing on the main branch.
+Great!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="navigating-the-history"><a class="header" href="#navigating-the-history">Navigating the history</a></h1>
+<p>Alice just got a text from Bob telling her that he pushed another commit.
+She decides to fetch them:</p>
+<pre><code class="language-sh">jj git fetch
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">q</span><span class="bold highlighted dimgray ">rtwnykn</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-25 20:37:05</span><span class="bold "> </span><span class="bold highlighted blue ">c</span><span class="bold highlighted dimgray ">2f4e43e</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">r</span><span class="highlighted dimgray ">vpkroku</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">push-rvpkrokuqrxt</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">b</span><span class="highlighted dimgray ">9d02faf</span>
+│  WIP: Add for loop (need to fix syntax)
+│ <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">tqlsyyr</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">07a18a9</span>
+├─╯  Add submission instructions
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">s</span><span class="highlighted dimgray ">tlxrmun</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="bold "></span><span class="bold blue ">5</span><span class="highlighted dimgray ">30ad636</span>
+│  <span class="green ">(empty)</span> Combine code and documentation for hello-world
+~
+</pre>
+<p>Bob's changes are on a different branch.
+How can she get access to them?
+We've already solved this problem in two different ways:</p>
+<ul>
+<li><strong>Merge</strong> the two commits with a new commit that has two parents.</li>
+<li><strong>Rebase</strong> one commit on top of the other, creating a straight line of commits.</li>
+</ul>
+<p>Neither of these approaches are suitable here, because we don't want to <em>combine</em> the changes.
+We want to leave Alice's changes on a separate branch until we decide to go back to them.</p>
+<p>The solution is to create a new commit on top of Bob's changes, i.e. the main branch.
+The command to do that is:</p>
+<pre><code class="language-sh">jj new main
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">u</span><span class="bold highlighted dimgray ">umounxy</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-25 20:52:32</span><span class="bold "> </span><span class="bold highlighted blue ">e</span><span class="bold highlighted dimgray ">1bcff24</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">tqlsyyr</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">main</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">07a18a9</span>
+│  Add submission instructions
+│ ○  <span class="bold "></span><span class="bold purple ">r</span><span class="highlighted dimgray ">vpkroku</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">push-rvpkrokuqrxt</span> <span class="bold "></span><span class="bold blue ">b</span><span class="highlighted dimgray ">9d02faf</span>
+├─╯  WIP: Add for loop (need to fix syntax)
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">s</span><span class="highlighted dimgray ">tlxrmun</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="bold "></span><span class="bold blue ">5</span><span class="highlighted dimgray ">30ad636</span>
+│  <span class="green ">(empty)</span> Combine code and documentation for hello-world
+~
+</pre>
+<p>We use the same command as the one for creating a merge commit, but we only specify <strong>one</strong> parent.
+The simple act of creating a new commit allows us to achieve many different use cases.</p>
+<p>Notice that we used to have an empty commit on top of the loop experiment commit, but that is now gone.
+Jujutsu automatically deletes commits that are empty (no changes and no description).
+This keeps the log tidy and recreating an empty commit is easy anyway.
+It also makes <code>jj new</code> suitable for <strong>navigating the history</strong>.
+Since empty commits have the same project state as their parent, running <code>jj new some_version</code> is a great way to explore the project at a specific version.</p>
+<p>As an example, let's try to look at a relatively old state of our repository.
+Here's the full log for reference:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">u</span><span class="bold highlighted dimgray ">umounxy</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-25 20:52:32</span><span class="bold "> </span><span class="bold highlighted blue ">e</span><span class="bold highlighted dimgray ">1bcff24</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">tqlsyyr</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">main</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">07a18a9</span>
+│  Add submission instructions
+│ ○  <span class="bold "></span><span class="bold purple ">r</span><span class="highlighted dimgray ">vpkroku</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">push-rvpkrokuqrxt</span> <span class="bold "></span><span class="bold blue ">b</span><span class="highlighted dimgray ">9d02faf</span>
+├─╯  WIP: Add for loop (need to fix syntax)
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>    <span class="bold "></span><span class="bold purple ">s</span><span class="highlighted dimgray ">tlxrmun</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="bold "></span><span class="bold blue ">5</span><span class="highlighted dimgray ">30ad636</span>
+├─╮  <span class="green ">(empty)</span> Combine code and documentation for hello-world
+│ <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">ux</span><span class="highlighted dimgray ">vvmtos</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="bold "></span><span class="bold blue ">a9</span><span class="highlighted dimgray ">946efd</span>
+│ │  Add Python script for greeting the world
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span> │  <span class="bold "></span><span class="bold purple ">qx</span><span class="highlighted dimgray ">kprvsu</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="bold "></span><span class="bold blue ">9</span><span class="highlighted dimgray ">e05718a</span>
+├─╯  Document hello.py in README.md
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">xs</span><span class="highlighted dimgray ">swkrsu</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="bold "></span><span class="bold blue ">69</span><span class="highlighted dimgray ">5f460b</span>
+│  Add project description to readme
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">p</span><span class="highlighted dimgray ">xvxmtks</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:36:59</span> <span class="bold "></span><span class="bold blue ">20c</span><span class="highlighted dimgray ">6a3b1</span>
+│  Add readme with project title
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zzzzzzz</span> <span class="green ">root()</span> <span class="bold "></span><span class="bold blue ">00</span><span class="highlighted dimgray ">000000</span>
+</pre>
+<p>Assume we want to look at the commit with the description "Document hello.py in README.md".
+We could easily do that with it's change ID, i.e. <code>jj new qxkprvsu</code>.
+To make this more interesting, we'll learn one more way to identify commits:
+with the <code>description()</code> function.
+It tells Jujutsu to select the commit that matches the description.</p>
+<pre><code class="language-sh">jj new 'description("Document hello.py in README.md")'
+</code></pre>
+<p>Don't forget the outer single quotes, they prevent your terminal from interpreting the inner double quotes.
+There is a powerful system behind selecting commits with functions like that, which we'll learn about in the future.</p>
+<p>Let's confirm our maneuver by checking the log:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">u</span><span class="bold highlighted dimgray ">xuqnppz</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-25 21:16:00</span><span class="bold "> </span><span class="bold highlighted blue ">a</span><span class="bold highlighted dimgray ">bba4830</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+│ <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">tqlsyyr</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">07a18a9</span>
+│ │  Add submission instructions
+│ │ ○  <span class="bold "></span><span class="bold purple ">r</span><span class="highlighted dimgray ">vpkroku</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">push-rvpkrokuqrxt</span> <span class="bold "></span><span class="bold blue ">b</span><span class="highlighted dimgray ">9d02faf</span>
+│ ├─╯  WIP: Add for loop (need to fix syntax)
+│ <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">s</span><span class="highlighted dimgray ">tlxrmun</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="bold "></span><span class="bold blue ">5</span><span class="highlighted dimgray ">30ad636</span>
+╭─┤  <span class="green ">(empty)</span> Combine code and documentation for hello-world
+│ │
+│ ~
+│
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">q</span><span class="highlighted dimgray ">xkprvsu</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">9</span><span class="highlighted dimgray ">e05718a</span>
+│  Document hello.py in README.md
+~
+</pre>
+<p>Great!
+We created a commit on top of an old one from our history.
+The file <code>hello.py</code> didn't exist at that time, which you can confirm by running <code>ls</code>.</p>
+<p>You can go back to the current state of the repository by running <code>jj new main</code>.</p>
+<p>Alright, so Alice now has the latest changes from Bob and can continue to do other work.
+She can always come back to her loop experiment later with <code>jj new</code>, finish the work and then combine it with the main branch.</p>
+<div id="admonition-youve-completed-level-1--" class="admonition admonish-success" role="note" aria-labelledby="admonition-youve-completed-level-1---title">
+<div class="admonition-title">
+<div id="admonition-youve-completed-level-1---title">
+<p>You've completed Level 1 ! 🎉</p>
+</div>
+<a class="admonition-anchor-link" href="history_navigation.html#admonition-youve-completed-level-1--"></a>
+</div>
+<div>
+<p>Now you have the basic skills to collaborate on projects with other people.
+Let's summarize what we've learned:</p>
+<ul>
+<li>A branching history is normal when multiple people work together.</li>
+<li>You can combine changes from a branched history by creating a <strong>merge</strong> commit or by <strong>rebasing</strong> one branch of commits on another.</li>
+<li>Files which do not belong in version control can be excluded with <code>.gitignore</code> and<br />
+<code>jj file untrack</code>.</li>
+<li>Work-in-progress changes can be stored on the remote with additional bookmarks, avoiding chaos on the main branch.</li>
+<li>You can navigate to any branch or past version of your repository with <code>jj new</code>.</li>
+</ul>
+<p>It's time to take a break from this tutorial and practice what you've learned on a real project.
+Level 2 will teach you how to <strong>solve everyday problems</strong> like merge conflicts, so I recommend you come back for it relatively soon.</p>
+</div>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
