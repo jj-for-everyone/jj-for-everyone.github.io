@@ -235,5 +235,7 @@ if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
 
 if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
 
+if [ "$chapter" = 0 ] ; then success ; else chapter=$((chapter-1)) ; fi
+
 echo "Error: The tutorial doesn't have that many chapters."
 exit 1

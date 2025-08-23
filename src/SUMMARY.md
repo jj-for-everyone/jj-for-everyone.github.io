@@ -29,7 +29,7 @@
 - [Tracking remote bookmarks](./tracking_bookmarks.md)
 - [Resolving merge conflicts](./conflicts.md)
 - [Deleting commits and bookmarks](./abandon.md)
-- [Restoring file contents]()
+- [Restoring file contents](./restore.md)
 
 <!-- # Level 3 -->
 <!-- history rewirting -->
