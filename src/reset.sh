@@ -167,6 +167,72 @@ if [ "$chapter" = navigate ] ; then success ; fi
 jj git fetch
 jj new main
 
+if [ "$chapter" = undo ] ; then success ; fi
+
+echo "print('Hallo, Welt!')" >> hello.py
+echo "print('Bonjour, le monde!')" >> hello.py
+
+jj commit -m "code improvements"
+
+jj undo
+
+jj commit -m "Print German and French greetings as well"
+
+jj undo
+jj undo
+jj undo
+
+jj redo
+jj redo
+jj redo
+
+if [ "$chapter" = track ] ; then success ; fi
+
+cd ~ # move out of the directory we're about to delete
+rm -rf ~/jj-tutorial/repo
+jj git clone --colocate ~/jj-tutorial/remote ~/jj-tutorial/repo
+cd ~/jj-tutorial/repo
+
+# roleplay as Alice
+jj config set --repo user.name "Alice"
+jj config set --repo user.email "alice@local"
+jj describe --reset-author --no-edit
+
+echo "print('Hallo, Welt!')" >> hello.py
+echo "print('Bonjour, le monde!')" >> hello.py
+jj commit -m "Print German and French greetings as well"
+
+jj bookmark move main -t @-
+jj git push
+
+jj bookmark track 'glob:push-*@origin'
+
+if [ "$chapter" = conflict ] ; then success ; fi
+
+jj new 'description("WIP: Add for loop")'
+
+echo "for _ in range(10):
+    print('Hello, world!')" > hello.py
+
+jj commit -m "Fix loop syntax"
+
+jj new main @-
+
+echo "for _ in range(10):
+    print('Hello, world!')
+    print('Hallo, Welt!')
+    print('Bonjour, le monde!')" > hello.py
+
+jj commit -m "Merge repetition and translation of greeting"
+jj bookmark move main --to @-
+jj git push
+
+if [ "$chapter" = abandon ] ; then success ; fi
+
+if [ "$chapter" = restore ] ; then success ; fi
+
+if [ "$chapter" = complete ] ; then success ; fi
+
 set +x
 echo "Error: Didn't recognize the chapter keyword: '$chapter'."
 exit 1

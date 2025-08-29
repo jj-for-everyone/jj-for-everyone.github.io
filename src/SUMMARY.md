@@ -25,13 +25,13 @@
   - [Adding more bookmarks](./more_bookmarks.md)
   - [Navigating the history](./navigate.md)
 
-<!-- - [Problem solving]() -->
+- [Level 3](./level_3.md)
 
-<!-- - [Undoing mistakes]() -->
-<!-- - [Tracking remote bookmarks]() <!-- delete and clone repo to simulate new PC --> -->
-<!-- - [Resolving merge conflicts]() <!-- only side note: `jj resolve` with different tools --> -->
-<!-- - [Deleting commits and bookmarks]() -->
-<!-- - [Restoring file contents]() -->
+  - [Undoing mistakes](./undo.md)
+  - [Tracking remote bookmarks](./track.md)
+  - [Resolving merge conflicts](./conflict.md)
+  - [Deleting commits and bookmarks](./abandon.md)
+  - [Restoring file contents](./restore.md)
 
 <!-- - [History rewriting]() -->
 
