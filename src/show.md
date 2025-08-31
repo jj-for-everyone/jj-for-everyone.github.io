@@ -9,7 +9,7 @@ cd ~/jj-tutorial/repo
 ```
 ````
 
-Alice has just found out that Bod made changes at the same time as she did.
+Alice has just found out that Bob made changes at the same time as she did.
 Before she attempts to somehow create a version that includes both changes, she wants to verify the two changes are compatible.
 She therefore decides to check out Bob's changes by using `jj show`.
 Since the remote bookmark `main` is pointing there, she can use that as identification.
