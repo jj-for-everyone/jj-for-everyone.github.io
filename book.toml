@@ -6,7 +6,7 @@ title = "Jujutsu for everyone"
 description = "A Jujutsu tutorial that requires no previous experience with Git or other version control systems."
 
 [output.html]
-default-theme = "macchiato"
+default-theme = "latte"
 preferred-dark-theme = "macchiato"
 additional-css = [
   "./theme/aha_styles.css",
