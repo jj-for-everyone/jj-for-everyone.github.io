@@ -25,7 +25,7 @@ There's a lot going on already, so let's unpack it one-by-one.
 In the leftmost column, there's an `@`, a line and a diamond.
 The `@` sign represents the present state of the files in the repository, also known as the "working copy".
 The diamond indicates an earlier state and the line connecting them means one state descends from another.
-Older state are at the bottom and more recent ones are at the top.
+Older states are at the bottom and more recent ones are at the top.
 In this case, the diamond is the "root", an empty state from which all others descend.
 It always exists and cannot be modified.
 
