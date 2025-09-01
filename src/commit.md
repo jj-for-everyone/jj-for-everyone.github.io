@@ -42,7 +42,7 @@ jj commit
 ```
 
 This will open a text editor so you can write a description for the commit.
-If you followed my instructions during [installation and setup](/src/install.md#installing-a-simple-text-editor), the text editor will be `edit`.
+If you followed my instructions during [installation and setup](/install.md#installing-a-simple-text-editor), the text editor will be `edit`.
 When you're done writing the description, click on "File", then "Exit", in the menu bar or press <kbd>Ctrl+Q</kbd> to exit the text editor.
 Confirm that you want to save the file by pressing <kbd>Enter</kbd>.
 
