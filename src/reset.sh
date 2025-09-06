@@ -38,7 +38,7 @@ required_version="33"
 if [ "$detected_version" -lt "$required_version" ] ; then
     set +x
     printf "$error Your Jujutsu version (0.$detected_version) is too outdated.\n"
-    printf "       Please update to version 0.$detected_version or later.\n"
+    printf "       Please update to version 0.$required_version or later.\n"
     printf "$hint If you installed Jujutsu with mise, as recommended in the installation\n"
     printf "      chapter, use the following commands to update:\n"
     echo "
