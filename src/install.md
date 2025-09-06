@@ -35,7 +35,7 @@ Some Linux distributions like Ubuntu only add `~/.local/bin` to the `PATH` varia
 So, restarting the terminal after installing Jujutsu is a simple way to make sure the system will find the new program.
 
 Maybe there are distributions which don't add `~/.local/bin` to `PATH` **at all**, which would mean those commands don't work on such a system.
-I'm not aware of such distrubtions.
+I'm not aware of such distributions.
 (Please [open an issue](https://github.com/jj-for-everyone/jj-for-everyone.github.io/issues/new) if you know of a relevant one!)
 You can fix such an issue for yourself by extending the `PATH` variable in your [shell startup script](http://localhost:3210/terminal_basics.html#startup-scripts).
 ```
