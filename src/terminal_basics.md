@@ -263,8 +263,8 @@ But if you mess up the value of an environment variable for real, you often don'
 So it's easiest to just close the terminal window and open a new one.
 All variables will be reset to their default.
 
-So, if the `PATH` variable can be difficult to mess with, should you just never touch it?
-No quite.
+So, if modifying the `PATH` variable can break your session, should you just never touch it?
+Not quite.
 Sometimes you want (or need) to install programs in a different location than where your terminal searches for them by default.
 In that case, you need to _extend_ the list of paths stored in the `PATH` variable.
 Here's an example:
