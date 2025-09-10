@@ -89,7 +89,7 @@ Did you notice that **the prompt changed**?
 The current working directory, or CWD for short, is so important that it's usually shown somewhere in the prompt.
 That way you always know "where you are".
 
-Before running `cd` in the example above, the CWD was apparantly the tilde **`~`** character.
+Before running `cd` in the example above, the CWD was apparently the tilde **`~`** character.
 That's a shorthand for your user's **home directory**.
 On Linux, that's `/home/username`.
 Another way to determine your CWD is to call the command `pwd`, short for "print working directory".
@@ -161,7 +161,7 @@ But you can also **redirect** the stdout of a program, for example to a file wit
 An example looks like this:
 
 ```sh
-echo "bread, onions, tee" > groceries.txt
+echo "bread, onions, tea" > groceries.txt
 ```
 
 In this book, I will often tell you to manipulate a file by running a command that looks like the one above.
