@@ -39,7 +39,7 @@ The `.jj` directory contains additional metadata which enable some of Jujutsu's 
 You should never manipulate files in these directories directly!
 Their content is a well-structured database.
 If you corrupt the database format, the repository might become broken.
-We'll talk about a second layer of backup in the [chapter about remotes](./remotes.md).
+We'll talk about a second layer of backup in the [chapter about remotes](./remote.md).
 ```
 
 Files and directories starting with a dot are hidden by default, but you can verify they were created with `ls -a`:
