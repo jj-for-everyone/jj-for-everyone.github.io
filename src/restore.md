@@ -145,7 +145,7 @@ Aside from that, being able to rewrite history is simply freeing.
 You'll worry less about how to separate your changes into neat commits and what description to give them, because you can easily change these things later.
 
 Nevertheless, feel free to take a long break before coming back to that.
-You have learned a lot so far and it will be benefitial to have mastered that with practice before continuing.
+You have learned a lot so far and it will be beneficial to have mastered that with practice before continuing.
 
 At this point, you should also start to explore the Jujutsu CLI a little bit on your own.
 This tutorial is not a comprehensive reference of everything Jujutsu has to offer.
