@@ -10,7 +10,7 @@ cd ~/jj-tutorial/repo
 ````
 
 Remeber the for-loop experiment Alice had put aside for a while?
-Jujutsu let's you keep as many of those experiments around as you like.
+Jujutsu lets you keep as many of those experiments around as you like.
 Let's simulate a few with these commands:
 
 ```sh
@@ -79,7 +79,7 @@ jj git push --deleted
 ````admonish note title="Duplicate commits when using Git directly" collapsible=true
 We've talked about how Jujutsu is compatible with Git.
 It creates a `.git` directory in your repo that looks like it was made and managed by Git itself.
-This let's other tools that interoperate with Git work seamlessly.
+This lets other tools that interoperate with Git work seamlessly.
 
 As a rule of thumb, this interoperability work flawlessly if other tools **only read** the `.git` directory.
 However, there can be slight issues if they modify it as well.
