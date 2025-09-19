@@ -81,7 +81,7 @@ Bob copies the file into his repository, recording it into the working copy comm
 He want's to preserve Claire's authorship information, so he runs the command:
 
 ```sh
-jj describe --author "Claire claire@local" --no-edit
+jj describe --author "Claire <claire@local>" --no-edit
 ```
 
 That command will overwrite the author information in the commit on a one-off basis.
