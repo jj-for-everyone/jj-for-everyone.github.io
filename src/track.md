@@ -48,8 +48,8 @@ Unfortunately, that's now gone forever.
 The only thing we can do now is to recreate it:
 
 ```sh
-echo "print('Hallo, Welt!')" >> hello.py
-echo "print('Bonjour, le monde!')" >> hello.py
+echo 'print("Hallo, Welt!")' >> hello.py
+echo 'print("Bonjour, le monde!")' >> hello.py
 jj commit -m "Print German and French grettings as well"
 ```
 

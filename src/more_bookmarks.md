@@ -19,8 +19,8 @@ She heard rumors that next week's assignment is going to be about writing loops 
 In an attempt to stay ahead of the game, she extends the hello-world program with iteration:
 
 ```sh
-echo "for (i = 0; i < 10; i = i + 1):
-    print('Hello, world!')" > hello.py
+echo 'for (i = 0; i < 10; i = i + 1):
+    print("Hello, world!")' > hello.py
 ```
 
 Unfortunately, she seems to have made a mistake.

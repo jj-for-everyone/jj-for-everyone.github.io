@@ -14,7 +14,7 @@ After that, she made more changes before realizing her mistake:
 
 ```sh
 rm README.md
-echo "    print('In soviet Russia, world greets you!')" >> hello.py
+echo '    print("In soviet Russia, world greets you!")' >> hello.py
 jj show
 ```
 
@@ -43,10 +43,10 @@ Committer: <span class="yellow ">Alice</span> &lt;<span class="yellow ">alice@lo
 <span class="red ">  13</span>     : <span class="red ">~~~</span>
 <span class="yellow ">Modified regular file hello.py:</span>
 <span class="red ">   1</span> <span class="green ">   1</span>: for _ in range(10):
-<span class="red ">   2</span> <span class="green ">   2</span>:     print('Hello, world!')
-<span class="red ">   3</span> <span class="green ">   3</span>:     print('Hallo, Welt!')
-<span class="red ">   4</span> <span class="green ">   4</span>:     print('Bonjour, le monde!')
-     <span class="green ">   5</span>: <span class="green ">    print('In soviet Russia, world greets you!')</span>
+<span class="red ">   2</span> <span class="green ">   2</span>:     print("Hello, world!")
+<span class="red ">   3</span> <span class="green ">   3</span>:     print("Hallo, Welt!")
+<span class="red ">   4</span> <span class="green ">   4</span>:     print("Bonjour, le monde!")
+     <span class="green ">   5</span>: <span class="green ">    print("In soviet Russia, world greets you!")</span>
 </pre>
 
 The tools we've learned about so far don't really help in this situation.
@@ -69,10 +69,10 @@ Committer: <span class="yellow ">Alice</span> &lt;<span class="yellow ">alice@lo
 
 <span class="yellow ">Modified regular file hello.py:</span>
 <span class="red ">   1</span> <span class="green ">   1</span>: for _ in range(10):
-<span class="red ">   2</span> <span class="green ">   2</span>:     print('Hello, world!')
-<span class="red ">   3</span> <span class="green ">   3</span>:     print('Hallo, Welt!')
-<span class="red ">   4</span> <span class="green ">   4</span>:     print('Bonjour, le monde!')
-     <span class="green ">   5</span>: <span class="green ">    print('In soviet Russia, world greets you!')</span>
+<span class="red ">   2</span> <span class="green ">   2</span>:     print("Hello, world!")
+<span class="red ">   3</span> <span class="green ">   3</span>:     print("Hallo, Welt!")
+<span class="red ">   4</span> <span class="green ">   4</span>:     print("Bonjour, le monde!")
+     <span class="green ">   5</span>: <span class="green ">    print("In soviet Russia, world greets you!")</span>
 </pre>
 
 Perfect, that's just what we wanted!
@@ -105,9 +105,9 @@ Committer: <span class="yellow ">Alice</span> &lt;<span class="yellow ">alice@lo
 
 <span class="yellow ">Modified regular file hello.py:</span>
 <span class="red ">   1</span> <span class="green ">   1</span>: for _ in range(10):
-<span class="red ">   2</span> <span class="green ">   2</span>:     print('Hello, world!')
-<span class="red ">   3</span>     : <span class="red ">    print('Hallo, Welt!')</span>
-<span class="red ">   4</span>     : <span class="red ">    print('Bonjour, le monde!')</span>
+<span class="red ">   2</span> <span class="green ">   2</span>:     print("Hello, world!")
+<span class="red ">   3</span>     : <span class="red ">    print("Hallo, Welt!")</span>
+<span class="red ">   4</span>     : <span class="red ">    print("Bonjour, le monde!")</span>
 </pre>
 
 Fascinating!

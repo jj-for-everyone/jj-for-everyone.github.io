@@ -124,7 +124,7 @@ if [ "$chapter" = github ] ; then success ; fi
 
 if [ "$chapter" = branch ] ; then success ; fi
 
-echo "print('Hello, world!')" > hello.py
+echo 'print("Hello, world!")' > hello.py
 
 jj commit -m "Add Python script for greeting the world
 
@@ -197,8 +197,8 @@ if [ "$chapter" = more_bookmark ] ; then success ; fi
 
 cd ~/jj-tutorial/repo
 
-echo "for (i = 0; i < 10; i = i + 1):
-    print('Hello, world!')" > hello.py
+echo 'for (i = 0; i < 10; i = i + 1):
+    print("Hello, world!")' > hello.py
 
 jj commit -m "WIP: Add for loop (need to fix syntax)"
 
@@ -213,8 +213,8 @@ jj new main
 
 if [ "$chapter" = undo ] ; then success ; fi
 
-echo "print('Hallo, Welt!')" >> hello.py
-echo "print('Bonjour, le monde!')" >> hello.py
+echo 'print("Hallo, Welt!")' >> hello.py
+echo 'print("Bonjour, le monde!")' >> hello.py
 
 jj commit -m "code improvements"
 
@@ -242,8 +242,8 @@ jj config set --repo user.name "Alice"
 jj config set --repo user.email "alice@local"
 jj metaedit --update-author
 
-echo "print('Hallo, Welt!')" >> hello.py
-echo "print('Bonjour, le monde!')" >> hello.py
+echo 'print("Hallo, Welt!")' >> hello.py
+echo 'print("Bonjour, le monde!")' >> hello.py
 jj commit -m "Print German and French greetings as well"
 
 jj bookmark move main -t @-
@@ -255,17 +255,17 @@ if [ "$chapter" = conflict ] ; then success ; fi
 
 jj new 'description("WIP: Add for loop")'
 
-echo "for _ in range(10):
-    print('Hello, world!')" > hello.py
+echo 'for _ in range(10):
+    print("Hello, world!")' > hello.py
 
 jj commit -m "Fix loop syntax"
 
 jj new main @-
 
-echo "for _ in range(10):
-    print('Hello, world!')
-    print('Hallo, Welt!')
-    print('Bonjour, le monde!')" > hello.py
+echo 'for _ in range(10):
+    print("Hello, world!")
+    print("Hallo, Welt!")
+    print("Bonjour, le monde!")' > hello.py
 
 jj commit -m "Merge repetition and translation of greeting"
 jj bookmark move main --to @-

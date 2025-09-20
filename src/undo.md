@@ -58,8 +58,8 @@ Let's change something, so we can create a commit with a sloppy description.
 Why not greet the world in a few more languages:
 
 ```sh
-echo "print('Hallo, Welt!')" >> hello.py
-echo "print('Bonjour, le monde!')" >> hello.py
+echo 'print("Hallo, Welt!")' >> hello.py
+echo 'print("Bonjour, le monde!")' >> hello.py
 ```
 
 Now let's create that commit with a bad description:
@@ -167,9 +167,9 @@ Let's observe what happens to the content of `hello.py` when we run `jj undo`:
 
 ```py
 # hello.py
-print('Hello, world!')
-print('Hallo, Welt!')
-print('Bonjour, le monde!')
+print("Hello, world!")
+print("Hallo, Welt!")
+print("Bonjour, le monde!")
 ```
 
 ```sh
@@ -178,7 +178,7 @@ jj undo
 
 ```py
 # hello.py
-print('Hello, world!')
+print("Hello, world!")
 ```
 
 ```admonish warning

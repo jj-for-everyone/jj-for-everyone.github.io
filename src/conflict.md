@@ -21,21 +21,21 @@ Her code currently looks like this:
 
 ```py
 for (i = 0; i < 10; i = i + 1):
-    print('Hello, world!')
+    print("Hello, world!")
 ```
 
 This syntax is wrong, so Alice fixes it with the syntax she learned during the lecture:
 
 ```py
 for _ in range(10):
-    print('Hello, world!')
+    print("Hello, world!")
 ```
 
 You can edit the file manually or run this command:
 
 ```sh
-echo "for _ in range(10):
-    print('Hello, world!')" > hello.py
+echo 'for _ in range(10):
+    print("Hello, world!")' > hello.py
 ```
 
 Let's commit that correction:
@@ -114,12 +114,12 @@ Open the file `hello.py` in a text editor or run `cat hello.py` to see the conte
 ```
 <<<<<<< Conflict 1 of 1
 %%%%%%% Changes from base to side #1
- print('Hello, world!')
-+print('Hallo, Welt!')
-+print('Bonjour, le monde!')
+ print("Hello, world!")
++print("Hallo, Welt!")
++print("Bonjour, le monde!")
 +++++++ Contents of side #2
 for _ in range(10):
-    print('Hello, world!')
+    print("Hello, world!")
 >>>>>>> Conflict 1 of 1 ends
 ```
 
@@ -144,9 +144,9 @@ Next, focus on the first section within the conflict:
 
 ```
 %%%%%%% Changes from base to side #1
- print('Hello, world!')
-+print('Hallo, Welt!')
-+print('Bonjour, le monde!')
+ print("Hello, world!")
++print("Hallo, Welt!")
++print("Bonjour, le monde!")
 ```
 
 The "heading" of this section says "Changes from base to side #1".
@@ -171,7 +171,7 @@ Time to look at the second section of the conflict:
 ```
 +++++++ Contents of side #2
 for _ in range(10):
-    print('Hello, world!')
+    print("Hello, world!")
 ```
 
 This section is not showing us the "changes from base to side #2", it's just showing us the final state of side #2.
@@ -200,27 +200,27 @@ By example, there are three different reasonable merges of these changes:
 1. Only repeat the English greeting:
     ```py
     for _ in range(10):
-        print('Hello, world!')
-    print('Hallo, Welt!')
-    print('Bonjour, le monde!')
+        print("Hello, world!")
+    print("Hallo, Welt!")
+    print("Bonjour, le monde!")
     ```
 
 1. Repeat all languages and interleave them:
     ```py
     for _ in range(10):
-        print('Hello, world!')
-        print('Hallo, Welt!')
-        print('Bonjour, le monde!')
+        print("Hello, world!")
+        print("Hallo, Welt!")
+        print("Bonjour, le monde!")
     ```
 
 1. Repeat all languages but keep them separate:
     ```py
     for _ in range(10):
-        print('Hello, world!')
+        print("Hello, world!")
     for _ in range(10):
-        print('Hallo, Welt!')
+        print("Hallo, Welt!")
     for _ in range(10):
-        print('Bonjour, le monde!')
+        print("Bonjour, le monde!")
     ```
 
 I think you get the point.
@@ -230,10 +230,10 @@ Let's pick the second option as our conflict resolution.
 You can edit the conflict markers manually or simply replace the file with this command:
 
 ```sh
-echo "for _ in range(10):
-    print('Hello, world!')
-    print('Hallo, Welt!')
-    print('Bonjour, le monde!')" > hello.py
+echo 'for _ in range(10):
+    print("Hello, world!")
+    print("Hallo, Welt!")
+    print("Bonjour, le monde!")' > hello.py
 ```
 
 Let's check the log to confirm our merge commit is not marked as conflicted anymore:

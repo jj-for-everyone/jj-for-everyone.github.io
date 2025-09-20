@@ -28,14 +28,14 @@ Let's start with Alice.
 Here's the Python program she comes up with:
 
 ```python
-print('Hello, world!')
+print("Hello, world!")
 ```
 
 That'll do the job just fine.
 She adds it to the file `hello.py`:
 
 ```sh
-echo "print('Hello, world!')" > hello.py
+echo 'print("Hello, world!")' > hello.py
 ```
 
 Happy with her changes, Alice creates a new commit:
