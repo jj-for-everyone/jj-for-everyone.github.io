@@ -96,7 +96,7 @@ prefixed \`#\` symbol.
 
 if [ "$chapter" = remote ] ; then success ; fi
 
-git init --bare ~/jj-tutorial/remote
+git init --bare -b main ~/jj-tutorial/remote
 jj git remote add origin ~/jj-tutorial/remote
 jj bookmark create main --revision @-
 jj git push --bookmark main --allow-new

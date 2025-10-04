@@ -29,7 +29,7 @@ There are a few practical tips about using GitHub in a [later chapter](github.md
 The following command will initialize a new repository for use as a remote:
 
 ```sh
-git init --bare ~/jj-tutorial/remote # initialize "remote" ("bare") repository
+git init --bare -b main ~/jj-tutorial/remote
 ```
 
 Since you will likely use a different style of remote for real projects, you don't need to understand the details here.
@@ -53,6 +53,10 @@ If you inspect the content of the new bare repository, it will look very similar
 ls -lah ~/jj-tutorial/repo/.git
 ls -lah ~/jj-tutorial/remote
 ```
+
+The `-b main` part ensures the default branch is called "main".
+If unspecified, the default branch can be different based on installation, configuration, etc.
+This would cause problems later.
 ````
 
 ## Connecting to a remote
