@@ -193,7 +193,7 @@ jj git fetch
 jj rebase --destination main@origin
 jj git push
 
-if [ "$chapter" = more_bookmark ] ; then success ; fi
+if [ "$chapter" = more_bookmarks ] ; then success ; fi
 
 cd ~/jj-tutorial/repo
 
