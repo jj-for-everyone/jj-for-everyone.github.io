@@ -34,7 +34,7 @@ fi
 
 # make sure jj version is recent enough
 detected_version="$(jj --version | cut -c 6-7)"
-required_version="33"
+required_version="34"
 if [ "$detected_version" -lt "$required_version" ] ; then
     set +x
     printf "$error Your Jujutsu version (0.$detected_version) is too outdated.\n"
@@ -48,23 +48,8 @@ rm -rf /tmp/jj-install"
     exit 1
 fi
 
-# Make sure user configured git.colocate = true
-if [ "$(jj config get git.colocate)" != "true" ] ; then
-    set +x
-    printf "$error Your configuration of git.colocate is not set to true.\n"
-    printf "       This will become the default in Jujutsu version 0.33, so don't worry"
-    printf "       about having a non-standard configuration."
-    printf "       Please run the following command:\n"
-    echo "
-jj config set --user git.colocate true"
-    exit 1
-fi
-
 # Ensure existing user configuration does not affect script behavior.
-tmp_config=/tmp/jj_for_everyone_reset_script_config.toml
-echo "git.colocate = true" > $tmp_config
-trap 'rm $tmp_config' EXIT
-export JJ_CONFIG=$tmp_config
+export JJ_CONFIG=/dev/null
 export GIT_CONFIG_GLOBAL=/dev/null
 
 if [ "$chapter" = initialize ] ; then success ; fi

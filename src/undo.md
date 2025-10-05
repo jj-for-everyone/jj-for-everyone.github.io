@@ -20,18 +20,6 @@ Turns out we can, because Jujutsu stores not only a version history of our proje
 There are some low-level commands to inspect this "operation log" and restore the repository to a specific state in time.
 For now though, I will only teach you about the high-level commands to undo and redo operations one-by-one.
 
-````admonish warning title="This chapter requires at least Jujutsu version 0.33"
-The commands we're going to run behave slightly differently with older versions.
-If you have an older one (check with `jj --version`), please update to a more recent version before continuing.
-
-If you installed Jujutsu with `mise` as recommended in the [installation](install.md) chapter, you can update using the following commands:
-```sh
-mise install-into jujutsu@latest /tmp/jj-install
-mv /tmp/jj-install/jj ~/.local/bin
-rm -rf /tmp/jj-install
-```
-````
-
 Let's remind ourselves what the state of our repo looks like
 
 ```sh
