@@ -65,6 +65,7 @@ tmp_config=/tmp/jj_for_everyone_reset_script_config.toml
 echo "git.colocate = true" > $tmp_config
 trap 'rm $tmp_config' EXIT
 export JJ_CONFIG=$tmp_config
+export GIT_CONFIG_GLOBAL=/dev/null
 
 if [ "$chapter" = initialize ] ; then success ; fi
 
