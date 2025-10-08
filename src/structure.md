@@ -25,14 +25,13 @@ The following chapter explains how to get notified about new content.
 
 ## Reset your progress at any time
 
-Throughout the tutorial, you will build an example repository.
-Later chapters depend on the state of previous ones.
-But don't be afraid to mess up or lose your progress by experimenting!
+Throughout the tutorial, you will build an example repository. The repository changes you perform in earlier chapters lay the foundation for later chapters.
 
-There is a script which automates the task of resetting your progress to the **start of any chapter**.
 
-To identify the chapter you want to continue with, the script expects a keyword as an argument.
-Each chapter includes its precise reset command at the top, so you can easily copy-paste it.
+But don't be afraid to mess up or lose your progress by experimenting! Why? Because you can reset your progress **to the start of any chapter** by running a script.
+
+The script will know what chapter to reset to when you give it the appropriate keyword as an argument. This keyword can be found at the top of each chapter, so you can easily copy and paste it.
+
 For example, the text box below contains instructions to reset your progress to the very beginning of the tutorial:
 
 ````admonish reset title="Reset your progress"
