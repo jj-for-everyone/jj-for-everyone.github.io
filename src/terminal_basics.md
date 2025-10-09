@@ -173,7 +173,7 @@ The `>` operator _overwrites_ a file, but there is also the `>>` operator, which
 Some commands you run in the terminal print a lot of text.
 It can be tedious to scroll all the way back up to the point where the command output started.
 This is where a **pager** can help.
-It takes the output from another program shows it to you from the beginning.
+It takes the output from another program and shows it to you from the beginning.
 
 Some programs will display their output in a pager automatically, because they know they will be printing a lot of text.
 Jujutsu also does that sometimes.
