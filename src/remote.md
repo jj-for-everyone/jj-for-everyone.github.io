@@ -37,16 +37,17 @@ If you're curious anyway, expand the text box below.
 
 ````admonish note title="The difference between remote (bare) and regular repositories" collapsible=true
 `git init --bare` is very similar to `jj git init`, which we used to create our main repository.
-However, instead of a "normal" repository, it creates a "bare" one.
-But what's the difference?
+However, instead of a "regular" Jujutsu repository, it creates a "bare" Git repository.
 
-Think of a regular repository as consisting of two parts: (1) Jujutsu's internal database stored in the `.git` and `.jj` directories and (2) all the actual files of your project, which you can modify - your **working copy**.
+What's the difference?
+
+Think of a regular Jujutsu repository as consisting of two parts: (1) Jujutsu's internal database stored in the `.git` and `.jj` directories and (2) all the actual files of your project, which you can modify - your **working copy**.
 The term "copy" is key here, because all the files are also stored in the internal database.
 The only reason a copy of the files exists outside the database is so you can read and modify them - "work" with them.
 So, "working copy" is a fitting name indeed.
 
-A bare repository is a regular repository **without a working copy**.
-Since we will only use the remote repository for sending and receiving commits, we don't need a working copy.
+A bare repository is a Git repository **without a working copy** and without any Jujutsu-specific metadata.
+Since we will only use the bare repository for sending and receiving commits, we don't need a working copy or the `.jj` directory.
 
 If you inspect the content of the new bare repository, it will look very similar in structure to the content of the `.git` directory in our main repository:
 ```
