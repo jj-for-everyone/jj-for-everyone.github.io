@@ -35,7 +35,7 @@ The _new_ commit that's being created is completely empty and has no description
 It's ready for auto-recording of the upcoming changes you will be making.
 ```
 
-The command to complete both oft these tasks at once is:
+The command to complete both of these tasks at once is:
 
 ```sh
 jj commit
