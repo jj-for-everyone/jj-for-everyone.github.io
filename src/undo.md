@@ -148,7 +148,7 @@ Next, what did we do before running `jj commit`?
 We modified the file `hello.py`.
 While we didn't use Jujutsu to do that, it was still recorded as a separate operation on the repository.
 Every `jj` command you run will first check the files in your repository and detect if any of them were changed.
-If changes are detected, they will be recorded as a separate operation (called a _snaphot_).
+If changes are detected, they will be recorded as a separate operation (called a _snapshot_).
 That way, you can `jj undo` those file changes separately from any action you took with a `jj` command.
 
 Let's observe what happens to the content of `hello.py` when we run `jj undo`:
