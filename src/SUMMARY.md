@@ -3,7 +3,6 @@
 - [Introduction](./introduction.md)
   - [How to read this tutorial](./structure.md)
   - [Stay up to date](./watch_releases.md)
-  - [Help make this tutorial better](./contribute.md)
   - [Terminal basics](./terminal_basics.md)
 
 - [Level 1](./level_1.md)

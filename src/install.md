@@ -85,6 +85,12 @@ If you're a Mac & Homebrew user, this one's for you:
 brew install jj
 ```
 
+If you're Windows user, and don't want to use WSL, you can use winget:
+
+```ps
+winget install jj-vcs.jj
+```
+
 If you have the Rust toolchain installed and would like to compile from source, you can run:
 
 ```sh

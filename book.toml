@@ -2,8 +2,8 @@
 authors = ["Remo Senekowitsch"]
 language = "en"
 src = "src"
-title = "Jujutsu for everyone"
-description = "A Jujutsu tutorial that requires no previous experience with Git or other version control systems."
+title = "Jujutsu for everyone - S2P2 edition"
+description = "A Jujutsu tutorial that requires no previous experience with Git or other version control systems. simplified by S2P2"
 
 [output.html]
 default-theme = "latte"
@@ -16,8 +16,8 @@ additional-css = [
   "theme/aha_styles.css",
   "theme/mdbook-admonish-custom.css",
 ]
-git-repository-url = "https://github.com/jj-for-everyone/jj-for-everyone.github.io"
-edit-url-template = "https://github.com/jj-for-everyone/jj-for-everyone.github.io/edit/main/{path}"
+git-repository-url = "https://github.com/S2P2/jj-for-everyone"
+edit-url-template = "https://github.com/S2P2/jj-for-everyone/edit/main/{path}"
 no-section-label = true
 
 [preprocessor.admonish]

@@ -2,7 +2,15 @@
 
 A Jujutsu tutorial that requires no previous experience with Git or other version control systems.
 
+This is a fork of the original [jj-for-everyone.github.io](https://github.com/jj-for-everyone/jj-for-everyone.github.io) repository.
+
 It's rendered with [mdBook](https://github.com/rust-lang/mdBook) and hosted at [jj-for-everyone.github.io](https://jj-for-everyone.github.io).
+
+## Project Goals
+
+This project aims to:
+- Simplify and condense the existing Jujutsu tutorial.
+- Translate the simplified tutorial into Thai.
 
 ## Contributing
 
@@ -17,3 +25,9 @@ I am also very interested in experience reports, for example:
 - Do you feel like the content could be structured better?
 
 Thank you for helping me improve this tutorial!
+
+## Note about development of this project
+- install mdbook and mdbook-admonish
+```bash
+cargo install mdbook mdbook-admonish
+```
