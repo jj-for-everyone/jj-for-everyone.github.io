@@ -1,12 +1,9 @@
 # Level 2
 
-This level will provide you with the minimum skills to start collaborating with others.
-If you're a student working on a group project or a professional software engineer, you absolutely need to know this.
+This level covers the essentials for collaborating with others. You can also review the [level 1 cheat sheet](./level_1.md).
 
-Here's the cheat sheet for level 2. You may also want to revise the [level 1 cheat sheet](./level_1.md).
-
-````admonish info title="cheat sheet"
-Fetch new commits from your peers
+````admonish info title="Cheat Sheet"
+Fetch updates from your peers
 ```sh
 jj git fetch
 ```

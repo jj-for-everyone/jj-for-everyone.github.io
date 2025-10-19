@@ -15,16 +15,14 @@ Let's switch back to Alice:
 cd ~/jj-tutorial/repo
 ```
 
-She heard rumors that next week's assignment is going to be about writing loops in Python.
-In an attempt to stay ahead of the game, she extends the hello-world program with iteration:
+Alice attempts to get ahead by adding a loop to the program:
 
 ```sh
 echo 'for (i = 0; i < 10; i = i + 1):
     print("Hello, world!")' > hello.py
 ```
 
-Unfortunately, she seems to have made a mistake.
-Running `python hello.py` prints an error:
+Unfortunately, running `python hello.py` prints an error:
 
 ```
   File "/home/user/jj-tutorial/repo/hello.py", line 1
@@ -33,28 +31,15 @@ Running `python hello.py` prints an error:
 SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?
 ```
 
-Alice doesn't have time to figure out the problem.
-She decides it's best to wait for the teacher to explain how to do it correctly in next week's lecture.
-She doesn't just want to throw her changes away though.
-She wants to keep the experiment around so she can compare it to the correct version later.
-As usual, she creates a new commit before pushing:
+She wants to save this experiment for later reference without breaking `main`. First, she commits:
 
 ```sh
 jj commit -m "WIP: Add for loop (need to fix syntax)"
 ```
 
-Pushing work-in-progress (WIP) changes like this directly to the main bookmark would be a bad idea.
-Imagine if Bob later created a submission tarball and it accidentally included Alice's incomplete, incorrect code!
-That would be no good.
-To avoid that, Alice decides to push her commit to a new bookmark.
+Pushing this work-in-progress (WIP) commit to `main` would be a mistake. The main bookmark should always point to stable, working code. Anyone else pulling from main would get her broken code, potentially blocking their work or getting it accidentally included in a project submission.
 
-What should be the name of that bookmark?
-Having a `main` bookmark is a strong convention, but for additional ones, anything goes.
-A simple approach is to just use a super short description of your changes, like `add-for-loop`.
-Some people like to prefix their bookmark names with their own name or username, allowing everyone to easily identify who's working on what: `alice/add-for-loop`.
-Still others include a ticket number from their bug-tracker software in the bookmark name.
-These are all fine options, but sometimes you _just don't care_.
-Jujutsu has a handy way to push changes quickly by generating a bookmark name for you:
+To share her experiment safely, she can push it to a separate bookmark. While she could name it manually (e.g., `alice/add-for-loop`), she can also let Jujutsu generate a name and push immediately:
 
 ```sh
 jj git push --change @-
@@ -71,13 +56,8 @@ jj git push --change @-
 ~
 </pre>
 
-The name of the generated bookmark is `push-`, followed by a prefix of the change ID.
-It's not very informative, but that's kind of the point.
-The content of the commit is what's important, the bookmark is only needed to send it to the remote.
+Jujutsu generated the bookmark `push-blabla` using the change ID.
 
-Note that the `--change` flag can be abbreviated as `-c`.
-You might be noticing a pattern here, many commonly-used flags have these short versions.
-You can explore the available flags of any Jujutsu command by calling it with the `--help` flag, e.g. `jj git push --help`.
+**Note:** You can abbreviate `--change` as `-c`. Use `jj git push --help` to see more available flags.
 
-Alice's experiment with Python loops is now safely stored on the remote with a bookmark, but it doesn't interfere with unrelated work progressing on the main branch.
-Great!
+Alice's experiment is now safely stored on the remote without interfering with `main`.

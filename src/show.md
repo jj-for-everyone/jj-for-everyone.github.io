@@ -1,20 +1,16 @@
 # Inspecting a commit
 
 ````admonish reset title="Reset your progress" collapsible=true
-To reset your progress to the start of this chapter, run the following command:
-
+To reset your progress, run this command and `cd` into the tutorial repository:
 ```sh
 curl https://jj-for-everyone.github.io/reset.sh | bash -s show
 cd ~/jj-tutorial/repo
 ```
 ````
 
-Alice has just found out that Bob made changes at the same time as she did.
-Before she attempts to somehow create a version that includes both changes, she wants to verify the two changes are compatible.
-She therefore decides to check out Bob's changes by using `jj show`.
-Since the remote bookmark `main` is pointing there, she can use that as identification.
+Alice sees Bob also made changes. To check if they conflict with her own, she inspects his commit using `jj show` on the `main@origin` remote bookmark.
 
-```
+```sh
 jj show main@origin
 ```
 
@@ -33,72 +29,30 @@ Committer: <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local<
 
 <span class="yellow ">Modified regular file README.md:</span>
 <span class="red ">   1</span> <span class="green ">   1</span>: # jj-tutorial
-<span class="red ">   2</span> <span class="green ">   2</span>: 
+<span class="red ">   2</span> <span class="green ">   2</span>:
 <span class="red ">   3</span>     : <span class="underline "></span><span class="underline red ">This</span><span class="red "> </span><span class="underline red ">is</span><span class="red "> a </span><span class="underline red ">toy</span><span class="red "> </span><span class="underline red ">repository</span><span class="red "> </span><span class="underline red ">for</span><span class="red "> </span><span class="underline red ">learning</span><span class="red "> </span><span class="underline red ">Jujutsu</span><span class="red ">.</span>
      <span class="green ">   3</span>: <span class="underline "></span><span class="underline green ">The</span><span class="green "> </span><span class="underline green ">file</span><span class="green "> </span><span class="underline green ">hello.py contains </span><span class="green ">a </span><span class="underline green ">script</span><span class="green "> </span><span class="underline green ">that</span><span class="green "> </span><span class="underline green ">greets</span><span class="green "> </span><span class="underline green ">the</span><span class="green "> </span><span class="underline green ">world</span><span class="green ">.</span>
      <span class="green ">   4</span>: <span class="underline "></span><span class="underline green ">It can be executed with the command 'python hello.py'.</span><span class="green "></span>
      <span class="green ">   5</span>: <span class="underline "></span><span class="underline green ">Programming is fun!</span><span class="green "></span>
 </pre>
 
-There's a lot of useful information here that `jj log` doesn't show.
-Let's go over it one-by-one:
+The `jj show` command provides more detail than `jj log`:
 
-- The first two lines are the commit ID and change ID.
-  We've seen them already, but these ones are longer!
-  That's because the output of `jj log` only shows you a **prefix** of the full ID.
-  The short prefix is usually enough to uniquely identify a commit, but sometimes you want the whole thing.
+*   **Commit and Change IDs**: Shows the full IDs, not just the short prefixes.
+*   **Bookmarks**: Lists any bookmarks pointing to this commit.
+*   **Author and Committer**: Includes full author/committer info and timestamps.
+*   **Commit Message**: Displays the complete message, including the body.
+*   **Diff**: Shows the precise file changes, with additions in <span class="green">green</span> and removals in <span class="red">red</span>.
 
-- Next is a list of bookmarks pointing to the commit.
+````admonish note title="Author vs. Committer" collapsible=true
+The **author** is who wrote the code. The **committer** is who created the commit. They are usually the same.
 
-- The following two lines are the author and committer information, as well as their timestamps.
-  Author and committer are usually the same, the difference is not important.
-  If you're curious anyway, there's a short explanation in the info box below.
-
-- Then there's the commit message.
-  Notice that we see the full description here including its body.
-  `jj log` only displays the subject line to save space.
-
-- Lastly, we see a list of files that have changed in this commit as well as the precise changes of their content.
-  The color green means "added" and red means "removed"
-  So we can see that this commit removed the previous line 3 and replaced it with three new lines.
-  The first line is neutral, indicating that it was not changed in this commit.
-
-````admonish note title="The difference between author and committer" collapsible=true
-The **author** of a commit is the primary person who wrote its content.
-In this case, that refers to the new paragraph being added to the readme.
-The **committer** on the other hand is the person who created the commit.
-Again, these are usually the same, because most of the time the person who writes something also immediately puts that in a commit.
-
-Let's imagine a scenario where that's not the case.
-
-Before they started doing any work, Alice and Bob are joined by Claire as a third member of the team.
-Claire is not comfortable using version control yet, so they decide that Claire will write the documentation instead of Bob.
-Bob on the other hand will record Claire's changes in version control for safe keeping.
-That way, everyone can contribute something.
-
-Claire writes the documentation and sends the `README.md` file to Bob as an attachement by email.
-Bob copies the file into his repository, recording it into the working copy commit as normal.
-He want's to preserve Claire's authorship information, so he runs the command:
+They can differ if one person applies a patch submitted by another. For example, to set a different author for the current commit, you can run:
 
 ```sh
 jj describe --author "Claire <claire@local>" --no-edit
 ```
 
-That command will overwrite the author information in the commit on a one-off basis.
-The committer field will continue to contain Bob's information.
-The result will look like this:
-
-<pre class="aha">
-Commit ID: <span class="blue ">8d53839037b21e262e410e087606925f7582914e</span>
-Change ID: <span class="purple ">quolxwkkstmturozxxxrkkpxxxnnosry</span>
-Bookmarks: <span class="purple ">main??</span> <span class="purple ">main@origin</span>
-Author   : <span class="yellow ">Claire</span> &lt;<span class="yellow ">claire@local</span>&gt; (<span class="cyan ">2025-07-22 21:22:17</span>)
-Committer: <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local</span>&gt; (<span class="cyan ">2025-07-22 21:22:22</span>)
-
-    ...
-</pre>
 ````
 
-Alice is pretty sure that Bob's changes are compatible with hers.
-He only changed the file `README.md`, while Alice didn't do anything besides adding `hello.py`.
-Her next task is to create a version of the project that combines both changes.
+Alice confirms the changes are compatible: Bob only modified `README.md`, while she added `hello.py`. Now she can combine them.
