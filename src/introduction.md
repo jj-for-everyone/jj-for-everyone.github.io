@@ -1,6 +1,8 @@
 # Introduction
 
-This is a simplified and condensed version of the [original tutorial](https://jj-for-everyone.github.io/).
+```admonish note
+This is a simplified and condensed (TL;DR) version of the [original tutorial](https://jj-for-everyone.github.io/). If you prefer a little bit longer (but more entertaining) one, consider reading the original one. This version is my intermediate product to build the tutorial in Thai. I used AI to help with summarize each page, then I review and edit myself.
+```
 
 This tutorial teaches the [Jujutsu](https://github.com/jj-vcs/jj) version control system (VCS). It's designed for beginners with **no previous experience with Git** or any other VCS.
 

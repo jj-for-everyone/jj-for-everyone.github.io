@@ -1,9 +1,9 @@
 [book]
-authors = ["Remo Senekowitsch"]
+authors = ["Remo Senekowitsch", "Sathianphong Phongsathian"]
 language = "en"
 src = "src"
-title = "Jujutsu for everyone - S2P2 edition"
-description = "A Jujutsu tutorial that requires no previous experience with Git or other version control systems. simplified by S2P2"
+title = "Jujutsu for everyone (Concise Edition)"
+description = "A concise edition of Jujutsu tutorial that requires no previous experience with Git or other version control systems."
 
 [output.html]
 default-theme = "latte"
