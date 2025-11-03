@@ -9,7 +9,7 @@ cd ~/jj-tutorial/repo
 ```
 ````
 
-Remeber the for-loop experiment Alice had put aside for a while?
+Remember the for-loop experiment Alice had put aside for a while?
 Jujutsu lets you keep as many of those experiments around as you like.
 Let's simulate a few with these commands:
 
