@@ -92,7 +92,7 @@ Here's the full log for reference:
 </pre>
 
 Assume we want to look at the commit with the description "Document hello.py in README.md".
-We could easily do that with it's change ID, i.e. `jj new qxkprvsu`.
+We could easily do that with its change ID, i.e. `jj new qxkprvsu`.
 To make this more interesting, we'll learn one more way to identify commits:
 with the `description()` function.
 It tells Jujutsu to select the commit that matches the description.
