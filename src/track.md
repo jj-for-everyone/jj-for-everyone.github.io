@@ -10,7 +10,7 @@ cd ~/jj-tutorial/repo
 ````
 
 Alice got herself a new laptop, which she's really excited about.
-It's a [framework laptop](https://frame.work/), because Alice has become tired of computer manufacturers making it intentionally difficult for her to fix her own hardware.
+It's a [Framework laptop](https://frame.work/), because Alice has become tired of computer manufacturers making it intentionally difficult for her to fix her own hardware.
 Framework also has official support for Linux, which is very important to Alice.
 Hardware that respects the user and software that respects the user are a great match, Alice thinks.
 
