@@ -12,7 +12,7 @@ exec $SHELL --login
 ```
 
 Now run `jj --version` to verify the installation.
-It should print the currently installed version of Jujutsu, something like `jj 0.34.0-blabla`.
+It should print the currently installed version of Jujutsu, something like `jj 0.35.0-blabla`.
 If the output is an error instead, e.g. `bash: jj: command not found...`, open the text box below.
 
 ````admonish fail title="jj: command not found..." collapsible=true

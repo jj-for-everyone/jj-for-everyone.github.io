@@ -74,6 +74,7 @@ jj git push --change @-
 The name of the generated bookmark is `push-`, followed by a prefix of the change ID.
 It's not very informative, but that's kind of the point.
 The content of the commit is what's important, the bookmark is only needed to send it to the remote.
+Tracking the new bookmark is also handled automatically for the same reason, so there's no need to run `jj bookmark track`.
 
 Note that the `--change` flag can be abbreviated as `-c`.
 You might be noticing a pattern here, many commonly-used flags have these short versions.

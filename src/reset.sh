@@ -34,7 +34,7 @@ fi
 
 # make sure jj version is recent enough
 detected_version="$(jj --version | cut -c 6-7)"
-required_version="34"
+required_version="35"
 if [ "$detected_version" -lt "$required_version" ] ; then
     set +x
     printf "$error Your Jujutsu version (0.$detected_version) is too outdated.\n"
@@ -85,7 +85,8 @@ if [ "$chapter" = remote ] ; then success ; fi
 git init --bare -b main ~/jj-tutorial/remote
 jj git remote add origin ~/jj-tutorial/remote
 jj bookmark create main --revision @-
-jj git push --bookmark main --allow-new
+jj bookmark track main@origin
+jj git push --bookmark main
 
 if [ "$chapter" = update_bookmark ] ; then success ; fi
 

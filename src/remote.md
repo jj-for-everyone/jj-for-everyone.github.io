@@ -80,7 +80,7 @@ jj git remote list
 
 ## Adding a bookmark
 
-There is one last speed bump before we can send our work to the remote.
+There is another speed bump before we can send our work to the remote.
 Remote repositories can receive a lot of commits, not all of which end up being needed in the long run.
 Therefore, it's desirable that commits which aren't needed anymore can be deleted automatically.
 How does the remote know which commits to delete and which to keep?
@@ -115,6 +115,23 @@ Let's check the result with `jj log`:
 Great!
 We can see that the bookmark `main` is correctly pointing to our recently completed commit.
 
+## Tracking a bookmark
+
+We are now learning about bookmark, because we want to send commits to a remote.
+However, bookmarks can also be used for local-only purposes.
+For example, you can more easily refer to a commit by making a bookmark with a memorable name point to it.
+So, you may not want to send _all_ of your bookmarks to a remote.
+
+Jujutsu identifies bookmarks which are supposed to be sent to a remote with a "tracking" state.
+In order to send the `main` bookmark to our remote, we need to "track it" first:
+
+```sh
+jj bookmark track main@origin
+```
+
+The `@origin` part means that `main` should be sent to the remote called `origin`.
+This is relevant in case you have multiple remotes and only want to send a bookmark to a subset of them, but that's an advanced situation you don't have to worry about.
+
 ## Pushing the bookmark
 
 Now that we're connected and have a bookmark, let's finally send our commit to the remote.
@@ -123,16 +140,5 @@ You will often hear phrases like "pushing to the remote" or "pushing to GitHub".
 The command for pushing a specific bookmark is:
 
 ```sh
-jj git push --bookmark main --allow-new
-```
-
-Because `jj git push` can also be used to update existing bookmarks, it requires the additional flag `--allow-new` or `-N` to push completely new ones.
-This safety measure prevents you from pushing bookmarks you intended to remain local.
-
-Many people find this safety measure annoying.
-The Jujutsu contributors are aware of this and a better solution is being worked on.
-If you want, you can disable it with the following command:
-
-```sh
-jj config set --user git.push-new-bookmarks true
+jj git push --bookmark main
 ```
