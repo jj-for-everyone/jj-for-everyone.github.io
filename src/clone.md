@@ -72,6 +72,8 @@ We can tell Jujutsu to show us _all_ commits with `jj log --revisions 'all()'`:
 
 Both of our commits are here, so our repository was successfully restored from the remote.
 
+##
+
 ```admonish success title="You've completed Level 1 ! 🎉"
 You made it!
 At this point, you have all the skills needed for simple solo projects with proper backup.

@@ -137,6 +137,8 @@ jj new main
 Alright, so Alice now has the latest changes from Bob and can continue to do other work.
 She can always come back to her loop experiment later with `jj new`, finish the work and then combine it with the main branch.
 
+##
+
 ```admonish success title="You've completed Level 2 ! 🎉"
 Now you have the basic skills to collaborate on projects with other people.
 Let's summarize what we've learned:

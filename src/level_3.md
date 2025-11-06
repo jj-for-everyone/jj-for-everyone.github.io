@@ -23,4 +23,8 @@ Restore the state (of a specific file) (from a specific commit)
 ```sh
 jj restore [--from <CHANGE_ID>] [FILE_TO_RESTORE]
 ```
+Split a messy working copy
+```sh
+jj commit --interactive
+```
 ````

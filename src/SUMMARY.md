@@ -35,6 +35,7 @@
   - [Resolving merge conflicts](./conflict.md)
   - [Deleting commits and bookmarks](./abandon.md)
   - [Restoring file contents](./restore.md)
+  - [Split a messy working copy](./commit_interactive.md)
 
 - [Must-know secret commands](./to_be_continued.md)
 

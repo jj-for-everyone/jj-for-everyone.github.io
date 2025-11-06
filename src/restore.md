@@ -118,39 +118,3 @@ jj commit -m "Remove translations"
 jj bookmark move main --to @-
 jj git push
 ```
-
-```admonish success title="You've completed Level 3 ! 🎉"
-Now you have the skills to get yourself out of most problems that can come up when working with version control.
-Let's summarize what we've learned:
-- `jj undo` can restore previous states of your entire repository step-by-step.
-  Don't worry about making mistakes!
-  Experiment freely and `jj undo` if anything goes wrong.
-- If you want to work on a bookmark that only exists on the remote, for example after making a fresh clone of your repo, run `jj bookmark track`.
-- Combining two branches can lead to conflicts if they change the same part of a file.
-  Resolve such conflicts by carefully removing the conflict markers to produce a sensible result.
-- If you end up with commits you no longer need for whatever reason, deleted them with `jj abandon`.
-- You can restore the content of a file using `jj restore`.
-  By default, it restores to the parent of your working copy, but you can specify any commit to restore from with the `--from` flag.
-
-Now you know pretty much everything you need.
-You should be productive and rarely get stuck.
-Some readers may decide to stop reading the tutorial here.
-
-For those who want more, the next level will teach you how to rewrite history effortlessly.
-This skill will allow you to produce a much better commit history.
-Some projects like the Linux kernel or Jujutsu itself require their contributors to know these skills.
-Without them, they cannot meet the projects quality standards.
-
-Aside from that, being able to rewrite history is simply freeing.
-You'll worry less about how to separate your changes into neat commits and what description to give them, because you can easily change these things later.
-
-Nevertheless, feel free to take a long break before coming back to that.
-You have learned a lot so far and it will be beneficial to have mastered that with practice before continuing.
-
-At this point, you should also start to explore the Jujutsu CLI a little bit on your own.
-This tutorial is not a comprehensive reference of everything Jujutsu has to offer.
-Would you like to display all commits made by a specific author?
-Run `jj log --help` to find out how.
-Would you like to tweak the behavior of Jujutsu in some way?
-Maybe the [configuration guide](https://jj-vcs.github.io/jj/latest/config/) can help you out.
-```

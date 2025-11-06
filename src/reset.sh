@@ -287,6 +287,20 @@ jj commit -m "Remove translations"
 jj bookmark move main --to @-
 jj git push
 
+if [ "$chapter" = commit_interactive ] ; then success ; fi
+
+# `jj commit --interactive doesn't work in a script, so we reproduce the same
+# commits a little differently.
+echo "Implement task 1" > task_1.txt
+jj commit --message "Implement task 1" task_1.txt
+echo "Implement task 2" > tasks_2_and_3.txt
+jj commit --message "Implement task 2"
+echo "Implement task 3" >> tasks_2_and_3.txt
+jj commit --message "Implement task 3"
+
+jj bookmark move main --to @-
+jj git push
+
 if [ "$chapter" = complete ] ; then success ; fi
 
 set +x
