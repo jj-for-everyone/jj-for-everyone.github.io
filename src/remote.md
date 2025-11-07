@@ -100,6 +100,7 @@ jj bookmark create main --revision mkmqlnox # <- substitute your change ID here
 
 The command `jj bookmark create` expects a name (`main`) and a commit to which the bookmark should point.
 We identify the commit by its change ID (`--revision mkmqlnox`).
+For our purposes, the word "revision" is a synonym for "commit".
 The flag `--revision` can also be abbreviated as `-r`.
 Let's check the result with `jj log`:
 
