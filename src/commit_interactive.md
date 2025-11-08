@@ -162,7 +162,7 @@ Let's summarize what we've learned:
 - If you want to work on a bookmark that only exists on the remote, for example after making a fresh clone of your repo, run `jj bookmark track`.
 - Combining two branches can lead to conflicts if they change the same part of a file.
   Resolve such conflicts by carefully removing the conflict markers to produce a sensible result.
-- If you end up with commits you no longer need for whatever reason, deleted them with `jj abandon`.
+- If you end up with commits you no longer need for whatever reason, delete them with `jj abandon`.
 - You can restore the content of a file using `jj restore`.
   By default, it restores to the parent of your working copy, but you can specify any commit to restore from with the `--from` flag.
 - If you end up with unrelated changes in your working copy, you can put them in separate commits with `jj commit --interactive`.
