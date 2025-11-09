@@ -26,6 +26,8 @@ Let's see what `jj log` has to say now:
 <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zzzzzzz</span> <span class="green ">root()</span> <span class="bold "></span><span class="bold blue ">0</span><span class="highlighted dimgray ">0000000</span>
 </pre>
 
+(BTW: to see a more verbose log, you type `jj op log`, which will reveal all. Don't worry about most of it yet, but you can see the changed timestamps, hashes, etc.)
+
 A couple of things have changed:
 - The timestamp of the commit was updated.
 - The commit hash changed.
