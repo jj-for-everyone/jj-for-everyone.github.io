@@ -8,7 +8,7 @@ no_color='\033[0m' # No Color
 error="${red}Error:${no_color}"
 hint="${blue}Hint:${no_color}"
 
-jj_tutorial_dir=~/jj-tutorial
+jj_tutorial_dir=${JJ_TUTORIAL_DIR:-$HOME/jj-tutorial}
 
 if [ "${1:-x}" = "x" ] ; then
     set +x
