@@ -8,6 +8,8 @@ no_color='\033[0m' # No Color
 error="${red}Error:${no_color}"
 hint="${blue}Hint:${no_color}"
 
+jj_tutorial_dir=~/jj-tutorial
+
 if [ "${1:-x}" = "x" ] ; then
     set +x
     printf "$error Please provide the chapter keyword as the first argument.\n"
@@ -21,7 +23,7 @@ function success() {
     exit 0
 }
 
-rm -rf ~/jj-tutorial
+rm -rf "$jj_tutorial_dir"
 
 if [ "$chapter" = install ] ; then success ; fi
 
@@ -54,9 +56,9 @@ export GIT_CONFIG_GLOBAL=/dev/null
 
 if [ "$chapter" = initialize ] ; then success ; fi
 
-mkdir ~/jj-tutorial
-jj git init ~/jj-tutorial/repo
-cd ~/jj-tutorial/repo
+mkdir "$jj_tutorial_dir"
+jj git init "$jj_tutorial_dir"/repo
+cd "$jj_tutorial_dir"/repo
 
 jj config set --repo user.name "Alice"
 jj config set --repo user.email "alice@local"
@@ -82,8 +84,8 @@ prefixed \`#\` symbol.
 
 if [ "$chapter" = remote ] ; then success ; fi
 
-git init --bare -b main ~/jj-tutorial/remote
-jj git remote add origin ~/jj-tutorial/remote
+git init --bare -b main "$jj_tutorial_dir"/remote
+jj git remote add origin "$jj_tutorial_dir"/remote
 jj bookmark create main --revision @-
 jj bookmark track main@origin
 jj git push --bookmark main
@@ -100,9 +102,9 @@ jj git push
 if [ "$chapter" = clone ] ; then success ; fi
 
 cd ~
-rm -rf ~/jj-tutorial/repo
-jj git clone ~/jj-tutorial/remote ~/jj-tutorial/repo
-cd ~/jj-tutorial/repo
+rm -rf "$jj_tutorial_dir"/repo
+jj git clone "$jj_tutorial_dir"/remote "$jj_tutorial_dir"/repo
+cd "$jj_tutorial_dir"/repo
 jj config set --repo user.name "Alice"
 jj config set --repo user.email "alice@local"
 jj metaedit --update-author
@@ -119,8 +121,8 @@ Printing the text \"Hello, world!\" is a classic exercise in introductory
 programming courses. It's easy to complete in basically any language and
 makes students feel accomplished and curious for more at the same time."
 
-jj git clone ~/jj-tutorial/remote ~/jj-tutorial/repo-bob
-cd ~/jj-tutorial/repo-bob
+jj git clone "$jj_tutorial_dir"/remote "$jj_tutorial_dir"/repo-bob
+cd "$jj_tutorial_dir"/repo-bob
 jj config set --repo user.name Bob
 jj config set --repo user.email bob@local
 jj metaedit --update-author
@@ -138,7 +140,7 @@ Once our changes are combined, this documentation will be accurate."
 jj bookmark move main --to @-
 jj git push
 
-cd ~/jj-tutorial/repo
+cd "$jj_tutorial_dir"/repo
 jj bookmark move main --to @-
 jj git fetch
 
@@ -154,7 +156,7 @@ jj git push
 
 if [ "$chapter" = ignore ] ; then success ; fi
 
-cd ~/jj-tutorial/repo-bob
+cd "$jj_tutorial_dir"/repo-bob
 
 tar czf submission_alice_bob.tar.gz README.md
 
@@ -182,7 +184,7 @@ jj git push
 
 if [ "$chapter" = more_bookmarks ] ; then success ; fi
 
-cd ~/jj-tutorial/repo
+cd "$jj_tutorial_dir"/repo
 
 echo 'for (i = 0; i < 10; i = i + 1):
     print("Hello, world!")' > hello.py
@@ -220,9 +222,9 @@ jj redo
 if [ "$chapter" = track ] ; then success ; fi
 
 cd ~ # move out of the directory we're about to delete
-rm -rf ~/jj-tutorial/repo
-jj git clone ~/jj-tutorial/remote ~/jj-tutorial/repo
-cd ~/jj-tutorial/repo
+rm -rf "$jj_tutorial_dir"/repo
+jj git clone "$jj_tutorial_dir"/remote "$jj_tutorial_dir"/repo
+cd "$jj_tutorial_dir"/repo
 
 # roleplay as Alice
 jj config set --repo user.name "Alice"
