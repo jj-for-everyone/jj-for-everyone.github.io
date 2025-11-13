@@ -8,6 +8,13 @@ no_color='\033[0m' # No Color
 error="${red}Error:${no_color}"
 hint="${blue}Hint:${no_color}"
 
+# The env variable JJ_TUTORIAL_DIR can be used to override the location of the
+# tutorial repository. This is *intentionally not documented* in the tutorial,
+# because doing so can lead to problems. For simplicity, the tutorial will
+# continue to use the hardcoded path in code snippets to copy-paste into the
+# terminal. If the location is changed, those code snippets will have to be
+# adjusted manually. The feature is still there for opinionated folk who know
+# what they're doing.
 jj_tutorial_dir=${JJ_TUTORIAL_DIR:-$HOME/jj-tutorial}
 
 if [ "${1:-x}" = "x" ] ; then
