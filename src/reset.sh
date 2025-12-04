@@ -43,7 +43,7 @@ fi
 
 # make sure jj version is recent enough
 detected_version="$(jj --version | cut -c 6-7)"
-required_version="35"
+required_version="36"
 if [ "$detected_version" -lt "$required_version" ] ; then
     set +x
     printf "$error Your Jujutsu version (0.$detected_version) is too outdated.\n"

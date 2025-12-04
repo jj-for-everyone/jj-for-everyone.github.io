@@ -21,5 +21,5 @@ The following levels are planned for the future:
 | **5** | Productivity boosters, advanced workflows, lesser-known CLI functions and a little VCS theory. Completing this level means you have mastered Jujutsu. |
 | **6** | Additional topics that only come up in specific situations: tags, submodules, workspaces etc. Consider skimming the list of topics and come back once you have an actual need for it. |
 
-I consider the tutorial up-to-date with Jujutsu **version 0.35**, which was released in **November 2025**.
+I consider the tutorial up-to-date with Jujutsu **version 0.36**, which was released in **December 2025**.
 If that's more than a couple months in the past, I probably stopped updating this tutorial.
