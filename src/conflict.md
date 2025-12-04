@@ -14,7 +14,7 @@ Among other things, they finally learned about loops in Python.
 Alice now wants to go back to her experiment to fix it:
 
 ```sh
-jj new 'description("WIP: Add for loop")'
+jj new 'description(substring:"WIP: Add for loop")'
 ```
 
 Her code currently looks like this:

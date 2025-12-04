@@ -98,7 +98,7 @@ with the `description()` function.
 It tells Jujutsu to select the commit that matches the description.
 
 ```sh
-jj new 'description("Document hello.py in README.md")'
+jj new 'description(substring:"Document hello.py in README.md")'
 ```
 
 Don't forget the outer single quotes, they prevent your terminal from interpreting the inner double quotes.

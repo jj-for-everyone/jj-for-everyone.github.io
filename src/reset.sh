@@ -204,7 +204,7 @@ if [ "$chapter" = navigate ] ; then success ; fi
 
 jj git fetch
 jj new main
-jj new 'description("Document hello.py in README.md")'
+jj new 'description(substring:"Document hello.py in README.md")'
 jj new main
 
 if [ "$chapter" = undo ] ; then success ; fi
@@ -249,7 +249,7 @@ jj bookmark track 'glob:push-*@origin'
 
 if [ "$chapter" = conflict ] ; then success ; fi
 
-jj new 'description("WIP: Add for loop")'
+jj new 'description(substring:"WIP: Add for loop")'
 
 echo 'for _ in range(10):
     print("Hello, world!")' > hello.py
@@ -279,7 +279,7 @@ jj commit -m "Experiment: Apply SOLID design patterns"
 jj git push --change @-
 jj new main
 
-jj abandon 'description("Experiment")'
+jj abandon 'description(substring:"Experiment")'
 
 jj git push --deleted
 
@@ -290,7 +290,7 @@ jj show &> /dev/null
 
 jj restore README.md
 
-jj restore --from 'description("Fix loop syntax")' hello.py
+jj restore --from 'description(substring:"Fix loop syntax")' hello.py
 
 jj commit -m "Remove translations"
 jj bookmark move main --to @-
