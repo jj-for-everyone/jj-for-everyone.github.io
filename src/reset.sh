@@ -186,7 +186,7 @@ if [ "$chapter" = rebase ] ; then success ; fi
 
 jj bookmark move main --to @-
 jj git fetch
-jj rebase --destination main@origin
+jj rebase --onto main@origin
 jj git push
 
 if [ "$chapter" = more_bookmarks ] ; then success ; fi

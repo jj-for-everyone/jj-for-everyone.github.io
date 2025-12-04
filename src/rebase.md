@@ -59,12 +59,12 @@ His most recent commit should have Alice's commit as its parent, because that wi
 There is a Jujutsu command just for this purpose:
 It's called `rebase`.
 As the name implies, it takes commits from one "base" (some ancestor) and moves them on top of a different "base".
-`jj rebase` on its own doesn't work though, it needs to know the **destination** of the operation.
+The flag `--onto` is used to specify which new base to rebase **onto**.
 In this case, Bob wants to move his commit on top of the state of the remote `main` bookmark, i.e. Alice's commit.
 Therefore, he runs the command:
 
 ```sh
-jj rebase --destination main@origin
+jj rebase --onto main@origin
 ```
 
 What does the log say?
@@ -104,8 +104,8 @@ TRUTH ITSELF SHALL BEND TO YOUR WILL
 I've glossed over a small detail.
 I said the `rebase` command moves commit from a _one base_ to a new one.
 What is that _previous_ base?
-When using the `--destination` flag (or `-d` for short), Jujutsu will select the first shared ancestor of your working copy and the new base as the _old base to rebase from_.
-In simple terms, the `rebase` command moves only those commits that aren't on the destination branch yet.
+When using the `--onto` flag (or `-o` for short), Jujutsu will select the first shared ancestor of your working copy and the new base as the _old base to rebase from_.
+In other words, the `rebase` command moves only those commits that aren't on the branch of the new base yet.
 In our example, there was only one commit to move.
 
 Creating a merge commit and rebasing are both valid ways of recombining changes that branched-off into different directions.
