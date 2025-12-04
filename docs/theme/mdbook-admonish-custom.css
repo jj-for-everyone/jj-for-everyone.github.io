@@ -1,0 +1,20 @@
+:root {
+  --md-admonition-icon--admonish-reset: url("data:image/svg+xml;charset=utf-8,<?xml version='1.0' encoding='utf-8'?><svg width='800px' height='800px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M16.3788 6.20698C15.1885 5.25459 13.7434 4.5 12 4.5C7.85787 4.5 4.5 7.85786 4.5 12C4.5 16.1421 7.85787 19.5 12 19.5C15.2549 19.5 18.028 17.4254 19.0646 14.5256C19.2505 14.0055 19.775 13.6568 20.3153 13.7713L21.2935 13.9787C21.8338 14.0932 22.1836 14.6262 22.0179 15.1531C20.6787 19.4112 16.7016 22.5 12 22.5C6.20101 22.5 1.5 17.799 1.5 12C1.5 6.20101 6.20101 1.5 12 1.5C14.7835 1.5 16.9516 2.76847 18.5112 4.0746L20.2929 2.29289C20.5789 2.00689 21.009 1.92134 21.3827 2.07612C21.7564 2.2309 22 2.59554 22 3V8.5C22 9.05228 21.5523 9.5 21 9.5H15.5C15.0956 9.5 14.7309 9.25636 14.5761 8.88268C14.4214 8.50901 14.5069 8.07889 14.7929 7.79289L16.3788 6.20698Z' fill='%23000000'/></svg>");
+}
+
+:is(.admonition):is(.admonish-reset) {
+  border-color: #9e9e9e;
+}
+
+:is(.admonish-reset) > :is(.admonition-title, summary.admonition-title) {
+  background-color: rgba(158, 158, 158, 0.1);
+}
+:is(.admonish-reset) > :is(.admonition-title, summary.admonition-title)::before {
+  background-color: #9e9e9e;
+  mask-image: var(--md-admonition-icon--admonish-reset);
+  -webkit-mask-image: var(--md-admonition-icon--admonish-reset);
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+}
