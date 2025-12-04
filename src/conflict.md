@@ -296,5 +296,5 @@ jj resolve --tool mergiraf
 ```
 That works because Jujutsu has a default tool configuration for how to call Mergiraf.
 There are likely other tools that Jujutsu doesn't know about.
-If you want to use one of those, you can add a custom [merge tool configuration](https://jj-vcs.github.io/jj/latest/config/#3-way-merge-tools-for-conflict-resolution).
+If you want to use one of those, you can add a custom [merge tool configuration](https://docs.jj-vcs.dev/latest/config/#3-way-merge-tools-for-conflict-resolution).
 ````

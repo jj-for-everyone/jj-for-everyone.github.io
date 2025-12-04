@@ -168,7 +168,7 @@ jj abandon main
 <span class="bold "></span><span class="bold cyan ">Hint: </span>Could not modify commit: <span class="bold "></span><span class="bold purple ">s</span><span class="highlighted dimgray ">nnoxnvq</span> <span class="bold "></span><span class="bold blue ">34</span><span class="highlighted dimgray ">6c0acd</span> <span class="purple ">main</span><span class="highlighted dimgray "> | </span>Merge repetition and translation of greeting
 <span class="bold "></span><span class="bold cyan ">Hint: </span>Immutable commits are used to protect shared history.
 <span class="bold "></span><span class="bold cyan ">Hint: </span>For more information, see:
-      - https://jj-vcs.github.io/jj/latest/config/#set-of-immutable-commits
+      - https://docs.jj-vcs.dev/latest/config/#set-of-immutable-commits
       - `jj help -k config`, &quot;Set of immutable commits&quot;
 <span class="bold "></span><span class="bold cyan ">Hint: </span>This operation would rewrite 1 immutable commits.
 </pre>

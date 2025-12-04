@@ -70,7 +70,7 @@ You can fix such an issue for yourself by extending the `PATH` variable in your 
 ```
 
 ````admonish info title="Other installation methods" collapsible=true
-The official installation instructions for several different platforms are [here](https://jj-vcs.github.io/jj/latest/install-and-setup/).
+The official installation instructions for several different platforms are [here](https://docs.jj-vcs.dev/latest/install-and-setup/).
 I will mention a few methods that I consider important as well.
 
 If you use [cargo-binstall](https://github.com/cargo-bins/cargo-binstall), this works great:
@@ -147,7 +147,7 @@ jj config set --user user.name "Anonymous"
 jj config set --user user.email "anon@local"
 ```
 
-If you want shell completions, follow the instructions [here](https://jj-vcs.github.io/jj/latest/install-and-setup/#command-line-completion).
+If you want shell completions, follow the instructions [here](https://docs.jj-vcs.dev/latest/install-and-setup/#command-line-completion).
 If you don't know what a "shell completion" is, don't worry, it's not important.
 
 ## Installing a simple text editor

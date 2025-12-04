@@ -187,5 +187,5 @@ This tutorial is not a comprehensive reference of everything Jujutsu has to offe
 Would you like to display all commits made by a specific author?
 Run `jj log --help` to find out how.
 Would you like to tweak the behavior of Jujutsu in some way?
-Maybe the [configuration guide](https://jj-vcs.github.io/jj/latest/config/) can help you out.
+Maybe the [configuration guide](https://docs.jj-vcs.dev/latest/config/) can help you out.
 ```
