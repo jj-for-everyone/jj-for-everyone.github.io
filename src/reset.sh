@@ -176,6 +176,8 @@ Run the following command to create the submission tarball:
 tar czf submission_alice_bob.tar.gz [FILE...]
 ~~~" >> README.md
 
+jj show > /dev/null
+
 echo "*.tar.gz" > .gitignore
 
 jj file untrack submission_alice_bob.tar.gz
