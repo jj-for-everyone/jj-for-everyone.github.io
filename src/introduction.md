@@ -14,12 +14,12 @@ If you're stuck on Windows, consider using [WSL](https://learn.microsoft.com/en-
 
 ## What is version control and why should you use it?
 
-I will assume you're using version control for software development, but it can be used for other things as well.
+I will assume you're planning to use version control for software development, but it can be used for other things as well.
 For example, authoring professionally formatted documents with tools like [Typst](https://typst.app/).
 The source of this tutorial is stored in version control too!
 
 What these scenarios have in common is that a large body of work (mostly in the form of text) is slowly being expanded and improved over time.
-You don't want to lose any of it and you want to be able to go back to previous states of your work.
+You don't want to lose any of it and you may want to compare or be able to go back to previous states of your work.
 Often, several people need to work on the project at the same time.
 
 A general-purpose backup solution can keep a few copies of your files around.
@@ -43,7 +43,7 @@ Here's my elevator pitch:
 
 - **Jujutsu is easier to learn than Git.**
   (That is, assuming I did a decent job writing this tutorial.)
-  Git is known for its complicated, unintuitive user interface.
+  Git is known for its complicated, unintuitive user experience.
   Jujutsu gives you all the functionality of Git with a lot less complexity.
   Experienced users of Git usually don't care about this, because they've paid the price of learning Git already.
   (I was one of these people once.)
