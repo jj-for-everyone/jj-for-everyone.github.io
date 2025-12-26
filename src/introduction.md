@@ -14,7 +14,7 @@ If you're stuck on Windows, consider using [WSL](https://learn.microsoft.com/en-
 
 ## What is version control and why should you use it?
 
-I will assume you're interested in considering version control for software development, but it can be used for other things as well.
+I will assume you're planning to use version control for software development, but it can be used for other things as well.
 For example, authoring professionally formatted documents with tools like [Typst](https://typst.app/).
 The source of this tutorial is stored in version control too!
 
