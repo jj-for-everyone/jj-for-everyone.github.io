@@ -37,15 +37,14 @@
   - [Restoring file contents](./restore.md)
   - [Split a messy working copy](./commit_interactive.md)
 
-- [Must-know secret commands](./to_be_continued.md)
+- [Level 4](./level_4.md)
 
-<!-- - [History rewriting]() -->
-
-<!-- - [edit & squash]() -->
-<!-- - [describe]() -->
-<!-- - [advanced rebase]() -->
-<!-- - [restore from anywhere]() -->
-<!-- - [Cascading conflicts while rebasing]() -->
+  - [Editing commited revisions]()
+  - [squash]()
+  - [describe]()
+  - [advanced rebase]()
+  - [restore from anywhere]()
+  - [Cascading conflicts while rebasing]()
 
 <!-- - [Mastery]() -->
 <!-- everything else a Jujutsu expert should know -->
@@ -67,3 +66,5 @@
 <!-- - [evolog]() -->
 <!-- - [jj revert]() -->
 <!-- - [git bisect]() -->
+
+- [Must-know secret commands](./to_be_continued.md)
