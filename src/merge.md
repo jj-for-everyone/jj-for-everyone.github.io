@@ -1,4 +1,4 @@
-# Creating a merge commit
+# Committing to a revision
 
 ````admonish reset title="Reset your progress" collapsible=true
 To reset your progress to the start of this chapter, run the following command:
@@ -12,18 +12,18 @@ cd ~/jj-tutorial/repo
 I've strung you along for long enough, let's finally create that version with the combined changes.
 
 There are actually two approaches to achieve this, one of them we'll see later.
-For now, we're going to create a **merge commit**.
-As the name implies, a merge commit merges changes from two (or more!) commits.
+For now, we're going to **merge** the two revisions.
+This will create a new revision with the two existing ones as parents.
 
-Until now, we've created new commits with the command `jj commit`.
+Until now, we've created new revisions with the command `jj commit`.
 That command actually does two things at once:
-It adds a description to the commit you just finished working on and starts a new commit on top of it.
-Unfortunately it can't create merge commits.
+It adds a description to the revision you just finished working on and starts a new revision on top of it.
+Unfortunately it can't merge revisions.
 
-There is a slightly more "low-level" command for creating new commits called `jj new`.
-It only creates a new commit and doesn't modify any descriptions.
+There is a slightly more "low-level" command for creating new revisions called `jj new`.
+It only creates a new revision and doesn't modify any descriptions.
 Importantly, it takes a **list of parents** as additional arguments.
-This allows us to create a commit with two parents, i.e. a merge commit:
+This allows us to create a revision with two parents:
 
 ```sh
 jj new main@origin @-
@@ -45,8 +45,8 @@ Let's view the result with `jj log`:
 </pre>
 
 Interesting!
-The two parents of the new merge commit are easily visible in the commit graph.
-You can confirm that this new commit contains both changes from Alice and Bob:
+The two parents of the new revisions are easily visible in the revision graph.
+You can confirm that this new revision contains both changes from Alice and Bob:
 
 ```sh
 cat README.md
@@ -58,7 +58,7 @@ Combining changes which modify the same part of the project leads to a **conflic
 Conflicts are not necessarily bad, they are just a signal that you need to combine some changes manually, making sure to preserve the essence of what each change was trying to achieve individually.
 How to resolve conflicts is a topic reserved for the next level.
 
-Let's wrap up this merge commit and send it to the remote:
+Let's wrap up this merge revision and send it to the remote:
 
 ```sh
 jj commit -m "Merge code and documentation for hello-world"

@@ -76,17 +76,17 @@ Committer: <span class="yellow ">Alice</span> &lt;<span class="yellow ">alice@lo
 </pre>
 
 Perfect, that's just what we wanted!
-`jj restore` on its own restores all changed files in your working copy commit.
+`jj restore` on its own restores all changed files in your working copy revision.
 However, if you give it the names of specific files as additional arguments, it will only restore those.
 
 That's not all though, `jj restore` can do more than that.
 
-We've learned a lot about how to _create_ commits, but not much about what you can do with them.
-We can look at the state of our repository at a given commit by running `jj new <change-id>`, but that's about it.
+We've learned a lot about how to _create_ revisions, but not much about what you can do with them.
+We can look at the state of our repository at a given revision by running `jj new <change-id>`, but that's about it.
 
-`jj restore` can not only restore files to their state in the parent of the working copy commit.
-It can restore them to their state in **any commit**.
-You can use the `--from` flag to specify which commit to restore from.
+`jj restore` can not only restore files to their state in the parent of the working copy revision.
+It can restore them to their state in **any revision**.
+You can use the `--from` flag to specify which revision to restore from.
 
 For example, let's restore `hello.py` to the state where it had a functioning loop, but no translations:
 
