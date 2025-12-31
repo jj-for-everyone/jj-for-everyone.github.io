@@ -1,4 +1,4 @@
-# Creating a new commit
+# Committing to a revision
 
 ````admonish reset title="Reset your progress" collapsible=true
 To reset your progress to the start of this chapter, run the following command:

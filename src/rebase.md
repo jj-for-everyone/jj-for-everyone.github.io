@@ -15,7 +15,7 @@ Remember that we're still in Bob's repo from the last chapter:
 cd ~/jj-tutorial/repo-bob
 ```
 
-Now that Bob is happy with his second commit, he tries to push it to the remote.
+Now that Bob is happy with his second revision, he tries to push it to the remote.
 It will fail just like it did for Alice earlier:
 
 ```sh
@@ -49,18 +49,18 @@ Here's what Bob's log looks like now:
 
 It's basically the same situation.
 Bob's and Alice's changes have branched-off into different directions.
-To merge them back together, Bob could do the same thing Alice did and create a merge commit.
-However, Bob doesn't like merge commits.
+To merge them back together, Bob could do the same thing Alice did and create a merge revision.
+However, Bob doesn't like merge revisions.
 Preferring straight lines in his log, he decides to take a different approach from Alice.
 
 Bob is going to pretend like he made his changes on top of Alice's changes all along.
-His most recent commit should have Alice's commit as its parent, because that will result in a **linear history**.
+His most recent revision should have Alice's revision as its parent, because that will result in a **linear history**.
 
 There is a Jujutsu command just for this purpose:
 It's called `rebase`.
-As the name implies, it takes commits from one "base" (some ancestor) and moves them on top of a different "base".
+As the name implies, it takes revisions from one "base" (some ancestor) and moves them on top of a different "base".
 The flag `--onto` is used to specify which new base to rebase **onto**.
-In this case, Bob wants to move his commit on top of the state of the remote `main` bookmark, i.e. Alice's commit.
+In this case, Bob wants to move his revision on top of the state of the remote `main` bookmark, i.e. Alice's revision.
 Therefore, he runs the command:
 
 ```sh
@@ -81,7 +81,7 @@ What does the log say?
 </pre>
 
 Splendid, that's exactly what Bob wanted.
-Jujutsu even figured out that the `main` bookmark should probably point to Bob's new commit.
+Jujutsu even figured out that the `main` bookmark should probably point to Bob's new revision.
 All that's left to do is to rerun:
 
 ```sh
@@ -90,8 +90,8 @@ jj git push
 
 What Bob has just done is a paradigm shift:
 He has **rewritten history**.
-The history used to say that Bob's second commit descended from his first one, but now it says it descended from Alice's commit.
-The extent of this revisionism is still benign, but as we progress through the tutorial, we will explore the dark arts of history manipulation ever more deeply.
+The history used to say that Bob's second revision descended from his first one, but now it says it descended from Alice's revision.
+The extent of this history editing is still benign, but as we progress through the tutorial, we will explore the dark arts of history manipulation ever more deeply.
 
 <div style="display: flex; justify-content: center">
 <b style="color: red">
@@ -102,13 +102,13 @@ TRUTH ITSELF SHALL BEND TO YOUR WILL
 ...ahem, where were we?
 
 I've glossed over a small detail.
-I said the `rebase` command moves commit from a _one base_ to a new one.
+I said the `rebase` command moves revisions from a _one base_ to a new one.
 What is that _previous_ base?
 When using the `--onto` flag (or `-o` for short), Jujutsu will select the first shared ancestor of your working copy and the new base as the _old base to rebase from_.
-In other words, the `rebase` command moves only those commits that aren't on the branch of the new base yet.
-In our example, there was only one commit to move.
+In other words, the `rebase` command moves only those revisions that aren't on the branch of the new base yet.
+In our example, there was only one revision to move.
 
-Creating a merge commit and rebasing are both valid ways of recombining changes that branched-off into different directions.
+Creating a merge revision and rebasing are both valid ways of recombining changes that branched-off into different directions.
 They both have advantages and disadvantages.
 Some people care more about one aspect than another, so they may end up having strong opinions about which approach is best.
 Here's a hopefully balanced overview of the main trade-off:
