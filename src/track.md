@@ -111,7 +111,7 @@ She would like the bookmark to be tracked so she can see it by default in the lo
 The command to do that is:
 
 ```sh
-jj bookmark track push-zkwmvzlqluot@origin
+jj bookmark track push-zkwmvzlqluot
 ```
 
 It's the same command as tracking a bookmark that was created locally and doesn't exist on the remote yet.

@@ -13,7 +13,7 @@ jj redo
 ```
 Track a remote bookmark in order to push to it
 ```sh
-jj bookmark track <NAME>@origin
+jj bookmark track <NAME>
 ```
 Delete a commit (and bookmarks pointing to it)
 ```sh

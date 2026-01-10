@@ -127,7 +127,7 @@ Jujutsu identifies bookmarks which are supposed to be sent to a remote with a "t
 In order to send the `main` bookmark to our remote, we need to "track it" first:
 
 ```sh
-jj bookmark track main@origin
+jj bookmark track main
 ```
 
 The `@origin` part means that `main` should be sent to the remote called `origin`.

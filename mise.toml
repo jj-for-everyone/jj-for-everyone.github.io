@@ -18,7 +18,7 @@ jj new main
 
 mdbook build --dest-dir docs
 jj describe --message 'deploy to github pages'
-jj bookmark track gh-pages@origin &> /dev/null
+jj bookmark track gh-pages &> /dev/null
 jj abandon --retain-bookmarks gh-pages
 jj bookmark move gh-pages --to @ --allow-backwards
 jj git push --bookmark gh-pages -N

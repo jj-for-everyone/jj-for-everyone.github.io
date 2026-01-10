@@ -94,7 +94,7 @@ if [ "$chapter" = remote ] ; then success ; fi
 git init --bare -b main "$jj_tutorial_dir"/remote
 jj git remote add origin "$jj_tutorial_dir"/remote
 jj bookmark create main --revision @-
-jj bookmark track main@origin
+jj bookmark track main
 jj git push --bookmark main
 
 if [ "$chapter" = update_bookmark ] ; then success ; fi
@@ -247,7 +247,7 @@ jj commit -m "Print German and French greetings as well"
 jj bookmark move main -t @-
 jj git push
 
-jj bookmark track 'glob:push-*@origin'
+jj bookmark track 'push-*'
 
 if [ "$chapter" = conflict ] ; then success ; fi
 

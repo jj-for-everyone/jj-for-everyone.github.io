@@ -112,15 +112,16 @@ This situation is called a **conflict**.
 Open the file `hello.py` in a text editor or run `cat hello.py` to see the content of the conflicted file:
 
 ```
-<<<<<<< Conflict 1 of 1
-%%%%%%% Changes from base to side #1
+<<<<<<< conflict 1 of 1
+%%%%%%% diff from: krymmwqm 1581674f "Merge code and documentation for hello-world"
+\\\\\\\        to: quvtvrzl d0c3efcd "Print German and French greetings as well"
  print("Hello, world!")
 +print("Hallo, Welt!")
 +print("Bonjour, le monde!")
-+++++++ Contents of side #2
++++++++ oxnuoryz c6042124 "Fix loop syntax"
 for _ in range(10):
     print("Hello, world!")
->>>>>>> Conflict 1 of 1 ends
+>>>>>>> conflict 1 of 1 ends
 ```
 
 Yikes, that looks gnarly.
@@ -143,21 +144,15 @@ In our example, the file is so small that the entire thing is a single conflict.
 Next, focus on the first section within the conflict:
 
 ```
-%%%%%%% Changes from base to side #1
+%%%%%%% diff from: krymmwqm 1581674f "Merge code and documentation for hello-world"
+\\\\\\\        to: quvtvrzl d0c3efcd "Print German and French greetings as well"
  print("Hello, world!")
 +print("Hallo, Welt!")
 +print("Bonjour, le monde!")
 ```
 
-The "heading" of this section says "Changes from base to side #1".
-What are "base" and "side #1"?
-Think of the "base" as the commit where the two branches of a merge started to fork.
-This commit is visible in the log above, it's the one with the description: "Merge code and documentation for hello-world".
-
-The number of the side corresponds to the order in which we specified the commits to be merged.
-The merge command was `jj new main @-`, so "side #1" corresponds to the `main` branch.
-
-So, this section is showing us the changes that were made to the conflicted lines on the `main` branch.
+The conflict markers tell us the range of commits these changes are from.
+This first section is showing us the changes that were made to the conflicted lines on the `main` branch.
 The format for showing the changes is the common "diff" format.
 In this format, all lines are prefixed with either a space, a minus `-` or a plus `+` sign.
 The space means the line was not changed.
@@ -169,13 +164,13 @@ In this case we have one unchanged line (the English greeting) and two added lin
 Time to look at the second section of the conflict:
 
 ```
-+++++++ Contents of side #2
++++++++ oxnuoryz c6042124 "Fix loop syntax"
 for _ in range(10):
     print("Hello, world!")
 ```
 
-This section is not showing us the "changes from base to side #2", it's just showing us the final state of side #2.
-The reason is that the state of base can be inferred from the previous section.
+This section is not showing us the changes in some commit range, it's just showing us the final state of the commit with the description "Fix loop syntax".
+The reason is that the previous state can be inferred from the first section.
 
 This explanation may have seemed overly verbose.
 But merge conflicts can get more complicated than this.
@@ -184,7 +179,7 @@ Hopefully you are a little better prepared to face them from now on.
 ## Fixing a conflict
 
 Now that we understand the state of each side of the conflict, how do we fix it?
-There is **no mechanical solution** here!
+There is **no easy solution** here!
 If there was, Jujutsu would've done it for you.
 The point of a merge conflict is that the correct resolution depends on the meaning of the conflicted changes.
 
