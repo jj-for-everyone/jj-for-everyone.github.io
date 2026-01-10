@@ -71,7 +71,7 @@ Hello, terminal!
 
 ## The current working directory
 
-One deeply fundamental concept of the terminal is the **current working directory**.
+One fundamental concept of the terminal is the **current working directory**.
 It's a location in your filesystem, the one "where you currently are".
 
 Most commands you run behave differently based on this "current location".
@@ -164,9 +164,13 @@ An example looks like this:
 echo "bread, onions, tea" > groceries.txt
 ```
 
-In this book, I will often tell you to manipulate a file by running a command that looks like the one above.
+If you run this command, it will create a file called "groceries.txt" in your CWD.
+The content of the file will be "bread, onions, tea".
+If a file with the same name already existed, it will be **overwritten**.
+In addition to the `>` operator, there is also the `>>` operator.
+It _appends_ text to the end of a file, instead of _overwriting_ it.
 
-The `>` operator _overwrites_ a file, but there is also the `>>` operator, which _appends_ to the end of a file.
+In this book, I will often tell you to manipulate a file by running a command that looks like the one above.
 
 ## Pagers
 
