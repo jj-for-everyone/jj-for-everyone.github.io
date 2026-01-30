@@ -130,9 +130,6 @@ In order to send the `main` bookmark to our remote, we need to "track it" first:
 jj bookmark track main
 ```
 
-The `@origin` part means that `main` should be sent to the remote called `origin`.
-This is relevant in case you have multiple remotes and only want to send a bookmark to a subset of them, but that's an advanced situation you don't have to worry about.
-
 ## Pushing the bookmark
 
 Now that we're connected and have a bookmark, let's finally send our commit to the remote.
