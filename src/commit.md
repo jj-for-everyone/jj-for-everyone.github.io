@@ -120,7 +120,7 @@ Let's see the result of running `jj commit` with `jj log`:
 <pre class="aha">
 <span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">p</span><span class="bold highlighted dimgray ">wpuwyto</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 20:22:36</span><span class="bold "> </span><span class="bold highlighted blue ">3</span><span class="bold highlighted dimgray ">5de496a</span><span class="bold "></span>
 │  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
-○  <span class="bold "></span><span class="bold purple ">m</span><span class="highlighted dimgray ">kmqlnox</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 20:20:34</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">5</span><span class="highlighted dimgray ">b79353a</span>
+○  <span class="bold "></span><span class="bold purple ">m</span><span class="highlighted dimgray ">kmqlnox</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 20:20:34</span> <span class="bold "></span><span class="bold blue ">5</span><span class="highlighted dimgray ">b79353a</span>
 │  Add readme with project title
 <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zzzzzzz</span> <span class="green ">root()</span> <span class="bold "></span><span class="bold blue ">0</span><span class="highlighted dimgray ">0000000</span>
 </pre>
@@ -129,7 +129,6 @@ There are a few things to observe here:
 - The new commit is a child of our previous working copy commit.
 - The previous commit shows the subject line of the description we gave it.
 - The new commit became our working copy, meaning any further file changes will be recorded into the new commit.
-- The previous commit is marked with `git_head()`.
   This marker is not important and you can ignore it.
 - The previous commit has a different symbol (circle `○`) than the root commit (diamond `◆`).
   This is related to an important feature, which we'll learn about later.

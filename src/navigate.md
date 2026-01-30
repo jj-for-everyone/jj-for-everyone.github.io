@@ -20,7 +20,7 @@ jj git fetch
 <pre class="aha">
 <span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">q</span><span class="bold highlighted dimgray ">rtwnykn</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-25 20:37:05</span><span class="bold "> </span><span class="bold highlighted blue ">c</span><span class="bold highlighted dimgray ">2f4e43e</span><span class="bold "></span>
 │  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
-○  <span class="bold "></span><span class="bold purple ">r</span><span class="highlighted dimgray ">vpkroku</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">push-rvpkrokuqrxt</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">b</span><span class="highlighted dimgray ">9d02faf</span>
+○  <span class="bold "></span><span class="bold purple ">r</span><span class="highlighted dimgray ">vpkroku</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">push-rvpkrokuqrxt</span> <span class="bold "></span><span class="bold blue ">b</span><span class="highlighted dimgray ">9d02faf</span>
 │  WIP: Add for loop (need to fix syntax)
 │ <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">tqlsyyr</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">07a18a9</span>
 ├─╯  Add submission instructions
@@ -49,7 +49,7 @@ jj new main
 <pre class="aha">
 <span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">u</span><span class="bold highlighted dimgray ">umounxy</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-25 20:52:32</span><span class="bold "> </span><span class="bold highlighted blue ">e</span><span class="bold highlighted dimgray ">1bcff24</span><span class="bold "></span>
 │  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
-<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">tqlsyyr</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">main</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">07a18a9</span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">tqlsyyr</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">07a18a9</span>
 │  Add submission instructions
 │ ○  <span class="bold "></span><span class="bold purple ">r</span><span class="highlighted dimgray ">vpkroku</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">push-rvpkrokuqrxt</span> <span class="bold "></span><span class="bold blue ">b</span><span class="highlighted dimgray ">9d02faf</span>
 ├─╯  WIP: Add for loop (need to fix syntax)
@@ -74,7 +74,7 @@ Here's the full log for reference:
 <pre class="aha">
 <span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">u</span><span class="bold highlighted dimgray ">umounxy</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-25 20:52:32</span><span class="bold "> </span><span class="bold highlighted blue ">e</span><span class="bold highlighted dimgray ">1bcff24</span><span class="bold "></span>
 │  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
-<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">tqlsyyr</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">main</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">07a18a9</span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">tqlsyyr</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">07a18a9</span>
 │  Add submission instructions
 │ ○  <span class="bold "></span><span class="bold purple ">r</span><span class="highlighted dimgray ">vpkroku</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="purple ">push-rvpkrokuqrxt</span> <span class="bold "></span><span class="bold blue ">b</span><span class="highlighted dimgray ">9d02faf</span>
 ├─╯  WIP: Add for loop (need to fix syntax)
@@ -119,7 +119,7 @@ Let's confirm our maneuver by checking the log:
 │ │
 │ ~
 │
-<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">q</span><span class="highlighted dimgray ">xkprvsu</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">9</span><span class="highlighted dimgray ">e05718a</span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">q</span><span class="highlighted dimgray ">xkprvsu</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-25 20:37:05</span> <span class="bold "></span><span class="bold blue ">9</span><span class="highlighted dimgray ">e05718a</span>
 │  Document hello.py in README.md
 ~
 </pre>

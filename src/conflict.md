@@ -48,7 +48,7 @@ jj commit -m "Fix loop syntax"
 <pre class="aha">
 <span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">z</span><span class="bold highlighted dimgray ">zlzryut</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-08-23 21:21:54</span><span class="bold "> </span><span class="bold highlighted blue ">5</span><span class="bold highlighted dimgray ">b7e967e</span><span class="bold "></span>
 │  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
-○  <span class="bold "></span><span class="bold purple ">o</span><span class="highlighted dimgray ">xnuoryz</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:54</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">c</span><span class="highlighted dimgray ">6042124</span>
+○  <span class="bold "></span><span class="bold purple ">o</span><span class="highlighted dimgray ">xnuoryz</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:54</span> <span class="bold "></span><span class="bold blue ">c</span><span class="highlighted dimgray ">6042124</span>
 │  Fix loop syntax
 ○  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">vrzpsvy</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:53</span> <span class="purple ">push-tvrzpsvypkqk</span> <span class="bold "></span><span class="bold blue ">6</span><span class="highlighted dimgray ">e468237</span>
 │  WIP: Add for loop (need to fix syntax)
@@ -92,7 +92,7 @@ The conflict can also be seen in the log:
 │ │  Fix loop syntax
 │ ○  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">vrzpsvy</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:53</span> <span class="purple ">push-tvrzpsvypkqk</span> <span class="bold "></span><span class="bold blue ">6</span><span class="highlighted dimgray ">e468237</span>
 │ │  WIP: Add for loop (need to fix syntax)
-<span class="bold "></span><span class="bold highlighted cyan ">◆</span> │  <span class="bold "></span><span class="bold purple ">q</span><span class="highlighted dimgray ">uvtvrzl</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:54</span> <span class="purple ">main</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">d</span><span class="highlighted dimgray ">0c3efcd</span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span> │  <span class="bold "></span><span class="bold purple ">q</span><span class="highlighted dimgray ">uvtvrzl</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:54</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">d</span><span class="highlighted dimgray ">0c3efcd</span>
 │ │  Print German and French greetings as well
 <span class="highlighted dimgray ">~</span> │  <span class="highlighted dimgray ">(elided revisions)</span>
 ├─╯
@@ -241,7 +241,7 @@ Let's check the log to confirm our merge commit is not marked as conflicted anym
 │ │  Fix loop syntax
 │ ○  <span class="bold "></span><span class="bold purple ">u</span><span class="highlighted dimgray ">xpxzolo</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-24 07:38:01</span> <span class="purple ">push-uxpxzoloznts</span> <span class="bold "></span><span class="bold blue ">b3</span><span class="highlighted dimgray ">26e556</span>
 │ │  WIP: Add for loop (need to fix syntax)
-<span class="bold "></span><span class="bold highlighted cyan ">◆</span> │  <span class="bold "></span><span class="bold purple ">w</span><span class="highlighted dimgray ">ruksqvz</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-24 07:38:02</span> <span class="purple ">main</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">1</span><span class="highlighted dimgray ">18457e4</span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span> │  <span class="bold "></span><span class="bold purple ">w</span><span class="highlighted dimgray ">ruksqvz</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-24 07:38:02</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">1</span><span class="highlighted dimgray ">18457e4</span>
 │ │  Print German and French greetings as well
 <span class="highlighted dimgray ">~</span> │  <span class="highlighted dimgray ">(elided revisions)</span>
 ├─╯

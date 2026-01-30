@@ -35,7 +35,7 @@ jj new main
 ├─╯  <span class="green ">(empty)</span> Experiment: Improve scalability using microservices
 │ ○  <span class="bold "></span><span class="bold purple ">r</span><span class="highlighted dimgray ">ppuwxxp</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-31 14:29:56</span> <span class="purple ">push-rppuwxxpnkqu</span> <span class="bold "></span><span class="bold blue ">8</span><span class="highlighted dimgray ">c44777f</span>
 ├─╯  <span class="green ">(empty)</span> Experiment: Migrate to shiny new framework
-<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">s</span><span class="highlighted dimgray ">nnoxnvq</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-31 14:29:56</span> <span class="purple ">main</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">3</span><span class="highlighted dimgray ">46c0acd</span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">s</span><span class="highlighted dimgray ">nnoxnvq</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-31 14:29:56</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">3</span><span class="highlighted dimgray ">46c0acd</span>
 │  Merge repetition and translation of greeting
 ~
 </pre>
@@ -101,7 +101,7 @@ jj log
 <pre class="aha">
 <span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">n</span><span class="bold highlighted dimgray ">wstlotv</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-08-31 14:44:23</span><span class="bold "> </span><span class="bold highlighted blue ">9</span><span class="bold highlighted dimgray ">28b48f4</span><span class="bold "></span>
 │  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
-○  <span class="bold "></span><span class="bold purple ">y</span><span class="highlighted dimgray ">qyzyzzo</span> <span class="yellow ">remo@buenzli.dev</span> <span class="cyan ">2025-08-31 14:44:22</span> <span class="green ">git_head()</span> <span class="bold "></span><span class="bold blue ">30</span><span class="highlighted dimgray ">e0eec4</span>
+○  <span class="bold "></span><span class="bold purple ">y</span><span class="highlighted dimgray ">qyzyzzo</span> <span class="yellow ">remo@buenzli.dev</span> <span class="cyan ">2025-08-31 14:44:22</span> <span class="bold "></span><span class="bold blue ">30</span><span class="highlighted dimgray ">e0eec4</span>
 │  add some file
 │ ○  <span class="bold "></span><span class="bold purple ">v</span><span class="highlighted dimgray ">qytywws</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-31 14:44:05</span> <span class="bold "></span><span class="bold blue ">7</span><span class="highlighted dimgray ">0588b87</span>
 ├─╯  <span class="yellow ">(no description set)</span>
