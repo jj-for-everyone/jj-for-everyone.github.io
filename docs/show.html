@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<html lang="en" class="latte sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Inspecting a commit - Jujutsu for everyone</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="A Jujutsu tutorial that requires no previous experience with Git or other version control systems.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/mdbook-admonish.css">
+        <link rel="stylesheet" href="theme/catppuccin.css">
+        <link rel="stylesheet" href="theme/catppuccin-admonish.css">
+        <link rel="stylesheet" href="theme/aha_styles.css">
+        <link rel="stylesheet" href="theme/mdbook-admonish-custom.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "latte";
+            const default_dark_theme = "macchiato";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('latte')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="latte">Latte</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="frappe">Frappe</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mocha">Mocha</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Jujutsu for everyone</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io/edit/main/src/show.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="inspecting-a-commit"><a class="header" href="#inspecting-a-commit">Inspecting a commit</a></h1>
+<details id="admonition-reset-your-progress" class="admonition admonish-reset" role="note" aria-labelledby="admonition-reset-your-progress-title">
+<summary class="admonition-title">
+<div id="admonition-reset-your-progress-title">
+<p>Reset your progress</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-reset-your-progress"></a>
+</summary>
+<div>
+<p>To reset your progress to the start of this chapter, run the following command:</p>
+<pre><code class="language-sh">curl https://jj-for-everyone.github.io/reset.sh | bash -s show
+cd ~/jj-tutorial/repo
+</code></pre>
+</div>
+</details>
+<p>Alice has just found out that Bob made changes at the same time as she did.
+Before she attempts to somehow create a version that includes both changes, she wants to verify the two changes are compatible.
+She therefore decides to check out Bob's changes by using <code>jj show</code>.
+Since the remote bookmark <code>main</code> is pointing there, she can use that as identification.</p>
+<pre><code>jj show main@origin
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+Commit ID: <span class="blue ">8d53839037b21e262e410e087606925f7582914e</span>
+Change ID: <span class="purple ">quolxwkkstmturozxxxrkkpxxxnnosry</span>
+Bookmarks: <span class="purple ">main??</span> <span class="purple ">main@origin</span>
+Author   : <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local</span>&gt; (<span class="cyan ">2025-07-22 21:22:17</span>)
+Committer: <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local</span>&gt; (<span class="cyan ">2025-07-22 21:22:22</span>)
+
+    Document hello.py in README.md
+
+    The file hello.py doesn't exist yet, because Alice is working on that.
+    Once our changes are combined, this documentation will be accurate.
+
+<span class="yellow ">Modified regular file README.md:</span>
+<span class="red ">   1</span> <span class="green ">   1</span>: # jj-tutorial
+<span class="red ">   2</span> <span class="green ">   2</span>: 
+<span class="red ">   3</span>     : <span class="underline "></span><span class="underline red ">This</span><span class="red "> </span><span class="underline red ">is</span><span class="red "> a </span><span class="underline red ">toy</span><span class="red "> </span><span class="underline red ">repository</span><span class="red "> </span><span class="underline red ">for</span><span class="red "> </span><span class="underline red ">learning</span><span class="red "> </span><span class="underline red ">Jujutsu</span><span class="red ">.</span>
+     <span class="green ">   3</span>: <span class="underline "></span><span class="underline green ">The</span><span class="green "> </span><span class="underline green ">file</span><span class="green "> </span><span class="underline green ">hello.py contains </span><span class="green ">a </span><span class="underline green ">script</span><span class="green "> </span><span class="underline green ">that</span><span class="green "> </span><span class="underline green ">greets</span><span class="green "> </span><span class="underline green ">the</span><span class="green "> </span><span class="underline green ">world</span><span class="green ">.</span>
+     <span class="green ">   4</span>: <span class="underline "></span><span class="underline green ">It can be executed with the command 'python hello.py'.</span><span class="green "></span>
+     <span class="green ">   5</span>: <span class="underline "></span><span class="underline green ">Programming is fun!</span><span class="green "></span>
+</pre>
+<p>There's a lot of useful information here that <code>jj log</code> doesn't show.
+Let's go over it one-by-one:</p>
+<ul>
+<li>
+<p>The first two lines are the commit ID and change ID.
+We've seen them already, but these ones are longer!
+That's because the output of <code>jj log</code> only shows you a <strong>prefix</strong> of the full ID.
+The short prefix is usually enough to uniquely identify a commit, but sometimes you want the whole thing.</p>
+</li>
+<li>
+<p>Next is a list of bookmarks pointing to the commit.</p>
+</li>
+<li>
+<p>The following two lines are the author and committer information, as well as their timestamps.
+Author and committer are usually the same, the difference is not important.
+If you're curious anyway, there's a short explanation in the info box below.</p>
+</li>
+<li>
+<p>Then there's the commit message.
+Notice that we see the full description here including its body.
+<code>jj log</code> only displays the subject line to save space.</p>
+</li>
+<li>
+<p>Lastly, we see a list of files that have changed in this commit as well as the precise changes of their content.
+The color green means "added" and red means "removed"
+So we can see that this commit removed the previous line 3 and replaced it with three new lines.
+The first line is neutral, indicating that it was not changed in this commit.</p>
+</li>
+</ul>
+<details id="admonition-the-difference-between-author-and-committer" class="admonition admonish-note" role="note" aria-labelledby="admonition-the-difference-between-author-and-committer-title">
+<summary class="admonition-title">
+<div id="admonition-the-difference-between-author-and-committer-title">
+<p>The difference between author and committer</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-the-difference-between-author-and-committer"></a>
+</summary>
+<div>
+<p>The <strong>author</strong> of a commit is the primary person who wrote its content.
+In this case, that refers to the new paragraph being added to the readme.
+The <strong>committer</strong> on the other hand is the person who created the commit.
+Again, these are usually the same, because most of the time the person who writes something also immediately puts that in a commit.</p>
+<p>Let's imagine a scenario where that's not the case.</p>
+<p>Before they started doing any work, Alice and Bob are joined by Claire as a third member of the team.
+Claire is not comfortable using version control yet, so they decide that Claire will write the documentation instead of Bob.
+Bob on the other hand will record Claire's changes in version control for safe keeping.
+That way, everyone can contribute something.</p>
+<p>Claire writes the documentation and sends the <code>README.md</code> file to Bob as an attachement by email.
+Bob copies the file into his repository, recording it into the working copy commit as normal.
+He want's to preserve Claire's authorship information, so he runs the command:</p>
+<pre><code class="language-sh">jj describe --author "Claire &lt;claire@local&gt;" --no-edit
+</code></pre>
+<p>That command will overwrite the author information in the commit on a one-off basis.
+The committer field will continue to contain Bob's information.
+The result will look like this:</p>
+<pre class="aha">
+Commit ID: <span class="blue ">8d53839037b21e262e410e087606925f7582914e</span>
+Change ID: <span class="purple ">quolxwkkstmturozxxxrkkpxxxnnosry</span>
+Bookmarks: <span class="purple ">main??</span> <span class="purple ">main@origin</span>
+Author   : <span class="yellow ">Claire</span> &lt;<span class="yellow ">claire@local</span>&gt; (<span class="cyan ">2025-07-22 21:22:17</span>)
+Committer: <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local</span>&gt; (<span class="cyan ">2025-07-22 21:22:22</span>)
+
+    ...
+</pre>
+</div>
+</details>
+<p>Alice is pretty sure that Bob's changes are compatible with hers.
+He only changed the file <code>README.md</code>, while Alice didn't do anything besides adding <code>hello.py</code>.
+Her next task is to create a version of the project that combines both changes.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="branch.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="merge.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="branch.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="merge.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

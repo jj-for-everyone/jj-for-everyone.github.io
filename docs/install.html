@@ -1,0 +1,391 @@
+<!DOCTYPE HTML>
+<html lang="en" class="latte sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Installation and setup - Jujutsu for everyone</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="A Jujutsu tutorial that requires no previous experience with Git or other version control systems.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/mdbook-admonish.css">
+        <link rel="stylesheet" href="theme/catppuccin.css">
+        <link rel="stylesheet" href="theme/catppuccin-admonish.css">
+        <link rel="stylesheet" href="theme/aha_styles.css">
+        <link rel="stylesheet" href="theme/mdbook-admonish-custom.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "latte";
+            const default_dark_theme = "macchiato";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('latte')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="latte">Latte</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="frappe">Frappe</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mocha">Mocha</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Jujutsu for everyone</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io/edit/main/src/install.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="installation-and-setup"><a class="header" href="#installation-and-setup">Installation and setup</a></h1>
+<p>There are many ways to install Jujutsu and the best one depends on your system.
+If you don't care at all about how Jujutsu is installed, you can copy-paste these commands:</p>
+<pre><code class="language-sh">curl https://mise.run | sh
+~/.local/bin/mise install-into jujutsu@latest /tmp/jj-install
+mv /tmp/jj-install/jj ~/.local/bin
+rm -rf /tmp/jj-install
+exec $SHELL --login
+</code></pre>
+<p>Now run <code>jj --version</code> to verify the installation.
+It should print the currently installed version of Jujutsu, something like <code>jj 0.36.0-blabla</code>.
+If the output is an error instead, e.g. <code>bash: jj: command not found...</code>, open the text box below.</p>
+<details id="admonition-jj-command-not-found" class="admonition admonish-failure" role="note" aria-labelledby="admonition-jj-command-not-found-title">
+<summary class="admonition-title">
+<div id="admonition-jj-command-not-found-title">
+<p>jj: command not found...</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-jj-command-not-found"></a>
+</summary>
+<div>
+<p>Your system probably doesn't add the installation directory <code>~/.local/bin</code> to the <code>PATH</code> environment variable.
+To fix that, you first need to figure out what shell you're using:</p>
+<pre><code class="language-sh">echo $SHELL
+</code></pre>
+<p>The output should end with either "bash", or "zsh".
+That's your shell.
+Next, put a command adding <code>~/.local/bin</code> to your <code>PATH</code> variable into your shell's startup script:</p>
+<pre><code class="language-sh"># for bash:
+echo 'export PATH=$HOME/.local/bin:$PATH' &gt;&gt; ~/.bashrc
+</code></pre>
+<pre><code class="language-sh"># for zsh:
+echo 'export PATH=$HOME/.local/bin:$PATH' &gt;&gt; ~/.zshrc
+</code></pre>
+<p>Lastly, close the terminal and open a new one so the changes take effect.</p>
+</div>
+</details>
+<details id="admonition-explanation-of-installation-commands" class="admonition admonish-note" role="note" aria-labelledby="admonition-explanation-of-installation-commands-title">
+<summary class="admonition-title">
+<div id="admonition-explanation-of-installation-commands-title">
+<p>Explanation of installation commands</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-explanation-of-installation-commands"></a>
+</summary>
+<div>
+<p>Installing software is more difficult than one might think.
+It depends on many factors like CPU architecture and operating system.
+That's why there's not a single, easy command we can run to install Jujutsu on any system.
+Instead, we first install another program that specializes in installing software called <code>mise</code>.
+(You can read more about mise on <a href="https://mise.jdx.dev/">its website</a>.)
+The first command <code>curl https://mise.run | sh</code> downloads and runs a script from the internet that installs <code>mise</code> for you.
+This is kind of dangerous and you should be careful when executing scripts from the internet.
+People could place malicious commands in the script you're downloading.
+But it's a convenient technique if you trust the owner of the website you're loading the script from.</p>
+<p>The second command runs <code>mise</code> to download Jujutsu into a temporary directory.
+We have to specify the full path to the <code>mise</code> binary (<code>~/.local/bin/mise</code>), because at this point we don't know if <code>~/.local/bin</code> is included in your <code>PATH</code> variable.
+(See the <a href="./terminal_basics.html#the-path-variable">"Terminal basics" chapter</a> for an explanation of that.)
+<code>mise</code> takes care of downloading the right binary for your operating system and CPU architecture.</p>
+<p>The following command moves the downloaded binary to <code>~/.local/bin</code>, which is the customary place for user-local programs.
+<code>rm -rf /tmp/jj-install</code> ("remove recursive force") deletes the temporary download directory and its content.</p>
+<p>Lastly, <code>exec $SHELL --login</code> restarts your shell, which causes its startup scripts to run again.
+Some Linux distributions like Ubuntu only add <code>~/.local/bin</code> to the <code>PATH</code> variable if that directory exists when the terminal is started.
+So, restarting the terminal after installing Jujutsu is a simple way to make sure the system will find the new program.</p>
+<p>Maybe there are distributions which don't add <code>~/.local/bin</code> to <code>PATH</code> <strong>at all</strong>, which would mean those commands don't work on such a system.
+I'm not aware of such distributions.
+(Please <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io/issues/new">open an issue</a> if you know of a relevant one!)
+You can fix such an issue for yourself by extending the <code>PATH</code> variable in your <a href="http://localhost:3210/terminal_basics.html#startup-scripts">shell startup script</a>.</p>
+</div>
+</details>
+<details id="admonition-other-installation-methods" class="admonition admonish-info" role="note" aria-labelledby="admonition-other-installation-methods-title">
+<summary class="admonition-title">
+<div id="admonition-other-installation-methods-title">
+<p>Other installation methods</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-other-installation-methods"></a>
+</summary>
+<div>
+<p>The official installation instructions for several different platforms are <a href="https://docs.jj-vcs.dev/latest/install-and-setup/">here</a>.
+I will mention a few methods that I consider important as well.</p>
+<p>If you use <a href="https://github.com/cargo-bins/cargo-binstall">cargo-binstall</a>, this works great:</p>
+<pre><code class="language-sh">cargo-binstall jj-cli
+</code></pre>
+<p>If you're a Mac &amp; Homebrew user, this one's for you:</p>
+<pre><code class="language-sh">brew install jj
+</code></pre>
+<p>If you have the Rust toolchain installed and would like to compile from source, you can run:</p>
+<pre><code class="language-sh">cargo install --locked --bin jj jj-cli
+</code></pre>
+<p>You can also download a binary directly from Jujutsu's <a href="https://github.com/jj-vcs/jj/releases/latest">release page</a>.
+Scroll down to "Assets", there is a list of archives to download.
+The right one depends on two things: your operating system and your CPU architecture.
+Look for the strings matching your system in the names of the archives.</p>
+<p>How to identify your operating system:</p>
+<div class="table-wrapper"><table><thead><tr><th>operating system</th><th>string to look for</th></tr></thead><tbody>
+<tr><td>Linux</td><td>unknown-linux-musl</td></tr>
+<tr><td>Mac</td><td>apple-darwin</td></tr>
+<tr><td>Windows</td><td>pc-windows-msvc</td></tr>
+</tbody></table>
+</div>
+<p>How to identify your CPU architecture:</p>
+<div class="table-wrapper"><table><thead><tr><th>CPU brand</th><th>string to look for</th></tr></thead><tbody>
+<tr><td>Intel</td><td>x86_64</td></tr>
+<tr><td>AMD</td><td>x86_64</td></tr>
+<tr><td>Apple</td><td>aarch64</td></tr>
+<tr><td>ARM</td><td>aarch64</td></tr>
+<tr><td>Qualcom (Snapdragon)</td><td>aarch64</td></tr>
+</tbody></table>
+</div>
+<p>Once you have downloaded the right archive, you need to extract it.
+You should be able to right-click on the downloaded archive in your file explorer and select "extract" or something similar in the drop-down.
+The extracted folder will contain documentation and a file called "jj".
+You need to move that into the directory <code>~/.local/bin/</code>.
+(Or another location where you keep your programs if you know what you're doing.)</p>
+</div>
+</details>
+<h2 id="initial-configuration"><a class="header" href="#initial-configuration">Initial configuration</a></h2>
+<p>Jujutsu is very configurable, but we don't care about most knobs and dials right now.
+The only thing that you <strong>must</strong> configure is your name and email.
+This is required metadata and some things won't work right without this information.
+However, you don't have to enter your <em>real</em> name and email, in case you're not comfortable storing that information in the repositories you're planning to work on.</p>
+<p>If you're working on school or work projects, it's probably fine to configure your real name and school / work email.
+These repositories are usually not publicly accessible.</p>
+<p>If you're planning to work on open source projects that anyone can see, you may want to be more careful.
+You could use your GitHub handle as username, but many are comfortable using their real name too.
+The email address is more important.
+If you use your normal, private email address, there is a risk of receiving undesirable emails at that address.
+You might consider using a dedicated address just for open source work.
+Another alternative is to use an address provided by GitHub.
+It identifies your GitHub account, but you cannot receive emails through it.
+Go to <a href="https://github.com/settings/emails">GitHub's email settings</a> and select "Keep my email address private", your private email address will then be shown at the top.</p>
+<p>Here are the commands to configure your username and email:</p>
+<pre><code class="language-sh">jj config set --user user.name "Anonymous"
+jj config set --user user.email "anon@local"
+</code></pre>
+<p>If you want shell completions, follow the instructions <a href="https://docs.jj-vcs.dev/latest/install-and-setup/#command-line-completion">here</a>.
+If you don't know what a "shell completion" is, don't worry, it's not important.</p>
+<h2 id="installing-a-simple-text-editor"><a class="header" href="#installing-a-simple-text-editor">Installing a simple text editor</a></h2>
+<p>Jujutsu will sometimes ask you to edit a text file.
+The default text editor used for that purpose is <code>nano</code> on Linux and Mac.
+It works fine, but it can be counter-intuitive for new users.
+(<kbd>Ctrl+O</kbd> is saving the file and <kbd>Ctrl+X</kbd> is closing the program.)</p>
+<p>This is optional, but I recommend you install a text editor called <a href="https://github.com/microsoft/edit">edit</a>.
+I consider it to be the simplest and most intuitive alternative.
+If you installed Jujutsu with <code>mise</code> (as suggested above) you can also install <code>edit</code> the same way:</p>
+<pre><code class="language-sh">mise install-into edit@latest /tmp/edit-install
+mv /tmp/edit-install/edit ~/.local/bin
+rm -rf /tmp/edit-install
+</code></pre>
+<p>If you installed Jujutsu using another method, you'll want to install <code>edit</code> on your own as well.</p>
+<p>Next, we need to configure Jujutsu to use <code>edit</code> when opening a text file:</p>
+<pre><code class="language-sh">jj config set --user ui.editor edit
+</code></pre>
+<p>From now on, when Jujutsu opens a text file for you, it will do so using <code>edit</code>.
+When you're done editing a file, click on "File", then "Exit", in the menu bar or press <kbd>Ctrl+Q</kbd> to exit the text editor.
+It will ask you if you want to save the file, which you confirm by pressing <kbd>Enter</kbd>.
+That's it!
+I will remind you how it works the first time we need it.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="level_1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="initialize.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="level_1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="initialize.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

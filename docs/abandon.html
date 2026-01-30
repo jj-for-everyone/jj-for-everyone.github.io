@@ -1,0 +1,392 @@
+<!DOCTYPE HTML>
+<html lang="en" class="latte sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Deleting commits and bookmarks - Jujutsu for everyone</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="A Jujutsu tutorial that requires no previous experience with Git or other version control systems.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/mdbook-admonish.css">
+        <link rel="stylesheet" href="theme/catppuccin.css">
+        <link rel="stylesheet" href="theme/catppuccin-admonish.css">
+        <link rel="stylesheet" href="theme/aha_styles.css">
+        <link rel="stylesheet" href="theme/mdbook-admonish-custom.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "latte";
+            const default_dark_theme = "macchiato";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('latte')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="latte">Latte</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="frappe">Frappe</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mocha">Mocha</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Jujutsu for everyone</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io/edit/main/src/abandon.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="deleting-commits-and-bookmarks"><a class="header" href="#deleting-commits-and-bookmarks">Deleting commits and bookmarks</a></h1>
+<details id="admonition-reset-your-progress" class="admonition admonish-reset" role="note" aria-labelledby="admonition-reset-your-progress-title">
+<summary class="admonition-title">
+<div id="admonition-reset-your-progress-title">
+<p>Reset your progress</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-reset-your-progress"></a>
+</summary>
+<div>
+<p>To reset your progress to the start of this chapter, run the following command:</p>
+<pre><code class="language-sh">curl https://jj-for-everyone.github.io/reset.sh | bash -s abandon
+cd ~/jj-tutorial/repo
+</code></pre>
+</div>
+</details>
+<p>Remember the for-loop experiment Alice had put aside for a while?
+Jujutsu lets you keep as many of those experiments around as you like.
+Let's simulate a few with these commands:</p>
+<pre><code class="language-sh">jj commit -m "Experiment: Migrate to shiny new framework"
+jj git push --change @-
+jj new main
+jj commit -m "Experiment: Improve scalability using microservices"
+jj git push --change @-
+jj new main
+jj commit -m "Experiment: Apply SOLID design patterns"
+jj git push --change @-
+jj new main
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">v</span><span class="bold highlighted dimgray ">qytywws</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-08-31 14:29:56</span><span class="bold "> </span><span class="bold highlighted blue ">9</span><span class="bold highlighted dimgray ">bdb2d1d</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+│ ○  <span class="bold "></span><span class="bold purple ">o</span><span class="highlighted dimgray ">qsqtxwo</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-31 14:29:56</span> <span class="purple ">push-oqsqtxwowvuw</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">ffeb883</span>
+├─╯  <span class="green ">(empty)</span> Experiment: Apply SOLID design patterns
+│ ○  <span class="bold "></span><span class="bold purple ">l</span><span class="highlighted dimgray ">qpnzsmz</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-31 14:29:56</span> <span class="purple ">push-lqpnzsmzkxry</span> <span class="bold "></span><span class="bold blue ">f</span><span class="highlighted dimgray ">4cf1d7f</span>
+├─╯  <span class="green ">(empty)</span> Experiment: Improve scalability using microservices
+│ ○  <span class="bold "></span><span class="bold purple ">r</span><span class="highlighted dimgray ">ppuwxxp</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-31 14:29:56</span> <span class="purple ">push-rppuwxxpnkqu</span> <span class="bold "></span><span class="bold blue ">8</span><span class="highlighted dimgray ">c44777f</span>
+├─╯  <span class="green ">(empty)</span> Experiment: Migrate to shiny new framework
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">s</span><span class="highlighted dimgray ">nnoxnvq</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-31 14:29:56</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">3</span><span class="highlighted dimgray ">46c0acd</span>
+│  Merge repetition and translation of greeting
+~
+</pre>
+<p>After a lengthy debate with Bob, Alice must admit that none of these experiments are good ideas.
+She decides to delete the commits and bookmarks.</p>
+<p>The jj command to do that is <code>jj abandon &lt;change-id&gt;</code>.
+You can simply call this command three times with the change ID of each experimental commit.
+You can also copy-paste the following command, which deletes them all at once:</p>
+<pre><code class="language-sh">jj abandon 'description(substring:"Experiment")'
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+Abandoned 3 commits:
+  <span class="bold "></span><span class="bold purple ">o</span><span class="highlighted dimgray ">qsqtxwo</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">ffeb883</span> <span class="purple ">push-oqsqtxwowvuw</span><span class="highlighted dimgray "> | </span><span class="green ">(empty)</span> Experiment: Apply SOLID design patterns
+  <span class="bold "></span><span class="bold purple ">l</span><span class="highlighted dimgray ">qpnzsmz</span> <span class="bold "></span><span class="bold blue ">f</span><span class="highlighted dimgray ">4cf1d7f</span> <span class="purple ">push-lqpnzsmzkxry</span><span class="highlighted dimgray "> | </span><span class="green ">(empty)</span> Experiment: Improve scalability using microservices
+  <span class="bold "></span><span class="bold purple ">r</span><span class="highlighted dimgray ">ppuwxxp</span> <span class="bold "></span><span class="bold blue ">8</span><span class="highlighted dimgray ">c44777f</span> <span class="purple ">push-rppuwxxpnkqu</span><span class="highlighted dimgray "> | </span><span class="green ">(empty)</span> Experiment: Migrate to shiny new framework
+Deleted bookmarks: push-lqpnzsmzkxry, push-oqsqtxwowvuw, push-rppuwxxpnkqu
+<span class="bold "></span><span class="bold cyan ">Hint: </span>Deleted bookmarks can be pushed by name or all at once with `jj git push --deleted`.
+</pre>
+<p>The output from <code>jj abandon</code> tells us that all three commits were deleted, including the bookmarks that were pointing to them.
+Jujutsu assumes that if you want to delete a commit, you probably don't need the bookmark pointing to it anymore either.
+If you actually want to keep it, move the bookmark to a commit you're planning to preserve before running <code>jj abandon</code>.</p>
+<p>That being said, the bookmarks are only deleted locally.
+Just like new or moved bookmarks, deleted ones have to be synchronized explicitly.
+This makes it easier to fix mistakes.
+If you accidentally delete a bookmark locally, you can <code>jj undo</code> that without issues.
+If you deleted it on the remote already, restoring it takes a bit more effort.
+Let's sync the deleted bookmarks with the remote:</p>
+<pre><code class="language-sh">jj git push --deleted
+</code></pre>
+<details id="admonition-duplicate-commits-when-using-git-directly" class="admonition admonish-note" role="note" aria-labelledby="admonition-duplicate-commits-when-using-git-directly-title">
+<summary class="admonition-title">
+<div id="admonition-duplicate-commits-when-using-git-directly-title">
+<p>Duplicate commits when using Git directly</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-duplicate-commits-when-using-git-directly"></a>
+</summary>
+<div>
+<p>We've talked about how Jujutsu is compatible with Git.
+It creates a <code>.git</code> directory in your repo that looks like it was made and managed by Git itself.
+This lets other tools that interoperate with Git work seamlessly.</p>
+<p>As a rule of thumb, this interoperability work flawlessly if other tools <strong>only read</strong> the <code>.git</code> directory.
+However, there can be slight issues if they modify it as well.
+The fix is usually simple, but it helps to have an intuition of what can go wrong.</p>
+<p>Let's make a simple example.
+The following commands add some file to Jujutsu's working copy commit.
+Afterwards, a new commit is created with Git itself.
+Running <code>jj log</code> shows a branched-off commit that seems out of place.</p>
+<pre><code class="language-sh">touch some_file
+jj status # record new file into working copy
+git commit -am "add some file" # create commit with git, bypassing jj
+jj log
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">n</span><span class="bold highlighted dimgray ">wstlotv</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-08-31 14:44:23</span><span class="bold "> </span><span class="bold highlighted blue ">9</span><span class="bold highlighted dimgray ">28b48f4</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">y</span><span class="highlighted dimgray ">qyzyzzo</span> <span class="yellow ">remo@buenzli.dev</span> <span class="cyan ">2025-08-31 14:44:22</span> <span class="bold "></span><span class="bold blue ">30</span><span class="highlighted dimgray ">e0eec4</span>
+│  add some file
+│ ○  <span class="bold "></span><span class="bold purple ">v</span><span class="highlighted dimgray ">qytywws</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-31 14:44:05</span> <span class="bold "></span><span class="bold blue ">7</span><span class="highlighted dimgray ">0588b87</span>
+├─╯  <span class="yellow ">(no description set)</span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">s</span><span class="highlighted dimgray ">nnoxnvq</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-31 14:29:56</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">34</span><span class="highlighted dimgray ">6c0acd</span>
+│  Merge repetition and translation of greeting
+~
+</pre>
+<p>This branched-off commit is actually the previous working copy commit of Jujutsu.
+Jujutsu doesn't know that the commit created with Git is basically the same.
+(If you <code>jj show</code> both commits, you'll see that they contain the same file changes.)</p>
+<p>The solution here is simply to <code>jj abandon</code> the dangling commit, since it's a duplicate.
+Probably 99% of problems caused by different tools modifying the Git database are just like this.
+The next time you run Jujutsu, it will find new commits it doesn't know what to do with, so it keeps all of them.
+You then have to delete the ones you don't need.</p>
+<p>Let's clean up this whole tangent:</p>
+<pre><code class="language-sh">jj abandon main+ # abandon direct children of main
+</code></pre>
+</div>
+</details>
+<h2 id="immutability"><a class="header" href="#immutability">Immutability</a></h2>
+<p>This is a good place to talk about mutable and immutable commits.
+<code>jj abandon</code> is a command that modifies the commit history.
+A commit represents something that happened.
+By deleting a commit, you're basically saying "Nu-uh, that didn't happen."
+Learning about <code>jj rebase</code> was the first time we rewrote history, remember?
+Or did you <code>jj abandon</code> that memory, hihi?</p>
+<p>Rewriting history is often a perfectly normal and logical thing to do.
+But it can be dangerous!
+For example, imagine what would happen if Alice rewrote commits on the <code>main</code> branch.
+That would be very confusing for Bob!
+It would be equally confusing for Bob if Alice rewrote commits pointed to by Bob's bookmarks.
+There are various complicated problems Alice and Bob can run into like this.</p>
+<p>To avoid these problems, people who collaborate using version control systems usually follow a simple rule of thumb:</p>
+<p><strong>Never rewrite history on shared branches.</strong></p>
+<p>Usually that's just the <code>main</code> branch, but there can be more, depending on the project.</p>
+<p>On personal branches, things are usually more relaxed.
+Alice should expect Bob to rewrite history freely on his own branches.
+In return, she gets to rewrite history on hers.
+If you need to rely on the history of someone else's branch to remain stable, you should probably talk to them about that.</p>
+<p>Now for the great news:
+<strong>Jujutsu enforces these rules by default!</strong>
+That way, you don't have to worry about them most of the time.
+Try deleting the latest commit on the <code>main</code> branch:</p>
+<pre><code class="language-sh">jj abandon main
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold red ">Error: </span><span class="bold ">Commit 346c0acd36db is immutable</span>
+<span class="bold "></span><span class="bold cyan ">Hint: </span>Could not modify commit: <span class="bold "></span><span class="bold purple ">s</span><span class="highlighted dimgray ">nnoxnvq</span> <span class="bold "></span><span class="bold blue ">34</span><span class="highlighted dimgray ">6c0acd</span> <span class="purple ">main</span><span class="highlighted dimgray "> | </span>Merge repetition and translation of greeting
+<span class="bold "></span><span class="bold cyan ">Hint: </span>Immutable commits are used to protect shared history.
+<span class="bold "></span><span class="bold cyan ">Hint: </span>For more information, see:
+      - https://docs.jj-vcs.dev/latest/config/#set-of-immutable-commits
+      - `jj help -k config`, &quot;Set of immutable commits&quot;
+<span class="bold "></span><span class="bold cyan ">Hint: </span>This operation would rewrite 1 immutable commits.
+</pre>
+<p>So we are protected from accidentally deleting stuff on the <code>main</code> branch.
+Protected commits are called <strong>immutable</strong> and Jujutsu represents them in the log graph with a <strong>diamond</strong> (<strong><code>◆</code></strong>) symbol.
+Unprotected commits are called <strong>mutable</strong> and represented with a <strong>circle</strong> (<strong><code>○</code></strong>).
+These protections don't just apply to <code>jj abandon</code> and <code>jj rebase</code>, but to all commands that edit existing history.
+We'll learn about a lot of commands like that in the next level.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="conflict.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="restore.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="conflict.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="restore.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

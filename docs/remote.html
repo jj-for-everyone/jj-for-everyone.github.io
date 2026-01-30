@@ -1,0 +1,350 @@
+<!DOCTYPE HTML>
+<html lang="en" class="latte sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sending commits to a remote - Jujutsu for everyone</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="A Jujutsu tutorial that requires no previous experience with Git or other version control systems.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/mdbook-admonish.css">
+        <link rel="stylesheet" href="theme/catppuccin.css">
+        <link rel="stylesheet" href="theme/catppuccin-admonish.css">
+        <link rel="stylesheet" href="theme/aha_styles.css">
+        <link rel="stylesheet" href="theme/mdbook-admonish-custom.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "latte";
+            const default_dark_theme = "macchiato";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('latte')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="latte">Latte</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="frappe">Frappe</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mocha">Mocha</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Jujutsu for everyone</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io/edit/main/src/remote.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="sending-commits-to-a-remote"><a class="header" href="#sending-commits-to-a-remote">Sending commits to a remote</a></h1>
+<details id="admonition-reset-your-progress" class="admonition admonish-reset" role="note" aria-labelledby="admonition-reset-your-progress-title">
+<summary class="admonition-title">
+<div id="admonition-reset-your-progress-title">
+<p>Reset your progress</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-reset-your-progress"></a>
+</summary>
+<div>
+<p>To reset your progress to the start of this chapter, run the following command:</p>
+<pre><code class="language-sh">curl https://jj-for-everyone.github.io/reset.sh | bash -s remote
+cd ~/jj-tutorial/repo
+</code></pre>
+</div>
+</details>
+<p>We now have a commit which we don't want to lose.
+The way we're using Jujutsu right now, we don't have a backup at all.
+What would happen if we delete the <code>~/jj-tutorial/repo</code> directory on disk?
+The <code>.git</code> and <code>.jj</code> subdirectories would be deleted as well.
+Since our entire version control database is stored in there, we wouldn't be able to recover any of our work!</p>
+<p>We can fix that by duplicating our commit at another location, a so-called <strong>remote</strong>.
+Besides providing a backup, sending commits to a remote also allows you to share your work more easily for collaboration.</p>
+<p>The most popular form of a remote is to host a repository with an online service like <a href="https://github.com/">GitHub</a>.
+That requires an account and a little setup though, so we'll use a simpler approach in this tutorial.
+Your remote will be stored in a new directory on your computer, at a different location than your primary repository.
+That style of remote is bad as a backup and bad for collaboration, but it's perfect for learning how remotes work.
+There are a few practical tips about using GitHub in a <a href="github.html">later chapter</a>.</p>
+<h2 id="initializing-the-remote"><a class="header" href="#initializing-the-remote">Initializing the remote</a></h2>
+<p>The following command will initialize a new repository for use as a remote:</p>
+<pre><code class="language-sh">git init --bare -b main ~/jj-tutorial/remote
+</code></pre>
+<p>Since you will likely use a different style of remote for real projects, you don't need to understand the details here.
+If you're curious anyway, expand the text box below.</p>
+<details id="admonition-the-difference-between-remote-bare-and-regular-repositories" class="admonition admonish-note" role="note" aria-labelledby="admonition-the-difference-between-remote-bare-and-regular-repositories-title">
+<summary class="admonition-title">
+<div id="admonition-the-difference-between-remote-bare-and-regular-repositories-title">
+<p>The difference between remote (bare) and regular repositories</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-the-difference-between-remote-bare-and-regular-repositories"></a>
+</summary>
+<div>
+<p><code>git init --bare</code> is very similar to <code>jj git init</code>, which we used to create our main repository.
+However, instead of a "regular" Jujutsu repository, it creates a "bare" Git repository.</p>
+<p>What's the difference?</p>
+<p>Think of a regular Jujutsu repository as consisting of two parts: (1) Jujutsu's internal database stored in the <code>.git</code> and <code>.jj</code> directories and (2) all the actual files of your project, which you can modify - your <strong>working copy</strong>.
+The term "copy" is key here, because all the files are also stored in the internal database.
+The only reason a copy of the files exists outside the database is so you can read and modify them - "work" with them.
+So, "working copy" is a fitting name indeed.</p>
+<p>A bare repository is a Git repository <strong>without a working copy</strong> and without any Jujutsu-specific metadata.
+Since we will only use the bare repository for sending and receiving commits, we don't need a working copy or the <code>.jj</code> directory.</p>
+<p>If you inspect the content of the new bare repository, it will look very similar in structure to the content of the <code>.git</code> directory in our main repository:</p>
+<pre><code>ls -lah ~/jj-tutorial/repo/.git
+ls -lah ~/jj-tutorial/remote
+</code></pre>
+<p>The <code>-b main</code> part ensures the default branch is called "main".
+If unspecified, the default branch can be different based on installation, configuration, etc.
+This would cause problems later.</p>
+</div>
+</details>
+<h2 id="connecting-to-a-remote"><a class="header" href="#connecting-to-a-remote">Connecting to a remote</a></h2>
+<p>A repository is connected to a remote by storing its location under a specific name.
+Remotes can be called anything, but when there is only one, the convention is to call it <strong>origin</strong>:</p>
+<pre><code class="language-sh">jj git remote add origin ~/jj-tutorial/remote
+</code></pre>
+<p>Here we connect to the remote by specifying its path on our filesystem.
+When using a repository hosted on GitHub or similar services, the path is replaced with a URL.
+More on that later.
+If everything went well, <code>origin</code> should now appear in the list of remotes:</p>
+<pre><code class="language-sh">jj git remote list
+</code></pre>
+<h2 id="adding-a-bookmark"><a class="header" href="#adding-a-bookmark">Adding a bookmark</a></h2>
+<p>There is another speed bump before we can send our work to the remote.
+Remote repositories can receive a lot of commits, not all of which end up being needed in the long run.
+Therefore, it's desirable that commits which aren't needed anymore can be deleted automatically.
+How does the remote know which commits to delete and which to keep?
+With bookmarks!</p>
+<p>A bookmark is a simple named label that's attached to a commit.
+Every commit with such a bookmark label is considered important and won't be deleted automatically.
+Because of that mechanism, a bookmark is <em>required</em> for sending commits to a remote.</p>
+<p>Let's create a bookmark called <strong>main</strong> and point it to our completed commit.
+The name "main" is a convention that represents the primary state of the project.
+In legacy projects, the name "master" is also still in widespread use.</p>
+<pre><code class="language-sh">jj bookmark create main --revision mkmqlnox # &lt;- substitute your change ID here
+</code></pre>
+<p>The command <code>jj bookmark create</code> expects a name (<code>main</code>) and a commit to which the bookmark should point.
+We identify the commit by its change ID (<code>--revision mkmqlnox</code>).
+For our purposes, the word "revision" is a synonym for "commit".
+The flag <code>--revision</code> can also be abbreviated as <code>-r</code>.
+Let's check the result with <code>jj log</code>:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">p</span><span class="bold highlighted dimgray ">wpuwyto</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 20:22:36</span><span class="bold "> </span><span class="bold highlighted blue ">3</span><span class="bold highlighted dimgray ">5de496a</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">m</span><span class="highlighted dimgray ">kmqlnox</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 20:20:34</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">5</span><span class="highlighted dimgray ">b79353a</span>
+│  Add readme with project title
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zzzzzzz</span> <span class="green ">root()</span> <span class="bold "></span><span class="bold blue ">0</span><span class="highlighted dimgray ">0000000</span>
+</pre>
+<p>Great!
+We can see that the bookmark <code>main</code> is correctly pointing to our recently completed commit.</p>
+<h2 id="tracking-a-bookmark"><a class="header" href="#tracking-a-bookmark">Tracking a bookmark</a></h2>
+<p>We are now learning about bookmark, because we want to send commits to a remote.
+However, bookmarks can also be used for local-only purposes.
+For example, you can more easily refer to a commit by making a bookmark with a memorable name point to it.
+So, you may not want to send <em>all</em> of your bookmarks to a remote.</p>
+<p>Jujutsu identifies bookmarks which are supposed to be sent to a remote with a "tracking" state.
+In order to send the <code>main</code> bookmark to our remote, we need to "track it" first:</p>
+<pre><code class="language-sh">jj bookmark track main
+</code></pre>
+<h2 id="pushing-the-bookmark"><a class="header" href="#pushing-the-bookmark">Pushing the bookmark</a></h2>
+<p>Now that we're connected and have a bookmark, let's finally send our commit to the remote.
+The technical term for sending commits is "pushing" them.
+You will often hear phrases like "pushing to the remote" or "pushing to GitHub".
+The command for pushing a specific bookmark is:</p>
+<pre><code class="language-sh">jj git push --bookmark main
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="commit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="update_bookmark.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="commit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="update_bookmark.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
