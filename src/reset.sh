@@ -42,12 +42,12 @@ if ! command -v jj > /dev/null ; then
 fi
 
 # make sure jj version is recent enough
-detected_version="$(jj --version | cut -c 6-7)"
-required_version="37"
+detected_version="$(jj --version | cut -c 4-7)"
+required_version="0.38"
 if [ "$detected_version" -lt "$required_version" ] ; then
     set +x
-    printf "$error Your Jujutsu version (0.$detected_version) is too outdated.\n"
-    printf "       Please update to version 0.$required_version or later.\n"
+    printf "$error Your Jujutsu version ($detected_version) is too outdated.\n"
+    printf "       Please update to version $required_version or later.\n"
     printf "$hint If you installed Jujutsu with mise, as recommended in the installation\n"
     printf "      chapter, use the following commands to update:\n"
     echo "
@@ -94,7 +94,6 @@ if [ "$chapter" = remote ] ; then success ; fi
 git init --bare -b main "$jj_tutorial_dir"/remote
 jj git remote add origin "$jj_tutorial_dir"/remote
 jj bookmark create main --revision @-
-jj bookmark track main
 jj git push --bookmark main
 
 if [ "$chapter" = update_bookmark ] ; then success ; fi

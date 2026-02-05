@@ -116,20 +116,6 @@ Let's check the result with `jj log`:
 Great!
 We can see that the bookmark `main` is correctly pointing to our recently completed commit.
 
-## Tracking a bookmark
-
-We are now learning about bookmark, because we want to send commits to a remote.
-However, bookmarks can also be used for local-only purposes.
-For example, you can more easily refer to a commit by making a bookmark with a memorable name point to it.
-So, you may not want to send _all_ of your bookmarks to a remote.
-
-Jujutsu identifies bookmarks which are supposed to be sent to a remote with a "tracking" state.
-In order to send the `main` bookmark to our remote, we need to "track it" first:
-
-```sh
-jj bookmark track main
-```
-
 ## Pushing the bookmark
 
 Now that we're connected and have a bookmark, let's finally send our commit to the remote.
