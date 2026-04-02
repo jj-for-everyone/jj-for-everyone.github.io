@@ -60,8 +60,8 @@ The following command moves the downloaded binary to `~/.local/bin`, which is th
 `rm -rf /tmp/jj-install` ("remove recursive force") deletes the temporary download directory and its content.
 
 Lastly, `exec $SHELL --login` restarts your shell, which causes its startup scripts to run again.
-Some Linux distributions like Ubuntu only add `~/.local/bin` to the `PATH` variable if that directory exists when the terminal is started.
-So, restarting the terminal after installing Jujutsu is a simple way to make sure the system will find the new program.
+Some Linux distributions like Ubuntu only add `~/.local/bin` to the `PATH` variable if that directory exists when the shell is started.
+So, restarting the shell after installing Jujutsu is a simple way to make sure the system will find the new program.
 
 Maybe there are distributions which don't add `~/.local/bin` to `PATH` **at all**, which would mean those commands don't work on such a system.
 I'm not aware of such distributions.
