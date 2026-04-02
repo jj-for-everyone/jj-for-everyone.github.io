@@ -69,4 +69,4 @@ jj git push
 Phew!
 That was intense.
 If you run `jj log` now, the complicated branching and merging will be hidden by default.
-Remember that you can reveal it with `jj log --revisions 'all()'`.
+Remember that you can reveal it with `jj log --revision 'all()'`.
