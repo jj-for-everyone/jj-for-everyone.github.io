@@ -50,7 +50,7 @@ The only thing we can do is to recreate it:
 ```sh
 echo 'print("Hallo, Welt!")' >> hello.py
 echo 'print("Bonjour, le monde!")' >> hello.py
-jj commit -m "Print German and French grettings as well"
+jj commit -m "Print German and French greetings as well"
 ```
 
 Take that as a reminder to always push your commits!
@@ -71,7 +71,7 @@ It's just hidden by default, but we can find it with `jj log --revision 'all()'`
 <span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">n</span><span class="bold highlighted dimgray ">kvmznqz</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-08-23 21:18:57</span><span class="bold "> </span><span class="bold highlighted blue ">e</span><span class="bold highlighted dimgray ">579e9a8</span><span class="bold "></span>
 │  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
 <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">v</span><span class="highlighted dimgray ">mztslml</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:18:57</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">a</span><span class="highlighted dimgray ">928e18a</span>
-│  Print German and French grettings as well
+│  Print German and French greetings as well
 <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">vw</span><span class="highlighted dimgray ">kzzxum</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-08-23 21:18:20</span> <span class="bold "></span><span class="bold blue ">7</span><span class="highlighted dimgray ">a76ce52</span>
 │  Add submission instructions
 │ <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">zk</span><span class="highlighted dimgray ">wmvzlq</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:18:20</span> <span class="purple ">push-zkwmvzlqluot@origin</span> <span class="bold "></span><span class="bold blue ">a7</span><span class="highlighted dimgray ">cd6be9</span>
@@ -132,7 +132,7 @@ Now, a regular `jj log` will show the bookmark again:
 <span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">n</span><span class="bold highlighted dimgray ">kvmznqz</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-08-23 21:18:57</span><span class="bold "> </span><span class="bold highlighted blue ">e</span><span class="bold highlighted dimgray ">579e9a8</span><span class="bold "></span>
 │  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
 <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">v</span><span class="highlighted dimgray ">mztslml</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:18:57</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">a9</span><span class="highlighted dimgray ">28e18a</span>
-│  Print German and French grettings as well
+│  Print German and French greetings as well
 <span class="highlighted dimgray ">~</span>  <span class="highlighted dimgray ">(elided revisions)</span>
 │ ○  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">kwmvzlq</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:18:20</span> <span class="purple ">push-zkwmvzlqluot</span> <span class="bold "></span><span class="bold blue ">a7</span><span class="highlighted dimgray ">cd6be9</span>
 ├─╯  WIP: Add for loop (need to fix syntax)
