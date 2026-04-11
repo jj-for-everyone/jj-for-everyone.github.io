@@ -50,7 +50,7 @@ The only thing we can do is to recreate it:
 ```sh
 echo 'print("Hallo, Welt!")' >> hello.py
 echo 'print("Bonjour, le monde!")' >> hello.py
-jj commit -m "Print German and French grettings as well"
+jj commit -m "Print German and French greetings as well"
 ```
 
 Take that as a reminder to always push your commits!
