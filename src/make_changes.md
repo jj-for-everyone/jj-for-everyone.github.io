@@ -34,3 +34,10 @@ A couple of things have changed:
 
 The last point means that our new file was successfully recorded in the working copy commit.
 
+If you want to check the list of changed files, you can do so with `jj status`.
+The output should include the following, where "A" stands for "added":
+
+```
+Working copy changes:
+A README.md
+```
