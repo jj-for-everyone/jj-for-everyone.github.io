@@ -121,6 +121,12 @@ You need to move that into the directory `~/.local/bin/`.
 (Or another location where you keep your programs if you know what you're doing.)
 ````
 
+## Git
+
+You also need to have Git installed.
+MacOS and most Linux dirstros come with Git preinstalled.
+If you don't have it yet, install it using your package manager, e.g. `sudo apt install git`.
+
 ## Initial configuration
 
 Jujutsu is very configurable, but we don't care about most knobs and dials right now.
