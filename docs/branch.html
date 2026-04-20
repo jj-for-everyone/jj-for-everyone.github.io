@@ -1,0 +1,409 @@
+<!DOCTYPE HTML>
+<html lang="en" class="latte sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Branching history - Jujutsu for everyone</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="A Jujutsu tutorial that requires no previous experience with Git or other version control systems.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/mdbook-admonish.css">
+        <link rel="stylesheet" href="theme/catppuccin.css">
+        <link rel="stylesheet" href="theme/catppuccin-admonish.css">
+        <link rel="stylesheet" href="theme/aha_styles.css">
+        <link rel="stylesheet" href="theme/mdbook-admonish-custom.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "latte";
+            const default_dark_theme = "macchiato";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('latte')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="latte">Latte</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="frappe">Frappe</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mocha">Mocha</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Jujutsu for everyone</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io/edit/main/src/branch.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="branching-history"><a class="header" href="#branching-history">Branching history</a></h1>
+<details id="admonition-reset-your-progress" class="admonition admonish-reset" role="note" aria-labelledby="admonition-reset-your-progress-title">
+<summary class="admonition-title">
+<div id="admonition-reset-your-progress-title">
+<p>Reset your progress</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-reset-your-progress"></a>
+</summary>
+<div>
+<p>To reset your progress to the start of this chapter, run the following command:</p>
+<pre><code class="language-sh">curl https://jj-for-everyone.github.io/reset.sh | bash -s branch
+cd ~/jj-tutorial/repo
+</code></pre>
+</div>
+</details>
+<p>Before now, we only covered situations where you are working on a project on your own.
+What if several people want to collaborate on the project?
+Let's simulate such a scenario and see what happens.
+We'll do so in the same repository we used in the previous level:</p>
+<pre><code class="language-sh">cd ~/jj-tutorial/repo
+</code></pre>
+<p>Alice and Bob are working on a group project for a computer science class.
+Their task is to write the classic "Hello, world!" program in Python.
+Alice and Bob decide to split up the work as such:</p>
+<ul>
+<li>Alice will write the Python program.</li>
+<li>Bob will add documentation to the README.</li>
+</ul>
+<p>Let's start with Alice.
+Here's the Python program she comes up with:</p>
+<pre><code class="language-python">print("Hello, world!")
+</code></pre>
+<p>That'll do the job just fine.
+She adds it to the file <code>hello.py</code>:</p>
+<pre><code class="language-sh">echo 'print("Hello, world!")' &gt; hello.py
+</code></pre>
+<p>Happy with her changes, Alice creates a new commit:</p>
+<pre><code class="language-sh">jj commit -m "Add Python script for greeting the world
+
+Printing the text \"Hello, world!\" is a classic exercise in introductory
+programming courses. It's easy to complete in basically any language and
+makes students feel accomplished and curious for more at the same time."
+</code></pre>
+<p>Here's how the repository should look at this point:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">s</span><span class="bold highlighted dimgray ">vplvpro</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 21:17:41</span><span class="bold "> </span><span class="bold highlighted blue ">4</span><span class="bold highlighted dimgray ">db2d0d0</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zywylnt</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:17:31</span> <span class="bold "></span><span class="bold blue ">f8</span><span class="highlighted dimgray ">e44920</span>
+│  Add Python script for greeting the world
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">k</span><span class="highlighted dimgray ">xqyrwux</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:14:46</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">ff</span><span class="highlighted dimgray ">df52d0</span>
+│  Add project description to readme
+~
+</pre>
+<p>Next, we simulate Bob's work.
+He's working on a different computer than Alice, with a different copy of the repository.
+Since Bob is working at the same time as her, he doesn't have the commit made by Alice yet.
+We can simulate that by creating a third repository, which has the same remote as our primary one:</p>
+<pre><code>jj git clone ~/jj-tutorial/remote ~/jj-tutorial/repo-bob
+</code></pre>
+<p>Let's go into that repo, configure our author information for the role-play and make sure the log looks the same way as when Alice started her work:</p>
+<pre><code class="language-sh">cd ~/jj-tutorial/repo-bob
+jj config set --repo user.name Bob
+jj config set --repo user.email bob@local
+jj metaedit --update-author
+jj log
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">q</span><span class="bold highlighted dimgray ">uolxwkk</span><span class="bold "> </span><span class="bold yellow ">bob@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 21:19:11</span><span class="bold "> </span><span class="bold highlighted blue ">3</span><span class="bold highlighted dimgray ">ffac111</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">k</span><span class="highlighted dimgray ">xqyrwux</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:14:46</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">f</span><span class="highlighted dimgray ">fdf52d0</span>
+│  Add project description to readme
+~
+</pre>
+<p>That looks great.
+So now, Bob is going to do his part the same way Alice did:</p>
+<pre><code class="language-sh">echo "# jj-tutorial
+
+The file hello.py contains a script that greets the world.
+It can be executed with the command 'python hello.py'.
+Programming is fun!" &gt; README.md
+
+jj commit -m "Document hello.py in README.md
+
+The file hello.py doesn't exist yet, because Alice is working on that.
+Once our changes are combined, this documentation will be accurate."
+</code></pre>
+<p>Let's say that Bob was a little faster than Alice, because he was only doing the documentation.
+Alice was doing actual software engineering, which took a little more time.
+Therefore, Bob gets to update the main bookmark first:</p>
+<pre><code class="language-sh">jj bookmark move main --to @-
+jj git push
+</code></pre>
+<p>A little later, Alice is also done.
+Now she attempts to update the <code>main</code> bookmark, which will fail:</p>
+<pre><code class="language-sh">cd ~/jj-tutorial/repo
+jj bookmark move main --to @-
+jj git push
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+Changes to push to origin:
+  Move forward bookmark main from cd5f3fff9c7b to e90b597ed78e
+<span class="bold "></span><span class="bold red ">Error: </span><span class="bold ">Failed to push some bookmarks</span>
+<span class="bold "></span><span class="bold cyan ">Hint: </span>The following references unexpectedly moved on the remote:
+  <span class="green ">refs/heads/main</span> (reason: stale info)
+<span class="bold "></span><span class="bold cyan ">Hint: </span>Try fetching from the remote, then make the bookmark point to where
+       ↪ you want it to be, and push again.
+</pre>
+<p>Alice is about to panic, so she opens social media and scrolls a little until she finds a cat video.
+She finds one where a cat is snuggling with a bunch of baby ducks!
+Super cute.
+Now that her nerves are calmed, she turns her attention back to the terminal and actually reads the error message.
+She is relieved to find that it actually contains useful information about what went wrong and how to fix it.
+Following the hint, she first fetches from the remote:</p>
+<pre><code class="language-sh">jj git fetch
+</code></pre>
+<p><code>fetch</code> is a new command, it's basically the opposite of <code>push</code>.
+While <code>push</code> sends bookmarks and commits from the local repository to the remote, <code>fetch</code> downloads bookmarks and commits that someone else (like Bob) may have pushed from another computer.</p>
+<p>Here's the resulting <code>jj log</code>:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">s</span><span class="bold highlighted dimgray ">vplvpro</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 21:17:41</span><span class="bold "> </span><span class="bold highlighted blue ">4</span><span class="bold highlighted dimgray ">db2d0d0</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zywylnt</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:17:31</span> <span class="purple ">main?? main@git</span> <span class="bold "></span><span class="bold blue ">f8</span><span class="highlighted dimgray ">e44920</span>
+│  Add Python script for greeting the world
+│ <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">q</span><span class="highlighted dimgray ">uolxwkk</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-07-22 21:22:22</span> <span class="purple ">main?? main@origin</span> <span class="bold "></span><span class="bold blue ">8</span><span class="highlighted dimgray ">d538390</span>
+├─╯  Document hello.py in README.md
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">k</span><span class="highlighted dimgray ">xqyrwux</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 21:14:46</span> <span class="bold "></span><span class="bold blue ">ff</span><span class="highlighted dimgray ">df52d0</span>
+│  Add project description to readme
+~
+</pre>
+<p>Oh!
+That's something we haven't seen before.
+Our version history is split into two <strong>branches</strong>.
+This is not unusual and lies at the core of how Jujutsu enables people to work independently from one another.
+But we don't know how to deal with this situation yet.</p>
+<p>If Jujutsu allowed Alice to push the <code>main</code> bookmark without knowing about Bob's update, his work would accidentally get deleted.
+Remember: The remote only considers commits worth keeping around if they are <strong>reachable</strong> from a bookmark.
+But if the <code>main</code> bookmark points to Alice's commit, Bob's commit is <strong>not reachable</strong> anymore, because it is not an ancestor of Alice's commit.</p>
+<p>Notice that the <code>main</code> bookmark appears <strong>twice</strong> in the log, both times with question marks <strong><code>??</code></strong>.
+This means Jujutsu isn't sure where the bookmark should point to.
+Alice moved it to her commit, while it was moved to Bob's commit on the remote.
+Once Alice has decided where it should actually point, she can tell Jujutsu by explicitly moving it there.</p>
+<div id="admonition-confusing-terms-bookmark-and-branch" class="admonition admonish-info" role="note" aria-labelledby="admonition-confusing-terms-bookmark-and-branch-title">
+<div class="admonition-title">
+<div id="admonition-confusing-terms-bookmark-and-branch-title">
+<p>Confusing terms: bookmark and branch</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-confusing-terms-bookmark-and-branch"></a>
+</div>
+<div>
+<p>The terms "bookmark" and "branch" are often used in very similar situations, which can be confusing.
+Let's define the difference very precisely and prepare ourselves to recognize potential sources of confusion.</p>
+<p>A <strong>bookmark</strong> is just a named label that's attached to, or points to, a single commit.
+That's it.</p>
+<p>A <strong>branch</strong> is specified by its <strong>tip</strong>, which is also a single commit.
+However, a branch refers to the <strong>set of commits</strong> that includes the tip and <strong>all of its ancestors</strong>.</p>
+<p>These two concepts can be combined in a phrase like this:
+"I pushed my changes to the <code>main</code> branch."
+This may be confusing, because <code>main</code> is a bookmark, right?
+Why are we talking about the "main" branch?
+Well, the <code>main</code> bookmark points to a commit, and that commit is the tip of the branch we mean when we say "the main branch".</p>
+<p>There's one more thing to look out for when talking to people who primarily use Git.
+Git always uses the word <strong>branch</strong> for both things.
+The term "bookmark" carries no meaning in Git.
+So, when Git users say the word "branch", they may be talking about an actual branch, meaning a set of commits with a tip and all its ancestors.
+They may also be talking about a bookmark, meaning a named label pointing to a single commit, without attaching any significance to the ancestors of that pointed-to commit.</p>
+</div>
+</div>
+<p>That's all interesting and the tree-shaped graph of our commits looks very pretty, but the teacher wants a version that includes both the program and the documentation.
+What should Alice and Bob do now?
+Find out in the following chapters!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="level_2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="show.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="level_2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="show.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

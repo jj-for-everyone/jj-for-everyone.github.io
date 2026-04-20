@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<html lang="en" class="latte sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Creating a new commit - Jujutsu for everyone</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="A Jujutsu tutorial that requires no previous experience with Git or other version control systems.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/mdbook-admonish.css">
+        <link rel="stylesheet" href="theme/catppuccin.css">
+        <link rel="stylesheet" href="theme/catppuccin-admonish.css">
+        <link rel="stylesheet" href="theme/aha_styles.css">
+        <link rel="stylesheet" href="theme/mdbook-admonish-custom.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "latte";
+            const default_dark_theme = "macchiato";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('latte')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="latte">Latte</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="frappe">Frappe</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mocha">Mocha</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Jujutsu for everyone</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io/edit/main/src/commit.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="creating-a-new-commit"><a class="header" href="#creating-a-new-commit">Creating a new commit</a></h1>
+<details id="admonition-reset-your-progress" class="admonition admonish-reset" role="note" aria-labelledby="admonition-reset-your-progress-title">
+<summary class="admonition-title">
+<div id="admonition-reset-your-progress-title">
+<p>Reset your progress</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-reset-your-progress"></a>
+</summary>
+<div>
+<p>To reset your progress to the start of this chapter, run the following command:</p>
+<pre><code class="language-sh">curl https://jj-for-everyone.github.io/reset.sh | bash -s commit
+cd ~/jj-tutorial/repo
+</code></pre>
+</div>
+</details>
+<p>Once we are done with a set of changes, we should create a new commit.
+If we don't do that, the next changes we make will be recorded into the same commit as the previous ones.
+That would make it harder to understand the evolution of a project later.</p>
+<p>Before we create a new commit, we also need to give a description to the one we've been working on so far.
+Every commit needs to have a description, even if it's a short one.</p>
+<p>So, there are conceptually two things we need to do now:</p>
+<ol>
+<li>Give a description to the changes we just finished making, the ones that were recorded in the existing working-copy (<code>@</code>) commit.</li>
+<li>Start working on a completely new commit, which is the child of the one we just finished.</li>
+</ol>
+<details id="admonition-a-source-of-confusion-if-you-know-git" class="admonition admonish-note" role="note" aria-labelledby="admonition-a-source-of-confusion-if-you-know-git-title">
+<summary class="admonition-title">
+<div id="admonition-a-source-of-confusion-if-you-know-git-title">
+<p>A source of confusion if you know Git</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-a-source-of-confusion-if-you-know-git"></a>
+</summary>
+<div>
+<p>This tutorial assumes that you have no experience with Git.
+However, if you <em>have</em> used Git before, it might actually be more difficult for you to understand this.
+The reason is that both Git and Jujutsu have a subcommand called <code>commit</code>, but they work differently.</p>
+<p>In Git, changes you make are not recorded automatically into commits.
+Instead, they exist outside of any commit, until you add them to one manually.
+The command <code>git commit</code> creates a commit containing the new changes as well as the new commit message.</p>
+<p>In Jujutsu, there is always a commit already and any changes you make are automatically recorded into it.
+So, the description you type during <code>jj commit</code> will be applied to a commit that has already existed for some time.
+The <em>new</em> commit that's being created is completely empty and has no description.
+It's ready for auto-recording of the upcoming changes you will be making.</p>
+</div>
+</details>
+<p>The command to complete both of these tasks at once is:</p>
+<pre><code class="language-sh">jj commit
+</code></pre>
+<p>This will open a text editor so you can write a description for the commit.
+If you followed my instructions during <a href="install.html#installing-a-simple-text-editor">installation and setup</a>, the text editor will be <code>edit</code>.
+When you're done writing the description, click on "File", then "Exit", in the menu bar or press <kbd>Ctrl+Q</kbd> to exit the text editor.
+Confirm that you want to save the file by pressing <kbd>Enter</kbd>.</p>
+<p>You may notice that the text file doesn't start empty.
+It already contains a few lines:</p>
+<pre><code>JJ: This commit contains the following changes:
+JJ:     A README.md
+JJ:
+JJ: Lines starting with "JJ:" (like this one) will be removed.
+</code></pre>
+<p>These lines starting with <code>JJ:</code> are <em>comments</em>, similar to lines starting with a pound <code>#</code> in the terminal.
+They will not be part of the final commit description, so you don't need to delete them.
+Jujutsu uses these comments to remind you which files you modified when working on this commit.
+That can be helpful inspiration for a good commit description.</p>
+<p>Here's an example description you could type (or copy-paste) into the text editor:</p>
+<pre><code>Add readme with project title
+
+It's common practice for software projects to include a file called
+README.md in the root directory of their source code repository. As the
+file extension indicates, the content is usually written in markdown,
+where the title of the document is written on the first line with a
+prefixed `#` symbol.
+</code></pre>
+<p>There is a little bit of structure here that you should follow.
+The first line of the description is called the <strong>subject</strong>.
+Sometimes the subject line is all you need, but to describe your changes in more detail, you can follow it up with a <strong>body</strong>.
+Subject and body are <strong>separated by an empty line</strong>.
+Both of them should <strong>not exceed 72 characters</strong> per line.</p>
+<p>Commit messages are important, because they make it easier for you and others to understand the changes and their motivation later on.
+This importance lies on a spectrum:
+The more people work on a project and the longer-lived it is, the more important good commit messages become.
+For example, the Linux kernel is a multi-decade project with thousands of people working on it together.
+Linux developers put a lot of thought and effort into good commit messages.
+On the other extreme of the spectrum may be a student's repository for storing the homework of a single lecture.
+The project is over within a couple of months and there is little chance of the student ever digging into the history, let alone anyone else.
+That student probably won't invest much time into good commit messages.</p>
+<details id="admonition-more-tips-for-good-commit-messages" class="admonition admonish-info" role="note" aria-labelledby="admonition-more-tips-for-good-commit-messages-title">
+<summary class="admonition-title">
+<div id="admonition-more-tips-for-good-commit-messages-title">
+<p>More tips for good commit messages</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-more-tips-for-good-commit-messages"></a>
+</summary>
+<div>
+<p>Here are some additional conventions that are good practice for any type of project.</p>
+<p><strong>Try to keep the subject line below 50 characters</strong><br />
+While 72 characters is the hard limit, the subject line usually benefits from being as concise as possible.
+It is shown in many places where space is scarce and people want to get a general idea of your changes without reading too much.
+If you find yourself exceeding 50 characters regularly, you may be combining multiple unrelated changes into a single commit.
+If you put unrelated changes into separate commits, finding concise subject lines becomes easier.
+However, there are often situations where 50 characters is just too restrictive, so don't worry about going above when necessary.</p>
+<p><strong>Use imperative mood in the subject line</strong><br />
+A common instinct when writing commit messages it to describe what you did in the <strong>past tense</strong>, e.g. "Fixed bugs and improved code".
+Another one is to describe the <strong>content</strong> of the commit, e.g. "bug fixes and code improvements".
+Instead, write the subject line as if <strong>giving a command or instruction</strong>, e.g. "Fix bugs and improve code".
+A simple rule of thumb is that the subject should complete the sentence "If applied, this commit will...".
+The resulting history will be more natural to read.
+Note that this primarily applies to the subject, the style of the body can be more flexible.</p>
+<p><strong>Put yourself in the shoes of the reader</strong><br />
+The target audience for your commit messages are future readers of the project history.
+They are trying to understand <strong>what</strong> your changes did and <strong>why</strong>.
+They can always read the content changes directly for <strong>how</strong> they did that, so the ideal commit message should complement that.
+Great candidates include information that's not present in the content itself as well as guidance to understand the changes more quickly.</p>
+</div>
+</details>
+<p>Let's see the result of running <code>jj commit</code> with <code>jj log</code>:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">p</span><span class="bold highlighted dimgray ">wpuwyto</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-07-22 20:22:36</span><span class="bold "> </span><span class="bold highlighted blue ">3</span><span class="bold highlighted dimgray ">5de496a</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">m</span><span class="highlighted dimgray ">kmqlnox</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-07-22 20:20:34</span> <span class="bold "></span><span class="bold blue ">5</span><span class="highlighted dimgray ">b79353a</span>
+│  Add readme with project title
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">z</span><span class="highlighted dimgray ">zzzzzzz</span> <span class="green ">root()</span> <span class="bold "></span><span class="bold blue ">0</span><span class="highlighted dimgray ">0000000</span>
+</pre>
+<p>There are a few things to observe here:</p>
+<ul>
+<li>The new commit is a child of our previous working copy commit.</li>
+<li>The previous commit shows the subject line of the description we gave it.</li>
+<li>The new commit became our working copy, meaning any further file changes will be recorded into the new commit.
+This marker is not important and you can ignore it.</li>
+<li>The previous commit has a different symbol (circle <code>○</code>) than the root commit (diamond <code>◆</code>).
+This is related to an important feature, which we'll learn about later.</li>
+</ul>
+<p>We now have the tools for the most basic version control workflow:</p>
+<ol>
+<li>make some changes</li>
+<li>create a new commit</li>
+</ol>
+<p>Repeating these two steps is what you'll do the most, when working on a version-controlled project.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="make_changes.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="remote.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="make_changes.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="remote.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
