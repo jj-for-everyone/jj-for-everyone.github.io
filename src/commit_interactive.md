@@ -115,7 +115,7 @@ You should see something like this:
 
 ![](./scm_record_1.png)
 
-Let check out the menu bar first.
+Let's check out the menu bar first.
 Even though it's in the terminal, you can click on it!
 If you click on `[File]`, a drop-down menu with the options `[Confirm]` and `[Quit]` will open.
 It also shows the corresponding keyboard shortcuts: <kbd>c</kbd> and <kbd>q</kbd>.
