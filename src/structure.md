@@ -3,7 +3,7 @@
 Here's some information about how the tutorial is structured.
 Read carefully for the best experience.
 
-## Level up!
+## Level up
 
 The tutorial is split into **levels**, which define the hierarchy in the sidebar.
 When you complete a level, you should probably put this tutorial away for a while and practice what you've learned.
@@ -45,7 +45,8 @@ curl https://jj-for-everyone.github.io/reset.sh | bash -s install
 
 This method downloads the script from the internet and executes it right away.
 If you have security concerns about that, you can instead:
-1. Download the script [here](./reset.sh).
+
+1. [Download the script](./reset.sh).
 1. Read the source to make sure it's safe.
    It's not doing anything complicated, it just executes the commands of the tutorial in sequence.
 1. Run the downloaded script (with the chapter-keyword as the first argument).

@@ -12,7 +12,7 @@ A "repository" is a directory (folder) where Jujutsu keeps track of all files, i
 A repository usually corresponds to a project, so the version history of unrelated projects are not tied to each other.
 In this tutorial, we'll use `~/jj-tutorial/repo` as the location of our repository.
 Don't put it somewhere else, otherwise some commands I tell you to run won't work later.
-(If you don't like the clutter in your home directory, you can always delete it and use the [reset script](./how_to_read.md#reset-your-progress) when you continue with the tutorial.)
+(If you don't like the clutter in your home directory, you can always delete it and use the [reset script](./structure.md#reset-your-progress-at-any-time) when you continue with the tutorial.)
 
 The command to initialize a new repository is `jj git init <DESTINATION>`.
 We use `cd` to change our working directory to the new repository.

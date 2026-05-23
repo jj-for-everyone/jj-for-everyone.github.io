@@ -55,6 +55,7 @@ echo Hello, terminal!
 
 The terminal will split your commands into words based on whitespace.
 The above command has three words:
+
 - `echo`
 - `Hello,`
 - `terminal!`
@@ -109,7 +110,6 @@ The important lesson to take away here is:
 **Be aware of your current working directory**.
 If a command doesn't do what you want, you might just be in the wrong place.
 
-
 ## Copy-pasting commands
 
 This tutorial contains many code blocks that contain commands for you to copy-paste into your terminal.
@@ -127,6 +127,7 @@ You would end up with something like this:
 
 ```console
 $ ^[[200~echo Hello, terminal!~
+bash: !~: event not found
 ```
 
 These weird characters are an "escape sequence" caused by typing <kbd>Ctrl</kbd>+<kbd>V</kbd> without <kbd>Shift</kbd>.
@@ -238,6 +239,7 @@ $ echo $PATH
 Your output may well look different, but the structure is the same:
 It's a list of filesystem paths separated by the colon **`:`** character.
 In this case, there are three paths:
+
 - `/home/username/.local/bin`
 - `/usr/local/bin`
 - `/usr/bin`

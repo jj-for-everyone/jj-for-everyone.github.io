@@ -150,7 +150,7 @@ Usually that's just the `main` branch, but there can be more, depending on the p
 
 On personal branches, things are usually more relaxed.
 Alice should expect Bob to rewrite history freely on his own branches.
-In return, she gets to rewrite history on hers. 
+In return, she gets to rewrite history on hers.
 If you need to rely on the history of someone else's branch to remain stable, you should probably talk to them about that.
 
 Now for the great news:

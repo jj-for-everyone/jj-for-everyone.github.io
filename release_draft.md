@@ -1,3 +1,5 @@
+# release draft
+
 I use this file to write down things to put in the next release.
 When a new jj version has very small breaking changes, I usually don't cut a release.
 This file contains the small changes accumulated over some releases.

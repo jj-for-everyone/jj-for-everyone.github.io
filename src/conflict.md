@@ -184,6 +184,7 @@ If there was, Jujutsu would've done it for you.
 The point of a merge conflict is that the correct resolution depends on the meaning of the conflicted changes.
 
 In this case, the conflicted changes are:
+
 - Print the greeting ten times in a loop.
 - Also print a German and French greeting.
 
@@ -193,6 +194,7 @@ If all languages should be repeated, should they be interleaved or neatly separa
 By example, there are three different reasonable merges of these changes:
 
 1. Only repeat the English greeting:
+
     ```py
     for _ in range(10):
         print("Hello, world!")
@@ -201,6 +203,7 @@ By example, there are three different reasonable merges of these changes:
     ```
 
 1. Repeat all languages and interleave them:
+
     ```py
     for _ in range(10):
         print("Hello, world!")
@@ -209,6 +212,7 @@ By example, there are three different reasonable merges of these changes:
     ```
 
 1. Repeat all languages but keep them separate:
+
     ```py
     for _ in range(10):
         print("Hello, world!")

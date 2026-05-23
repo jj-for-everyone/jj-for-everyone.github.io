@@ -21,6 +21,7 @@ cd ~/jj-tutorial/repo
 Alice and Bob are working on a group project for a computer science class.
 Their task is to write the classic "Hello, world!" program in Python.
 Alice and Bob decide to split up the work as such:
+
 - Alice will write the Python program.
 - Bob will add documentation to the README.
 

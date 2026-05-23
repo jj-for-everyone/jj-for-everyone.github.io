@@ -12,7 +12,7 @@ cd ~/jj-tutorial/repo
 Recall the basic workflow we learned at the [very beginning](./commit.md):
 
 1. make some changes
-2. create a new commit
+1. create a new commit
 
 ...repeat.
 This is fine, but Alice is unfortunately a little forgetful.
@@ -22,6 +22,7 @@ Let's see how that could look like.
 
 Assume Alice needs to complete three tasks.
 Task 1 is implemented in its own file, while tasks 2 and 3 are implemented in the same file:
+
 ```sh
 echo "Implement task 1" > task_1.txt
 echo "Implement task 2" > tasks_2_and_3.txt
@@ -113,7 +114,7 @@ jj commit --interactive
 
 You should see something like this:
 
-![](./scm_record_1.png)
+![SCM Record UI showing a list of changed files](./scm_record_1.png)
 
 Let's check out the menu bar first.
 Even though it's in the terminal, you can click on it!
@@ -126,7 +127,7 @@ For now, we can only see the name of the file we changed.
 Hit the right arrow to "enter" the file, showing its content.
 It should look something like this:
 
-![](./scm_record_2.png)
+![SCM Record UI showing the changed lines in a file](./scm_record_2.png)
 
 Indentation indicates a level of hierarchy:
 Files are at the top, next are "sections", i.e. consecutive changed lines, and lastly the individual lines.
@@ -136,7 +137,7 @@ In this case, it's the line of task 2.
 Navigate to that line with the arrow keys and select it with <kbd>Space</kbd>.
 It should look like this:
 
-![](./scm_record_3.png)
+![SCM Record UI showing one of two changed lines as selected for committing](./scm_record_3.png)
 
 Now that we have selected exactly the lines we want to end up in our commit, we can confirm by hitting <kbd>c</kbd> (or clicking on "File > Confirm" in the menu bar).
 The TUI will close, and your text editor will open for you to enter a commit message.

@@ -33,7 +33,7 @@ Committer: <span class="yellow ">Bob</span> &lt;<span class="yellow ">bob@local<
 
 <span class="yellow ">Modified regular file README.md:</span>
 <span class="red ">   1</span> <span class="green ">   1</span>: # jj-tutorial
-<span class="red ">   2</span> <span class="green ">   2</span>: 
+<span class="red ">   2</span> <span class="green ">   2</span>:
 <span class="red ">   3</span>     : <span class="underline "></span><span class="underline red ">This</span><span class="red "> </span><span class="underline red ">is</span><span class="red "> a </span><span class="underline red ">toy</span><span class="red "> </span><span class="underline red ">repository</span><span class="red "> </span><span class="underline red ">for</span><span class="red "> </span><span class="underline red ">learning</span><span class="red "> </span><span class="underline red ">Jujutsu</span><span class="red ">.</span>
      <span class="green ">   3</span>: <span class="underline "></span><span class="underline green ">The</span><span class="green "> </span><span class="underline green ">file</span><span class="green "> </span><span class="underline green ">hello.py contains </span><span class="green ">a </span><span class="underline green ">script</span><span class="green "> </span><span class="underline green ">that</span><span class="green "> </span><span class="underline green ">greets</span><span class="green "> </span><span class="underline green ">the</span><span class="green "> </span><span class="underline green ">world</span><span class="green ">.</span>
      <span class="green ">   4</span>: <span class="underline "></span><span class="underline green ">It can be executed with the command 'python hello.py'.</span><span class="green "></span>

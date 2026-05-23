@@ -27,6 +27,7 @@ So let's make the authentication as seamless as possible.
 The best authentication method is to use an SSH key.
 It's more convenient and safer than a password.
 GitHub has great documentation about how to set that up, so please follow the instructions here:
+
 - [Generating a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 - [Adding an SSH key to your account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
@@ -46,7 +47,7 @@ Hi user! You've successfully authenticated, but GitHub does not provide shell ac
 
 Skip ahead if you intend to use an already existing repo.
 
-To create a new repository on GitHub, [click here](https://github.com/new) and fill out the form.
+To create a new repository on GitHub, first [fill out this form](https://github.com/new).
 All you need to do is choose an owner (probably your username) and a repo name.
 Also check that the visibility matches what you want (can be changed later).
 
@@ -62,7 +63,7 @@ Cick on the green button that says "Code".
 **Select SSH** in the drop-down (assuming you have set up an SSH key as explained above).
 Copy the URL that's displayed.
 
-![](./github_ssh_url.png)
+![how to determine the SSH URL of a repository via the GitHub web UI](./github_ssh_url.png)
 
 Finally, paste the URL into Jujutsu's clone command:
 

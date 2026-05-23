@@ -108,6 +108,7 @@ But you don't want to transfer them between the local and the remote repository 
 
 Until now, we didn't have to worry about the "tracking state" of a bookmark.
 We pushed new bookmarks to the remote with two different commands:
+
 - `jj git push --bookmark <NAME>`
 - `jj git push --change <REVISION>`
 

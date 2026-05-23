@@ -3,6 +3,7 @@
 If you find a typo, you can suggest a fix directly by clicking on the "edit" icon in the top-right corner.
 If you have general suggestions for improvement, please [open an issue](https://github.com/jj-for-everyone/jj-for-everyone.github.io/issues/new).
 I am also very interested in experience reports, for example:
+
 - Do you have any frustrations with Jujutsu which the tutorial did not help you overcome?
 - Was there a section that wasn't explained clearly?
   (If you didn't understand something, it's probably the tutorial's fault, not yours!)

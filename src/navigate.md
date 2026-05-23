@@ -32,6 +32,7 @@ jj git fetch
 Bob's changes are on a different branch.
 How can she get access to them?
 We've already solved this problem in two different ways:
+
 - **Merge** the two commits with a new commit that has two parents.
 - **Rebase** one commit on top of the other, creating a straight line of commits.
 

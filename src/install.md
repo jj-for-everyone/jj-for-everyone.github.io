@@ -153,7 +153,7 @@ jj config set --user user.name "Anonymous"
 jj config set --user user.email "anon@local"
 ```
 
-If you want shell completions, follow the instructions [here](https://docs.jj-vcs.dev/latest/install-and-setup/#command-line-completion).
+If you want shell completions, [follow these instructions](https://docs.jj-vcs.dev/latest/install-and-setup/#command-line-completion).
 If you don't know what a "shell completion" is, don't worry, it's not important.
 
 ## Installing a simple text editor

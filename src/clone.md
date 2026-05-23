@@ -30,7 +30,7 @@ The relevant Jujutsu command is named accordingly:
 jj git clone ~/jj-tutorial/remote ~/jj-tutorial/repo
 ```
 
-The last two arguments are (1) the **source** from which to clone and (2) the **destination** - where to store the cloned repo. 
+The last two arguments are (1) the **source** from which to clone and (2) the **destination** - where to store the cloned repo.
 When you clone from a remote, you're automatically connected to it with the default name `origin`.
 
 For the tutorial, we also need to recreate our repo-specific authorship configuration:

@@ -27,6 +27,7 @@ Let's see what `jj log` has to say now:
 </pre>
 
 A couple of things have changed:
+
 - The timestamp of the commit was updated.
 - The commit hash changed.
   That's one of the reasons the commit hash is less interesting, it changes every time anything else in the commit changes.

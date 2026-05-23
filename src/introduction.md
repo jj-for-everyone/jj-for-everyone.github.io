@@ -36,6 +36,7 @@ There is lots of learning material, lots of people can help you with problems, l
 Why make life harder on yourself by using a lesser-known alternative?
 
 Here's my elevator pitch:
+
 - **Jujutsu is compatible with Git.**
   You're not actually losing _anything_ by using Jujutsu.
   You can work with it on any existing project that uses Git for version control without issues.

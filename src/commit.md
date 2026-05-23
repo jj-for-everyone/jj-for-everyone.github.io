@@ -17,6 +17,7 @@ Before we create a new commit, we also need to give a description to the one we'
 Every commit needs to have a description, even if it's a short one.
 
 So, there are conceptually two things we need to do now:
+
 1. Give a description to the changes we just finished making, the ones that were recorded in the existing working-copy (`@`) commit.
 1. Start working on a completely new commit, which is the child of the one we just finished.
 
@@ -73,7 +74,6 @@ where the title of the document is written on the first line with a
 prefixed `#` symbol.
 ```
 
-
 There is a little bit of structure here that you should follow.
 The first line of the description is called the **subject**.
 Sometimes the subject line is all you need, but to describe your changes in more detail, you can follow it up with a **body**.
@@ -126,6 +126,7 @@ Let's see the result of running `jj commit` with `jj log`:
 </pre>
 
 There are a few things to observe here:
+
 - The new commit is a child of our previous working copy commit.
 - The previous commit shows the subject line of the description we gave it.
 - The new commit became our working copy, meaning any further file changes will be recorded into the new commit.
@@ -134,6 +135,7 @@ There are a few things to observe here:
   This is related to an important feature, which we'll learn about later.
 
 We now have the tools for the most basic version control workflow:
+
 1. make some changes
 1. create a new commit
 
