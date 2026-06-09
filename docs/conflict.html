@@ -1,0 +1,493 @@
+<!DOCTYPE HTML>
+<html lang="en" class="latte sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Resolving merge conflicts - Jujutsu for everyone</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="A Jujutsu tutorial that requires no previous experience with Git or other version control systems.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/mdbook-admonish.css">
+        <link rel="stylesheet" href="theme/catppuccin.css">
+        <link rel="stylesheet" href="theme/catppuccin-admonish.css">
+        <link rel="stylesheet" href="theme/aha_styles.css">
+        <link rel="stylesheet" href="theme/mdbook-admonish-custom.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "latte";
+            const default_dark_theme = "macchiato";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('latte')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="latte">Latte</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="frappe">Frappe</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mocha">Mocha</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Jujutsu for everyone</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io/edit/main/src/conflict.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="resolving-merge-conflicts"><a class="header" href="#resolving-merge-conflicts">Resolving merge conflicts</a></h1>
+<details id="admonition-reset-your-progress" class="admonition admonish-reset" role="note" aria-labelledby="admonition-reset-your-progress-title">
+<summary class="admonition-title">
+<div id="admonition-reset-your-progress-title">
+<p>Reset your progress</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-reset-your-progress"></a>
+</summary>
+<div>
+<p>To reset your progress to the start of this chapter, run the following command:</p>
+<pre><code class="language-sh">curl https://jj-for-everyone.github.io/reset.sh | bash -s conflict
+cd ~/jj-tutorial/repo
+</code></pre>
+</div>
+</details>
+<p>Alice &amp; Bob just attended the next programming lecture.
+Among other things, they finally learned about loops in Python.
+Alice now wants to go back to her experiment to fix it:</p>
+<pre><code class="language-sh">jj new 'description(substring:"WIP: Add for loop")'
+</code></pre>
+<p>Her code currently looks like this:</p>
+<pre><code class="language-py">for (i = 0; i &lt; 10; i = i + 1):
+    print("Hello, world!")
+</code></pre>
+<p>This syntax is wrong, so Alice fixes it with the syntax she learned during the lecture:</p>
+<pre><code class="language-py">for _ in range(10):
+    print("Hello, world!")
+</code></pre>
+<p>You can edit the file manually or run this command:</p>
+<pre><code class="language-sh">echo 'for _ in range(10):
+    print("Hello, world!")' &gt; hello.py
+</code></pre>
+<p>Let's commit that correction:</p>
+<pre><code class="language-sh">jj commit -m "Fix loop syntax"
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">z</span><span class="bold highlighted dimgray ">zlzryut</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-08-23 21:21:54</span><span class="bold "> </span><span class="bold highlighted blue ">5</span><span class="bold highlighted dimgray ">b7e967e</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">o</span><span class="highlighted dimgray ">xnuoryz</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:54</span> <span class="bold "></span><span class="bold blue ">c</span><span class="highlighted dimgray ">6042124</span>
+│  Fix loop syntax
+○  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">vrzpsvy</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:53</span> <span class="purple ">push-tvrzpsvypkqk</span> <span class="bold "></span><span class="bold blue ">6</span><span class="highlighted dimgray ">e468237</span>
+│  WIP: Add for loop (need to fix syntax)
+│ <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">q</span><span class="highlighted dimgray ">uvtvrzl</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:54</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">d</span><span class="highlighted dimgray ">0c3efcd</span>
+│ │  Print German and French greetings as well
+│ <span class="highlighted dimgray ">~</span>  <span class="highlighted dimgray ">(elided revisions)</span>
+├─╯
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">k</span><span class="highlighted dimgray ">rymmwqm</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:53</span> <span class="bold "></span><span class="bold blue ">1</span><span class="highlighted dimgray ">581674f</span>
+│  <span class="green ">(empty)</span> Merge code and documentation for hello-world
+~
+</pre>
+<h2 id="creating-a-conflict"><a class="header" href="#creating-a-conflict">Creating a conflict</a></h2>
+<p>Alice now wants to push her new code with the loop to <code>main</code>.
+She decides to do so with an explicit merge commit:</p>
+<pre><code class="language-sh">jj new main @-
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+Working copy  (@) now at: <span class="bold "></span><span class="bold highlighted purple ">s</span><span class="bold highlighted dimgray ">rpklysn</span><span class="bold "> </span><span class="bold highlighted blue ">0</span><span class="bold highlighted dimgray ">f64cf5a</span><span class="bold "> </span><span class="bold highlighted red ">(conflict)</span><span class="bold "> </span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span>
+Parent commit (@-)      : <span class="bold "></span><span class="bold purple ">q</span><span class="highlighted dimgray ">uvtvrzl</span> <span class="bold "></span><span class="bold blue ">d</span><span class="highlighted dimgray ">0c3efcd</span> <span class="purple ">main</span><span class="highlighted dimgray "> | </span>Print German and French greetings as well
+Parent commit (@-)      : <span class="bold "></span><span class="bold purple ">o</span><span class="highlighted dimgray ">xnuoryz</span> <span class="bold "></span><span class="bold blue ">c</span><span class="highlighted dimgray ">6042124</span> Fix loop syntax
+Added 1 files, modified 2 files, removed 0 files
+<span class="bold "></span><span class="bold yellow ">Warning: </span><span class="bold ">There are unresolved conflicts at these paths:</span>
+hello.py    <span class="yellow ">2-sided conflict</span>
+</pre>
+<p>Oh no!
+There's a scary red <code>(conflict)</code> marker on the newly created merge commit and a warning telling us about a conflict in the file <code>hello.py</code>.
+The conflict can also be seen in the log:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold highlighted red ">@</span>    <span class="bold "></span><span class="bold highlighted purple ">l</span><span class="bold highlighted dimgray ">ozqokkt</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-08-23 21:34:35</span><span class="bold "> </span><span class="bold highlighted blue ">f</span><span class="bold highlighted dimgray ">e21ff1e</span><span class="bold "> </span><span class="bold highlighted red ">conflict</span><span class="bold "></span>
+├─╮  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+│ ○  <span class="bold "></span><span class="bold purple ">o</span><span class="highlighted dimgray ">xnuoryz</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:54</span> <span class="bold "></span><span class="bold blue ">c</span><span class="highlighted dimgray ">6042124</span>
+│ │  Fix loop syntax
+│ ○  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">vrzpsvy</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:53</span> <span class="purple ">push-tvrzpsvypkqk</span> <span class="bold "></span><span class="bold blue ">6</span><span class="highlighted dimgray ">e468237</span>
+│ │  WIP: Add for loop (need to fix syntax)
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span> │  <span class="bold "></span><span class="bold purple ">q</span><span class="highlighted dimgray ">uvtvrzl</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:54</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">d</span><span class="highlighted dimgray ">0c3efcd</span>
+│ │  Print German and French greetings as well
+<span class="highlighted dimgray ">~</span> │  <span class="highlighted dimgray ">(elided revisions)</span>
+├─╯
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">k</span><span class="highlighted dimgray ">rymmwqm</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-23 21:21:53</span> <span class="bold "></span><span class="bold blue ">1</span><span class="highlighted dimgray ">581674f</span>
+│  <span class="green ">(empty)</span> Merge code and documentation for hello-world
+~
+</pre>
+<p>You may have already guessed how this happened.
+One side of the merge, the <code>main</code> branch, changed the file <code>hello.py</code> in one way (adding more languages).
+The other side added the loop.
+Jujutsu doesn't know how to combine these changes.
+This situation is called a <strong>conflict</strong>.</p>
+<h2 id="reading-conflict-markers"><a class="header" href="#reading-conflict-markers">Reading conflict markers</a></h2>
+<p>Open the file <code>hello.py</code> in a text editor or run <code>cat hello.py</code> to see the content of the conflicted file:</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; conflict 1 of 1
+%%%%%%% diff from: krymmwqm 1581674f "Merge code and documentation for hello-world"
+\\\\\\\        to: quvtvrzl d0c3efcd "Print German and French greetings as well"
+ print("Hello, world!")
++print("Hallo, Welt!")
++print("Bonjour, le monde!")
++++++++ oxnuoryz c6042124 "Fix loop syntax"
+for _ in range(10):
+    print("Hello, world!")
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; conflict 1 of 1 ends
+</code></pre>
+<p>Yikes, that looks gnarly.
+Let's try to untangle what we're seeing so we can understand the conflict step-by-step.</p>
+<p>Focus on the first and last lines:</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; Conflict 1 of 1
+...
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; Conflict 1 of 1 ends
+</code></pre>
+<p>These two lines indicate the start and end of a conflict.
+In bigger files, it's often the case that most of the file can be merged without conflict.
+Only when both sides of a merge modify the same lines does Jujutsu report a conflict.
+These chunks of conflicted lines are then manifested as numbered sections, with start and end markers like the above.
+In our example, the file is so small that the entire thing is a single conflict.</p>
+<p>Next, focus on the first section within the conflict:</p>
+<pre><code>%%%%%%% diff from: krymmwqm 1581674f "Merge code and documentation for hello-world"
+\\\\\\\        to: quvtvrzl d0c3efcd "Print German and French greetings as well"
+ print("Hello, world!")
++print("Hallo, Welt!")
++print("Bonjour, le monde!")
+</code></pre>
+<p>The conflict markers tell us the range of commits these changes are from.
+This first section is showing us the changes that were made to the conflicted lines on the <code>main</code> branch.
+The format for showing the changes is the common "diff" format.
+In this format, all lines are prefixed with either a space, a minus <code>-</code> or a plus <code>+</code> sign.
+The space means the line was not changed.
+Minus means the line was removed and plus means the line was added.
+A line that was <em>changed</em> is represented as one removed and one added line.</p>
+<p>In this case we have one unchanged line (the English greeting) and two added lines (the German and French ones).</p>
+<p>Time to look at the second section of the conflict:</p>
+<pre><code>+++++++ oxnuoryz c6042124 "Fix loop syntax"
+for _ in range(10):
+    print("Hello, world!")
+</code></pre>
+<p>This section is not showing us the changes in some commit range, it's just showing us the final state of the commit with the description "Fix loop syntax".
+The reason is that the previous state can be inferred from the first section.</p>
+<p>This explanation may have seemed overly verbose.
+But merge conflicts can get more complicated than this.
+Hopefully you are a little better prepared to face them from now on.</p>
+<h2 id="fixing-a-conflict"><a class="header" href="#fixing-a-conflict">Fixing a conflict</a></h2>
+<p>Now that we understand the state of each side of the conflict, how do we fix it?
+There is <strong>no easy solution</strong> here!
+If there was, Jujutsu would've done it for you.
+The point of a merge conflict is that the correct resolution depends on the meaning of the conflicted changes.</p>
+<p>In this case, the conflicted changes are:</p>
+<ul>
+<li>Print the greeting ten times in a loop.</li>
+<li>Also print a German and French greeting.</li>
+</ul>
+<p>When merging these two changes, should the German and French greetings also be repeated ten times?
+If all languages should be repeated, should they be interleaved or neatly separated?</p>
+<p>By example, there are three different reasonable merges of these changes:</p>
+<ol>
+<li>
+<p>Only repeat the English greeting:</p>
+<pre><code class="language-py">for _ in range(10):
+    print("Hello, world!")
+print("Hallo, Welt!")
+print("Bonjour, le monde!")
+</code></pre>
+</li>
+<li>
+<p>Repeat all languages and interleave them:</p>
+<pre><code class="language-py">for _ in range(10):
+    print("Hello, world!")
+    print("Hallo, Welt!")
+    print("Bonjour, le monde!")
+</code></pre>
+</li>
+<li>
+<p>Repeat all languages but keep them separate:</p>
+<pre><code class="language-py">for _ in range(10):
+    print("Hello, world!")
+for _ in range(10):
+    print("Hallo, Welt!")
+for _ in range(10):
+    print("Bonjour, le monde!")
+</code></pre>
+</li>
+</ol>
+<p>I think you get the point.
+In order to resolve a merge conflict correctly, you usually have to work your brain a little.</p>
+<p>Let's pick the second option as our conflict resolution.
+You can edit the conflict markers manually or simply replace the file with this command:</p>
+<pre><code class="language-sh">echo 'for _ in range(10):
+    print("Hello, world!")
+    print("Hallo, Welt!")
+    print("Bonjour, le monde!")' &gt; hello.py
+</code></pre>
+<p>Let's check the log to confirm our merge commit is not marked as conflicted anymore:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>    <span class="bold "></span><span class="bold highlighted purple ">kp</span><span class="bold highlighted dimgray ">rnqvtk</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-08-24 07:41:36</span><span class="bold "> </span><span class="bold highlighted blue ">b4</span><span class="bold highlighted dimgray ">6df36e</span><span class="bold "></span>
+├─╮  <span class="bold "></span><span class="bold yellow ">(no description set)</span><span class="bold "></span>
+│ ○  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">tuuwuvl</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-24 07:38:02</span> <span class="bold "></span><span class="bold blue ">c</span><span class="highlighted dimgray ">8479848</span>
+│ │  Fix loop syntax
+│ ○  <span class="bold "></span><span class="bold purple ">u</span><span class="highlighted dimgray ">xpxzolo</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-24 07:38:01</span> <span class="purple ">push-uxpxzoloznts</span> <span class="bold "></span><span class="bold blue ">b3</span><span class="highlighted dimgray ">26e556</span>
+│ │  WIP: Add for loop (need to fix syntax)
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span> │  <span class="bold "></span><span class="bold purple ">w</span><span class="highlighted dimgray ">ruksqvz</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-24 07:38:02</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">1</span><span class="highlighted dimgray ">18457e4</span>
+│ │  Print German and French greetings as well
+<span class="highlighted dimgray ">~</span> │  <span class="highlighted dimgray ">(elided revisions)</span>
+├─╯
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">kr</span><span class="highlighted dimgray ">opmvym</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-08-24 07:38:01</span> <span class="bold "></span><span class="bold blue ">8</span><span class="highlighted dimgray ">c90e9fc</span>
+│  <span class="green ">(empty)</span> Merge code and documentation for hello-world
+~
+</pre>
+<p>Fantastic!
+A conflict resolution is considered a change itself, so the commit isn't marked as "(empty)" like the first merge commit we made.
+Let's commit this and push to main:</p>
+<pre><code class="language-sh">jj commit -m "Merge repetition and translation of greeting"
+jj bookmark move main --to @-
+jj git push
+</code></pre>
+<div id="admonition-conflicts-during-a-rebase" class="admonition admonish-info" role="note" aria-labelledby="admonition-conflicts-during-a-rebase-title">
+<div class="admonition-title">
+<div id="admonition-conflicts-during-a-rebase-title">
+<p>Conflicts during a rebase</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-conflicts-during-a-rebase"></a>
+</div>
+<div>
+<p>Conflicts can also occur when doing a rebase.
+Those are slightly more difficult to solve though.
+We will learn about it in the next level.
+If you run into a conflict while doing a rebase, consider aborting for now (with <code>jj undo</code>) and creating a merge commit instead.</p>
+</div>
+</div>
+<details id="admonition-tools-that-help-with-conflict-resolution" class="admonition admonish-note" role="note" aria-labelledby="admonition-tools-that-help-with-conflict-resolution-title">
+<summary class="admonition-title">
+<div id="admonition-tools-that-help-with-conflict-resolution-title">
+<p>Tools that help with conflict resolution</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-tools-that-help-with-conflict-resolution"></a>
+</summary>
+<div>
+<p>What I've taught you above is to solve the conflict manually by replacing the conflict markers with the desired outcome.
+That manual approach will always work.
+Conflicts can be tedious to solve manually, though.</p>
+<p>There are various tools that can help you solve conflicts in certain situations.
+For example, the built-in tools <code>:ours</code> and <code>:theirs</code> let you discard one side of the conflict and only keep the other.
+Which side of the conflict is "ours" and which one is "theirs" may not be obvious.
+Just try one and run <code>jj undo</code> if needed.
+For example:</p>
+<pre><code class="language-sh"># keep "our" changes, throw away "theirs"
+jj resolve --tool :ours
+</code></pre>
+<p>In addition to these simple built-in tools, Jujutsu can call more powerful, external ones.
+One such example is <a href="https://mergiraf.org/">Mergiraf</a>.
+It tries to automatically fix a conflict based on the <strong>syntax tree</strong> of the programming language of the conflicted file.
+Jujutsu doesn't ship with Mergiraf though, you have to install it separately if you want to use it.
+Once that's done, use it like this:</p>
+<pre><code class="language-sh">jj resolve --tool mergiraf
+</code></pre>
+<p>That works because Jujutsu has a default tool configuration for how to call Mergiraf.
+There are likely other tools that Jujutsu doesn't know about.
+If you want to use one of those, you can add a custom <a href="https://docs.jj-vcs.dev/latest/config/#3-way-merge-tools-for-conflict-resolution">merge tool configuration</a>.</p>
+</div>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="track.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="abandon.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="track.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="abandon.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

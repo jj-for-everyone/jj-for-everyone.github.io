@@ -1,0 +1,475 @@
+<!DOCTYPE HTML>
+<html lang="en" class="latte sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Undoing mistakes - Jujutsu for everyone</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="A Jujutsu tutorial that requires no previous experience with Git or other version control systems.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/mdbook-admonish.css">
+        <link rel="stylesheet" href="theme/catppuccin.css">
+        <link rel="stylesheet" href="theme/catppuccin-admonish.css">
+        <link rel="stylesheet" href="theme/aha_styles.css">
+        <link rel="stylesheet" href="theme/mdbook-admonish-custom.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "latte";
+            const default_dark_theme = "macchiato";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('latte')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="latte">Latte</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="frappe">Frappe</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mocha">Mocha</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Jujutsu for everyone</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/jj-for-everyone/jj-for-everyone.github.io/edit/main/src/undo.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="undoing-mistakes"><a class="header" href="#undoing-mistakes">Undoing mistakes</a></h1>
+<details id="admonition-reset-your-progress" class="admonition admonish-reset" role="note" aria-labelledby="admonition-reset-your-progress-title">
+<summary class="admonition-title">
+<div id="admonition-reset-your-progress-title">
+<p>Reset your progress</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-reset-your-progress"></a>
+</summary>
+<div>
+<p>To reset your progress to the start of this chapter, run the following command:</p>
+<pre><code class="language-sh">curl https://jj-for-everyone.github.io/reset.sh | bash -s undo
+cd ~/jj-tutorial/repo
+</code></pre>
+</div>
+</details>
+<p>What we've learned so far can go a long way - until something goes wrong.
+For example, assume you ran <code>jj commit</code> and hastily entered a sloppy commit message.
+Now you'd like to go back and improve it.</p>
+<p>With our current skill set, it's impossible to edit the description of a commit after we ran <code>jj commit</code>.
+But what if we could simply <strong>undo</strong> a change we made to the repository?
+Travel back in time?
+Turns out we can, because Jujutsu stores not only a version history of our project in the form of commits, but it also keeps a log of all operations that were performed on the repository itself.
+There are some low-level commands to inspect this "operation log" and restore the repository to a specific state in time.
+For now though, I will only teach you about the high-level commands to undo and redo operations one-by-one.</p>
+<p>Let's remind ourselves what the state of our repo looks like</p>
+<pre><code class="language-sh">cd ~/jj-tutorial/repo
+jj log
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">p</span><span class="bold highlighted dimgray ">zsymsll</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-09-10 20:52:56</span><span class="bold "> </span><span class="bold highlighted blue ">1</span><span class="bold highlighted dimgray ">be9c292</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">l</span><span class="highlighted dimgray ">yquuqkl</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">ae165d3</span>
+│  Add submission instructions
+│ ○  <span class="bold "></span><span class="bold purple ">v</span><span class="highlighted dimgray ">tnrtqsn</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">push-vtnrtqsnrzqx</span> <span class="bold "></span><span class="bold blue ">d</span><span class="highlighted dimgray ">517a86d</span>
+├─╯  WIP: Add for loop (need to fix syntax)
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">lwyrrmy</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="bold "></span><span class="bold blue ">f</span><span class="highlighted dimgray ">fc6841f</span>
+│  <span class="green ">(empty)</span> Merge code and documentation for hello-world
+~
+</pre>
+<h2 id="making-a-mistake"><a class="header" href="#making-a-mistake">Making a mistake</a></h2>
+<p>Let's change something, so we can create a commit with a sloppy description.
+Why not greet the world in a few more languages:</p>
+<pre><code class="language-sh">echo 'print("Hallo, Welt!")' &gt;&gt; hello.py
+echo 'print("Bonjour, le monde!")' &gt;&gt; hello.py
+</code></pre>
+<p>Now let's create that commit with a bad description:</p>
+<pre><code class="language-sh">jj commit -m "code improvements"
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">y</span><span class="bold highlighted dimgray ">xmkmosm</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-09-10 20:53:46</span><span class="bold "> </span><span class="bold highlighted blue ">d2</span><span class="bold highlighted dimgray ">8a8261</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">p</span><span class="highlighted dimgray ">zsymsll</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:53:46</span> <span class="bold "></span><span class="bold blue ">0</span><span class="highlighted dimgray ">50b543b</span>
+│  code improvements
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">l</span><span class="highlighted dimgray ">yquuqkl</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">ae165d3</span>
+│  Add submission instructions
+│ ○  <span class="bold "></span><span class="bold purple ">v</span><span class="highlighted dimgray ">tnrtqsn</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">push-vtnrtqsnrzqx</span> <span class="bold "></span><span class="bold blue ">d5</span><span class="highlighted dimgray ">17a86d</span>
+├─╯  WIP: Add for loop (need to fix syntax)
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">lwyrrmy</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="bold "></span><span class="bold blue ">f</span><span class="highlighted dimgray ">fc6841f</span>
+│  <span class="green ">(empty)</span> Merge code and documentation for hello-world
+~
+</pre>
+<h2 id="undoing-the-mistake"><a class="header" href="#undoing-the-mistake">Undoing the mistake</a></h2>
+<p>Realizing our mistake, we'd like to fix it now.
+We can restore the state of our repository to a previous point by running:</p>
+<pre><code class="language-sh">jj undo
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">p</span><span class="bold highlighted dimgray ">zsymsll</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-09-10 20:53:46</span><span class="bold "> </span><span class="bold highlighted blue ">9</span><span class="bold highlighted dimgray ">4a7ca39</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold yellow ">(no description set)</span><span class="bold "></span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">l</span><span class="highlighted dimgray ">yquuqkl</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">ae165d3</span>
+│  Add submission instructions
+│ ○  <span class="bold "></span><span class="bold purple ">v</span><span class="highlighted dimgray ">tnrtqsn</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">push-vtnrtqsnrzqx</span> <span class="bold "></span><span class="bold blue ">d</span><span class="highlighted dimgray ">517a86d</span>
+├─╯  WIP: Add for loop (need to fix syntax)
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">lwyrrmy</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="bold "></span><span class="bold blue ">f</span><span class="highlighted dimgray ">fc6841f</span>
+│  <span class="green ">(empty)</span> Merge code and documentation for hello-world
+~
+</pre>
+<p>Great!
+We're back to the state before we wrote the bad commit message.
+Now we get a second chance to write a better one:</p>
+<pre><code class="language-sh">jj commit -m "Print German and French greetings as well"
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">n</span><span class="bold highlighted dimgray ">pnpqkvz</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-09-10 20:54:33</span><span class="bold "> </span><span class="bold highlighted blue ">8</span><span class="bold highlighted dimgray ">f11c4f5</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">p</span><span class="highlighted dimgray ">zsymsll</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:54:33</span> <span class="bold "></span><span class="bold blue ">df</span><span class="highlighted dimgray ">82ee49</span>
+│  Print German and French greetings as well
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">l</span><span class="highlighted dimgray ">yquuqkl</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">ae165d3</span>
+│  Add submission instructions
+│ ○  <span class="bold "></span><span class="bold purple ">v</span><span class="highlighted dimgray ">tnrtqsn</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">push-vtnrtqsnrzqx</span> <span class="bold "></span><span class="bold blue ">d5</span><span class="highlighted dimgray ">17a86d</span>
+├─╯  WIP: Add for loop (need to fix syntax)
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">lwyrrmy</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="bold "></span><span class="bold blue ">f</span><span class="highlighted dimgray ">fc6841f</span>
+│  <span class="green ">(empty)</span> Merge code and documentation for hello-world
+~
+</pre>
+<h2 id="going-further-back"><a class="header" href="#going-further-back">Going further back</a></h2>
+<p>What happens if you make a mistake, then you do something else, and only later you realize your mistakes?
+Can you undo multiple operations?
+Sure you can!
+It works exactly like the "undo" feature of typical graphical applications (which you may be used to using by pressing <kbd>Ctrl+Z</kbd>).
+Every time you run <code>jj undo</code>, you take one step further into the past.
+Let's try it a couple of times.</p>
+<p>The last thing we did was run <code>jj commit</code>, so running <code>jj undo</code> again will put the repository in the state before that:</p>
+<pre><code class="language-sh">jj undo
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">p</span><span class="bold highlighted dimgray ">zsymsll</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-09-10 20:53:46</span><span class="bold "> </span><span class="bold highlighted blue ">9</span><span class="bold highlighted dimgray ">4a7ca39</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold yellow ">(no description set)</span><span class="bold "></span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">l</span><span class="highlighted dimgray ">yquuqkl</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">ae165d3</span>
+│  Add submission instructions
+│ ○  <span class="bold "></span><span class="bold purple ">v</span><span class="highlighted dimgray ">tnrtqsn</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">push-vtnrtqsnrzqx</span> <span class="bold "></span><span class="bold blue ">d</span><span class="highlighted dimgray ">517a86d</span>
+├─╯  WIP: Add for loop (need to fix syntax)
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">lwyrrmy</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="bold "></span><span class="bold blue ">f</span><span class="highlighted dimgray ">fc6841f</span>
+│  <span class="green ">(empty)</span> Merge code and documentation for hello-world
+~
+</pre>
+<p>Next, what did we do before running <code>jj commit</code>?
+We modified the file <code>hello.py</code>.
+While we didn't use Jujutsu to do that, it was still recorded as a separate operation on the repository.
+Every <code>jj</code> command you run will first check the files in your repository and detect if any of them were changed.
+If changes are detected, they will be recorded as a separate operation (called a <em>snapshot</em>).
+That way, you can <code>jj undo</code> those file changes separately from any action you took with a <code>jj</code> command.</p>
+<p>Let's observe what happens to the content of <code>hello.py</code> when we run <code>jj undo</code>:</p>
+<pre><code class="language-py"># hello.py
+print("Hello, world!")
+print("Hallo, Welt!")
+print("Bonjour, le monde!")
+</code></pre>
+<pre><code class="language-sh">jj undo
+</code></pre>
+<pre><code class="language-py"># hello.py
+print("Hello, world!")
+</code></pre>
+<div id="admonition-warning" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title">
+<p>Warning</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-warning"></a>
+</div>
+<div>
+<p>What happens if you create a file and then delete it without running any <code>jj</code> commands in between?
+Jujutsu didn't get the chance to create a snapshot which stores the content of that file.
+Therefore, it's impossible to get the file back using <code>jj undo</code>.</p>
+</div>
+</div>
+<p>Here's what the log looks like now:</p>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">p</span><span class="bold highlighted dimgray ">zsymsll</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-09-10 20:52:56</span><span class="bold "> </span><span class="bold highlighted blue ">1</span><span class="bold highlighted dimgray ">be9c292</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">l</span><span class="highlighted dimgray ">yquuqkl</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">ae165d3</span>
+│  Add submission instructions
+│ ○  <span class="bold "></span><span class="bold purple ">v</span><span class="highlighted dimgray ">tnrtqsn</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">push-vtnrtqsnrzqx</span> <span class="bold "></span><span class="bold blue ">d</span><span class="highlighted dimgray ">517a86d</span>
+├─╯  WIP: Add for loop (need to fix syntax)
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">lwyrrmy</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="bold "></span><span class="bold blue ">f</span><span class="highlighted dimgray ">fc6841f</span>
+│  <span class="green ">(empty)</span> Merge code and documentation for hello-world
+~
+</pre>
+<p>We're going to run <code>jj undo</code> one last time.
+What did we do before modifying <code>hello.py</code>?
+You might not remember, because it was in the previous chapter.
+Let's just have a look:</p>
+<pre><code class="language-sh">jj undo
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">w</span><span class="bold highlighted dimgray ">kqpyqlm</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-09-10 20:52:56</span><span class="bold "> </span><span class="bold highlighted blue ">64</span><span class="bold highlighted dimgray ">0e22bf</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+│ <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">l</span><span class="highlighted dimgray ">yquuqkl</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">ae165d3</span>
+│ │  Add submission instructions
+│ │ ○  <span class="bold "></span><span class="bold purple ">v</span><span class="highlighted dimgray ">tnrtqsn</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">push-vtnrtqsnrzqx</span> <span class="bold "></span><span class="bold blue ">d</span><span class="highlighted dimgray ">517a86d</span>
+│ ├─╯  WIP: Add for loop (need to fix syntax)
+│ <span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">lwyrrmy</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="bold "></span><span class="bold blue ">f</span><span class="highlighted dimgray ">fc6841f</span>
+╭─┤  <span class="green ">(empty)</span> Merge code and documentation for hello-world
+│ │
+│ ~
+│
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">u</span><span class="highlighted dimgray ">vxzzlmr</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-09-10 20:52:55</span> <span class="bold "></span><span class="bold blue ">60</span><span class="highlighted dimgray ">e09461</span>
+│  Document hello.py in README.md
+~
+</pre>
+<p>Ah, yes.
+We were practicing navigating the history.
+After that, we ran <code>jj new main</code> to get back on the main branch.
+<code>jj undo</code> reverted that and brought us to the state of the old commit.</p>
+<p>Now, that was good practice for <code>jj undo</code>, but the three operations we just undid weren't actually mistakes.
+Can we get them back?
+In a typical graphical application, you might do that by clicking on a "redo" button or by pressing <kbd>Ctrl+Shift+Z</kbd>.
+With Jujutsu, you run the command <code>jj redo</code>.
+Let's do it three times to get back to our most recent state:</p>
+<pre><code class="language-sh">jj redo
+jj redo
+jj redo
+</code></pre>
+<!-- generated by aha script -->
+<pre class="aha">
+<span class="bold "></span><span class="bold green ">@</span>  <span class="bold "></span><span class="bold highlighted purple ">n</span><span class="bold highlighted dimgray ">pnpqkvz</span><span class="bold "> </span><span class="bold yellow ">alice@local</span><span class="bold "> </span><span class="bold highlighted cyan ">2025-09-10 20:54:33</span><span class="bold "> </span><span class="bold highlighted blue ">8</span><span class="bold highlighted dimgray ">f11c4f5</span><span class="bold "></span>
+│  <span class="bold "></span><span class="bold highlighted green ">(empty)</span><span class="bold "> </span><span class="bold highlighted green ">(no description set)</span><span class="bold "></span>
+○  <span class="bold "></span><span class="bold purple ">p</span><span class="highlighted dimgray ">zsymsll</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:54:33</span> <span class="bold "></span><span class="bold blue ">df</span><span class="highlighted dimgray ">82ee49</span>
+│  Print German and French greetings as well
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">l</span><span class="highlighted dimgray ">yquuqkl</span> <span class="yellow ">bob@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">main</span> <span class="bold "></span><span class="bold blue ">2</span><span class="highlighted dimgray ">ae165d3</span>
+│  Add submission instructions
+│ ○  <span class="bold "></span><span class="bold purple ">v</span><span class="highlighted dimgray ">tnrtqsn</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="purple ">push-vtnrtqsnrzqx</span> <span class="bold "></span><span class="bold blue ">d5</span><span class="highlighted dimgray ">17a86d</span>
+├─╯  WIP: Add for loop (need to fix syntax)
+<span class="bold "></span><span class="bold highlighted cyan ">◆</span>  <span class="bold "></span><span class="bold purple ">t</span><span class="highlighted dimgray ">lwyrrmy</span> <span class="yellow ">alice@local</span> <span class="cyan ">2025-09-10 20:52:56</span> <span class="bold "></span><span class="bold blue ">f</span><span class="highlighted dimgray ">fc6841f</span>
+│  <span class="green ">(empty)</span> Merge code and documentation for hello-world
+~
+</pre>
+<p>If you were to run <code>jj redo</code> one more time, you'd get an error telling you there's nothing to redo.</p>
+<h2 id="overwriting-undone-states"><a class="header" href="#overwriting-undone-states">Overwriting undone states</a></h2>
+<p>Remember the bad commit message we wrote?
+It was "code improvements".
+We'll, it's now impossible to get that commit back with only <code>jj undo</code> and <code>jj redo</code>.
+If you create new states after having undone some others, those "undone" states will become "hidden".
+This is exactly how the "undo" feature of typical graphical applications works, so you may not be surprised by this.</p>
+<p>Unlike graphical applications, Jujutsu has more advanced commands to get even those states back.
+That's a topic for another day though.</p>
+<h2 id="pushes-to-the-remote-cant-be-undone"><a class="header" href="#pushes-to-the-remote-cant-be-undone">Pushes to the remote can't be undone</a></h2>
+<p>Sending commits to the remote by pushing a bookmark is technically a normal operation on the repository.
+Undoing such operations is almost always a bad idea though.
+It doesn't tell the remote to restore its previous state, the remote is left intact.
+The only thing <code>jj undo</code> does in that situation is <em>forget that commits were pushed to the remote</em>.
+This can lead to pretty nasty errors the next time you try to fetch from or push to the remote.</p>
+<p>The most frequent errors that can happen include "conflicted bookmarks" and "divergent change IDs".
+Both of these problems can be solved, but now's not the right time for me to teach you <em>how</em>.
+So, take my advice and <em>just don't do that</em>.</p>
+<p>If you accidentally undid a <code>jj git push</code> operation, just <code>jj redo</code> it and you should be fine.</p>
+<p>In the future, <code>jj undo</code> may outright refuse to undo operations that interacted with the remote.</p>
+<h2 id="repository-history-is-not-backed-up-to-the-remote"><a class="header" href="#repository-history-is-not-backed-up-to-the-remote">Repository history is not backed up to the remote</a></h2>
+<p>Deleting a repository locally is not a big deal if you have a remote.
+Just clone the repo again and you'll have all of your commit history back.
+However, that's not the case for the history of operations you made on the repository.
+That history is local only.
+So, <code>jj undo</code> works at most as far back as the state of when you cloned the repo.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="level_3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="track.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="level_3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="track.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
