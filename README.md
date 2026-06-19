@@ -1,4 +1,4 @@
-# Jujutsu for everyone
+# Jujutsu for Everyone
 
 A Jujutsu tutorial that requires no previous experience with Git or other version control systems.
 
