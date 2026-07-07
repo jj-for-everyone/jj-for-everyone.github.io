@@ -130,7 +130,6 @@ There are a few things to observe here:
 - The new commit is a child of our previous working copy commit.
 - The previous commit shows the subject line of the description we gave it.
 - The new commit became our working copy, meaning any further file changes will be recorded into the new commit.
-  This marker is not important and you can ignore it.
 - The previous commit has a different symbol (circle `○`) than the root commit (diamond `◆`).
   This is related to an important feature, which we'll learn about later.
 
