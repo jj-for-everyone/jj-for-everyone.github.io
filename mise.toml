@@ -28,19 +28,3 @@ jj git export
 
 jj workspace forget jj-for-everyone-deploy-workspace
 """
-
-[tasks."zellij:bg-tasks"]
-hide = true
-run = """zellij action new-tab --layout <(echo '
-layout {
-	tab name="bg tasks" {
-		pane size=1 borderless=true {
-			plugin location="compact-bar"
-		}
-		pane name="serve book" {
-			command "mise"
-			args "run" "serve"
-		}
-	}
-}
-')"""

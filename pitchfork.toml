@@ -1,0 +1,5 @@
+#:schema https://pitchfork.jdx.dev/schema.json
+
+[daemons.serve-book]
+run = "mise run serve"
+auto = ["start", "stop"]
