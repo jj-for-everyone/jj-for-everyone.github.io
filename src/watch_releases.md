@@ -1,6 +1,10 @@
 # Stay up to date
 
-Both this tutorial and Jujutsu are still evolving.
+When I initially wrote this tutorial, I had plans for more chapters.
+I still do, but it's been a while and it might not rise to the top of my priority list for a while longer.
+Don't expect big additions soon.
+It's still on my mind and I'm keeping up-to-date with upstream Jujutsu changes.
+
 In order to keep your Jujutsu knowledge up-to-date, **subscribe to releases of the tutorial's GitHub repo**.
 You'll get an email from GitHub whenever I post a release, which basically allows me to send you notifications.
 
