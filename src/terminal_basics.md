@@ -327,6 +327,6 @@ If most of this stuff was news to you, pat yourself on the back!
 You've already learned a lot.
 This should be enough knowledge about the terminal to get you through the tutorial.
 
-Don't hesitate to come back here and revise from time to time.
+Don't hesitate to revisit this chapter from time to time.
 The rules of the terminal are not the most intuitive, so it can take a couple attempts for them to settle in.
 ```
