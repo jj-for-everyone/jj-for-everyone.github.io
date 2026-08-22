@@ -74,7 +74,7 @@ Learning Jujutsu instead of Git as your first VCS does have some downsides:
   I personally don't think this should scare you away.
   Many people including me have used Jujutsu as a daily driver for a long time.
   Whenever something _did_ change, my reaction was usually:
-  "Great, that was one of the less-than-perfect parts of Jujutsu! Now it's even more intuitive than before!"
+  "Great, that was one of the few less-than-perfect parts of Jujutsu! Now it's even more intuitive than before!"
   Consider [subscribing to GitHub releases of this tutorial](watch_releases.md).
   You will be notified if new versions of Jujutsu change something in a way that's relevant to what you learned in this tutorial.
 
