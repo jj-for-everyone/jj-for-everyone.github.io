@@ -1,0 +1,118 @@
+pre.aha {
+  padding: 1em;
+  overflow-x: scroll;
+  /* reduce risk of non-ascii jj graphs being rendered weirdly by various default monospace fonts */
+  font-family: 'AdwaitaMonoWeb', monospace;
+}
+
+.light, .rust, .latte, html:not(.js) {
+  pre.aha {
+    background-color: #f6f7f6;
+  }
+}
+.latte, html:not(.js) {
+  pre.aha {
+    background-color: #e6e9ef;
+  }
+}
+.light, .rust, .latte, html:not(.js) {
+  pre.aha {
+    /* based on output of `aha --stylesheet` */
+    /* oklch colors are from tailwind: https://tailwindcss.com/docs/colors */
+    .reset                { color: black; }
+    .bg-reset             { background-color: white; }
+    .inverted             { color: white; }
+    .bg-inverted          { background-color: black; }
+    .dimgray              { color: dimgray; }
+    .red                  { color: oklch(57.7% 0.245 27.325); }
+    .green                { color: oklch(64.8% 0.2 131.684); }
+    .yellow               { color: oklch(66.6% 0.179 58.318); }
+    .blue                 { color: oklch(54.6% 0.245 262.881); }
+    .purple               { color: oklch(54.1% 0.281 293.009); }
+    .cyan                 { color: oklch(60.9% 0.126 221.723); }
+    .white                { color: gray; }
+    .bg-black             { background-color: black; }
+    .bg-red               { background-color: oklch(57.7% 0.245 27.325); }
+    .bg-green             { background-color: oklch(64.8% 0.2 131.684); }
+    .bg-yellow            { background-color: oklch(66.6% 0.179 58.318); }
+    .bg-blue              { background-color: oklch(54.6% 0.245 262.881); }
+    .bg-purple            { background-color: oklch(54.1% 0.281 293.009); }
+    .bg-cyan              { background-color: oklch(60.9% 0.126 221.723); }
+    .bg-white             { background-color: gray; }
+    .underline            { text-decoration: underline; }
+    .bold                 { font-weight: bold; }
+    .italic               { font-style: italic; }
+    .blink                { text-decoration: blink; }
+    .crossed-out          { text-decoration: line-through; }
+  }
+}
+
+.coal, .navy, .ayu, .frappe, .macchiato, .mocha {
+  /* copied below in media block */
+  pre.aha {
+    background-color: #1a1a1a;
+    /* based on output of `aha --stylesheet` */
+    /* oklch colors are from tailwind: https://tailwindcss.com/docs/colors */
+    .reset                { color: black; }
+    .bg-reset             { background-color: white; }
+    .inverted             { color: white; }
+    .bg-inverted          { background-color: black; }
+    .dimgray              { color: dimgray; }
+    .red                  { color: oklch(0.645 0.246 16.439); }
+    .green                { color: oklch(0.768 0.233 130.85); }
+    .yellow               { color: oklch(0.795 0.184 86.047); }
+    .blue                 { color: oklch(0.673 0.182 276.935); }
+    .purple               { color: oklch(0.714 0.203 305.504); }
+    .cyan                 { color: oklch(0.789 0.154 211.53); }
+    .white                { color: gray; }
+    .bg-black             { background-color: black; }
+    .bg-red               { background-color: oklch(0.645 0.246 16.439); }
+    .bg-green             { background-color: oklch(0.768 0.233 130.85); }
+    .bg-yellow            { background-color: oklch(0.795 0.184 86.047); }
+    .bg-blue              { background-color: oklch(0.673 0.182 276.935); }
+    .bg-purple            { background-color: oklch(0.714 0.203 305.504); }
+    .bg-cyan              { background-color: oklch(0.789 0.154 211.53); }
+    .bg-white             { background-color: gray; }
+    .underline            { text-decoration: underline; }
+    .bold                 { font-weight: bold; }
+    .italic               { font-style: italic; }
+    .blink                { text-decoration: blink; }
+    .crossed-out          { text-decoration: line-through; }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  /* copied above in block for all dark themes */
+  html:not(.js) {
+    pre.aha {
+      background-color: #1a1a1a;
+      /* based on output of `aha --stylesheet` */
+      /* oklch colors are from tailwind: https://tailwindcss.com/docs/colors */
+      .reset                { color: black; }
+      .bg-reset             { background-color: white; }
+      .inverted             { color: white; }
+      .bg-inverted          { background-color: black; }
+      .dimgray              { color: dimgray; }
+      .red                  { color: oklch(0.645 0.246 16.439); }
+      .green                { color: oklch(0.768 0.233 130.85); }
+      .yellow               { color: oklch(0.795 0.184 86.047); }
+      .blue                 { color: oklch(0.673 0.182 276.935); }
+      .purple               { color: oklch(0.714 0.203 305.504); }
+      .cyan                 { color: oklch(0.789 0.154 211.53); }
+      .white                { color: gray; }
+      .bg-black             { background-color: black; }
+      .bg-red               { background-color: oklch(0.645 0.246 16.439); }
+      .bg-green             { background-color: oklch(0.768 0.233 130.85); }
+      .bg-yellow            { background-color: oklch(0.795 0.184 86.047); }
+      .bg-blue              { background-color: oklch(0.673 0.182 276.935); }
+      .bg-purple            { background-color: oklch(0.714 0.203 305.504); }
+      .bg-cyan              { background-color: oklch(0.789 0.154 211.53); }
+      .bg-white             { background-color: gray; }
+      .underline            { text-decoration: underline; }
+      .bold                 { font-weight: bold; }
+      .italic               { font-style: italic; }
+      .blink                { text-decoration: blink; }
+      .crossed-out          { text-decoration: line-through; }
+    }
+  }
+}
