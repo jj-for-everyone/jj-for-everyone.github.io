@@ -1,18 +1,18 @@
-[tasks]
-serve = "mdbook serve --port 3210"
-open = "firefox --new-window localhost:3210"
-
-[tasks.deploy]
-run = """
 #!/usr/bin/env bash
-set -euxo pipefail
+set -euo pipefail # enable strict error handling
 
-rm -rf /tmp/jj-for-everyone-deploy-workspace
+set -x
+
+bin_dir="$(jj root)/bin"
+
 jj workspace add /tmp/jj-for-everyone-deploy-workspace
+trap 'jj workspace remove jj-for-everyone-deploy-workspace' EXIT
 cd /tmp/jj-for-everyone-deploy-workspace
+ln -s "$bin_dir" ./bin # use installed bins from default workspace
+
 jj new main
 
-mdbook build --dest-dir docs
+./bin/mdbook build --dest-dir docs
 jj describe --message 'deploy to github pages'
 jj bookmark track gh-pages &> /dev/null
 jj abandon --retain-bookmarks gh-pages
@@ -21,10 +21,3 @@ jj git push --bookmark gh-pages
 jj new main
 jj bookmark forget gh-pages
 jj git export
-
-jj workspace forget jj-for-everyone-deploy-workspace
-"""
-
-[tools]
-"cargo:mdbook-admonish" = "1.20.0"
-mdbook = "0.4.51"
