@@ -2,11 +2,9 @@
 set -euxo pipefail
 
 red='\033[0;31m'
-blue='\033[0;34m'
 no_color='\033[0m' # No Color
 
 error="${red}Error:${no_color}"
-hint="${blue}Hint:${no_color}"
 
 # The env variable JJ_TUTORIAL_DIR can be used to override the location of the
 # tutorial repository. This is *intentionally not documented* in the tutorial,
@@ -48,12 +46,6 @@ if [ "$detected_version" -lt "$required_version" ] ; then
     set +x
     printf "$error Your Jujutsu version ($detected_version) is too outdated.\n"
     printf "       Please update to version $required_version or later.\n"
-    printf "$hint If you installed Jujutsu with mise, as recommended in the installation\n"
-    printf "      chapter, use the following commands to update:\n"
-    echo "
-mise install-into jujutsu@latest /tmp/jj-install
-mv /tmp/jj-install/jj ~/.local/bin
-rm -rf /tmp/jj-install"
     exit 1
 fi
 
