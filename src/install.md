@@ -3,7 +3,7 @@
 Please refer to the official documentation for installing Jujutsu:\
 <https://docs.jj-vcs.dev/latest/install-and-setup/>
 
-Then run `jj --version` to verify the installation.
+Then run `jj version` to verify the installation.
 It should print the currently installed version of Jujutsu, something like `jj 0.47.1-blabla`.
 If the output is an error instead, e.g. `bash: jj: command not found...`, open the text box below.
 
@@ -47,10 +47,25 @@ jj config set --user user.name "Anonymous"
 jj config set --user user.email "anon@local"
 ```
 
-If you want shell completions, [follow these instructions](https://docs.jj-vcs.dev/latest/install-and-setup/#command-line-completion).
-If you don't know what a "shell completion" is, don't worry, it's not important.
+### Shell completion
 
-## Text editor
+Typing out the commands for Jujutsu can become tedious.
+"Shell completion" solves that problem.
+It allows you to type the first few characters of a command, then hit the <kbd>Tab</kbd> key to complete the rest (assuming there is only one possibility left).
+For example, typing `jj v<TAB>` would expand to `jj version`, because the version command is the only one starting with v.
+
+In order for that to work, your shell needs to be "taught" about all the possible commands `jj` has.
+Depending on your shell, add one of the following commands to your [startup script](./terminal_basics.md#startup-scripts):
+
+| shell | startup command |
+| --- | --- |
+| Bash | `source <(COMPLETE=bash jj)` |
+| Zsh | `source <(COMPLETE=zsh jj)` |
+| Fish | built-in since v4.0.2 |
+
+For more detailed information, including other shells, refer to the [documentation](https://docs.jj-vcs.dev/latest/install-and-setup/#command-line-completion).
+
+### Text editor
 
 Jujutsu will sometimes ask you to edit a text file.
 The default text editor used for that purpose is `nano` on Linux and Mac.
