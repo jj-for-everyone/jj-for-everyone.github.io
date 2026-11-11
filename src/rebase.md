@@ -119,3 +119,10 @@ Here's a hopefully balanced overview of the main trade-off:
 | **rebase** | Results in an easy-to-read, linear history. | Lies about the order in which things happened. |
 
 Once you have determined the correct opinion regarding which one is better, please let everybody on the internet know about your important discovery!
+
+```admonish note title="the author's opinion" collapsible=true
+Personally, I rebase by default.
+I like the easy-to-read, linear history it produces.
+In almost all cases, rebasing doesn't destroy any information that would actually be valuable later.
+There are exceptions where I prefer explicit merge commits, but they are rare.
+```
